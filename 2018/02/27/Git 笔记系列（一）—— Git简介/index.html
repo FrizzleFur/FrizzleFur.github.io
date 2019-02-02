@@ -1,416 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>Git 笔记系列（一）—— Git简介 | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="时间 更新备注     2018-02-27 新建文章   2018-06-07 整理补充    引言 Git很多开发团队在使用，但是Git很多强大的特性不一定都很了解，基于以前的使用以及参考Git的博客，将用一系列文章介绍Git, 从原理到常用命令，希望能更好的使用Git, 提高团队开发效率。">
-<meta name="keywords" content="Git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Git 笔记系列（一）—— Git简介">
-<meta property="og:url" content="http://frizzlefur.com/2018/02/27/Git 笔记系列（一）—— Git简介/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="时间 更新备注     2018-02-27 新建文章   2018-06-07 整理补充    引言 Git很多开发团队在使用，但是Git很多强大的特性不一定都很了解，基于以前的使用以及参考Git的博客，将用一系列文章介绍Git, 从原理到常用命令，希望能更好的使用Git, 提高团队开发效率。">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15287082850994.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195449715884.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195454633846.jpg">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-c0cd7b2408ba3625.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15174741778710.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195464162401.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15287084301410.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15282570694035.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15190972722623.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15364877367764.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385835895868.jpg">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.431Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git 笔记系列（一）—— Git简介">
-<meta name="twitter:description" content="时间 更新备注     2018-02-27 新建文章   2018-06-07 整理补充    引言 Git很多开发团队在使用，但是Git很多强大的特性不一定都很了解，基于以前的使用以及参考Git的博客，将用一系列文章介绍Git, 从原理到常用命令，希望能更好的使用Git, 提高团队开发效率。">
-<meta name="twitter:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15287082850994.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Git 笔记系列（一）—— Git简介" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/02/27/Git 笔记系列（一）—— Git简介/" class="article-date">
-  <time datetime="2018-02-27T02:31:01.000Z" itemprop="datePublished">2018-02-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Git 笔记系列（一）—— Git简介
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th>时间</th>
-<th>更新备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-02-27</td>
-<td>新建文章</td>
-</tr>
-<tr>
-<td>2018-06-07</td>
-<td>整理补充</td>
-</tr>
-</tbody>
-</table>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><blockquote>
-<p><code>Git</code>很多开发团队在使用，但是<code>Git</code>很多强大的特性不一定都很了解，基于以前的使用以及参考<code>Git</code>的博客，将用一系列文章介绍<code>Git</code>, 从原理到常用命令，希望能更好的使用<code>Git</code>, 提高团队开发效率。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20Git%E7%AE%80%E4%BB%8B.html"><strong>Git 笔记系列（一）—— Git简介</strong></a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html">Git 笔记系列（二）—— Git工作流程</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E4%B8%80%E8%A7%88.html">Git 笔记系列（三）—— Git常用命令-一览</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Checkout.html">Git 笔记系列（四）—— Git常用命令-Checkout</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Branch.html">Git 笔记系列（五）—— Git常用命令-Branch</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Reset.html">Git 笔记系列（六）—— Git常用命令-Reset</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Rebase.html">Git 笔记系列（七）—— Git常用命令-Rebase</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Stash.html">Git 笔记系列（八）—— Git常用命令-Stash等</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89%E2%80%94%E2%80%94%20Git%E8%BF%9B%E9%98%B6.html">Git 笔记系列（九）—— Git进阶</a></li>
-</ul>
-<h2 id="关于版本控制"><a href="#关于版本控制" class="headerlink" title="关于版本控制"></a>关于版本控制</h2><p>什么是“版本控制”？我为什么要关心它呢？</p>
-<p>版本控制系统，或VCS，是一种记录一个或若干文件内容变化，以便将来查阅特定版本修订情况的系统。跟踪变化的历史， 因为人们和团队共同合作的项目。随着项目的发展，团队可以运行测试，修复错误，并提供新的代码，并相信任何版本都可以在任何时候恢复。开发人员可以查看项目历史以找出：</p>
-<ul>
-<li>做了哪些改变？</li>
-<li>谁做了这些改变？</li>
-<li>这些变化是什么时候发生的？</li>
-<li>为什么需要改变？</li>
-</ul>
-<p>版本控制的软件和设计模式有很多，但是，你来阅读这<code>Git</code>这一系列文章我相信至少是对<code>Git</code>产生了兴趣，那就不妨点击<code>阅读全文</code>，进来坐坐。<br>版本控制（Revision control）是一种在开发的过程中用于管理我们对文件、目录或工程等内容的修改历史，方便查看更改历史记录，备份以便恢复以前的版本的软件工程技术。</p>
-<h3 id="版本控制的好处"><a href="#版本控制的好处" class="headerlink" title="版本控制的好处"></a>版本控制的好处</h3><ul>
-<li>实现跨区域多人协同开发</li>
-<li>追踪和记载一个或者多个文件的历史记录</li>
-<li>组织和保护你的源代码和文档</li>
-<li>统计工作量</li>
-<li>并行开发、提高开发效率</li>
-<li>跟踪记录整个软件的开发过程</li>
-<li>减轻开发人员的负担，节省时间，同时降低人为错误</li>
-</ul>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15287082850994.jpg" alt=""></p>
-<h3 id="集中化管理系统"><a href="#集中化管理系统" class="headerlink" title="集中化管理系统"></a>集中化管理系统</h3><p><code>Centralized Version Control Systems</code>，简称 <code>CVCS</code>， 这类系统，诸如 CVS、Subversion 以及 Perforce 等，都有一个单一的集中管理的服务器，保存所有文件的修订版本，而<em>协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新</em>。 多年以来，这已成为版本控制系统的标准做法。它的工作原理是在硬盘上保存补丁集（补丁是指文件修订前后的变化）；通过应用所有的补丁，可以重新计算出各个版本的文件内容。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195449715884.png" alt=""></p>
-<p>评价：这种方式解决了版本控制问题，但是过于依赖中央服务器——<code>Central VCS Server</code>，如果中央服务器出现问题，将不可以再提交代码，如果数据未备份，无法恢复，则丢失所有的数据，文件和log提交记录，而且本地只是保存一个版本的快照，从而只剩下各个用户的本地快照记录。</p>
-<p>所有的版本数据都存在服务器上，用户的本地只有自己以前所同步的版本，如果不连网的话，用户就看不到历史版本，也无法切换版本验证问题，或在不同分支工作。而且，所有数据都保存在单一的服务器上，有很大的风险这个服务器会损坏，这样就会丢失所有的数据，当然可以定期备份。</p>
-<h3 id="分布式版本控制系统"><a href="#分布式版本控制系统" class="headerlink" title="分布式版本控制系统"></a>分布式版本控制系统</h3><p><code>Distributed Version Control System</code>，简称<code>DVCS</code>， 在这类系统中，代表的有 <code>Git</code>、Mercurial、Bazaar 以及 Darcs 等，<strong>客户端并不只提取最新版本的文件快照，而是把代码仓库完整地镜像下来</strong>。 这么一来，任何一处协同工作用的服务器发生故障，事后都可以用任何一个镜像出来的本地仓库恢复。 因为每一次的克隆操作，实际上都是一次对代码仓库的完整备份。</p>
-<p> 分布式版本控制系统允许对项目的每个文件、分支和迭代进行完全访问，并允许每个用户访问所有更改的完整和自包含的历史。不像曾经流行的集中式版本控制系统，像Git那样的DVCSs不需要与中央存储库的持续连接。开发人员可以在任何地方工作，并与任何时区异步协作。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195454633846.jpg" alt=""></p>
-<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>So, what hell is Git?<br><img src="http://upload-images.jianshu.io/upload_images/225323-c0cd7b2408ba3625.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="How to use git😄"></p>
-<h2 id="Git的历史"><a href="#Git的历史" class="headerlink" title="Git的历史"></a>Git的历史</h2><p><code>Git</code>是由<code>Linux</code>的缔造者<code>Linus Torvalds</code>，在2005年基于使用<code>BitKeeper</code>时的经验教训，开发出自己的版本系统。<br><code>Git</code>的目标：</p>
-<ul>
-<li>速度</li>
-<li>简单的设计</li>
-<li>对非线性开发模式的强力支持（允许成千上万个并行开发的分支）</li>
-<li>完全分布式</li>
-<li>有能力高效管理类似<code>Linux</code>内核一样的超大规模项目（速度和数据量）</li>
-</ul>
-<p><code>Git</code> 作为现在最流行的开源的版本控制系统,了<code>SVN</code>的一些特性（tag, branch），采用了巧妙的设计(本地库)，让并行开发更高效。 可以说<code>Git</code>是目前用户最多，最火的版本控制系统。</p>
-<h2 id="Git的优点"><a href="#Git的优点" class="headerlink" title="Git的优点"></a>Git的优点</h2><ul>
-<li>客户端并不只提取最新版本的文件快照，而是把代码仓库完整地镜像下来。</li>
-<li>可以指定和若干不同的远端代码仓库进行交互，就可以在同一个项目中，分别和不同工作小组的人相互协作（<code>Git</code>强大的分支功能）。 你可以根据需要设定不同的协作流程，而在集中式系统中是无法实现的。</li>
-<li>近乎所有操作都是本地执行, 在 <code>Git</code> 中的绝大多数操作都只需要访问本地文件和资源，一般不需要来自网络上其它计算机的信息。  因为你在本地磁盘上就有项目的完整历史，所以大部分操作看起来瞬间完成。</li>
-<li><code>Git</code> 保证完整性，<code>Git</code> 中所有数据在存储前都计算校验和，然后以校验和来引用。 这意味着不可能在 <code>Git</code> 不知情时更改任何文件内容或目录内容。 若你在传送过程中丢失信息或损坏文件，<code>Git</code> 就能发现。</li>
-</ul>
-<h2 id="Git常用术语"><a href="#Git常用术语" class="headerlink" title="Git常用术语"></a>Git常用术语</h2><p><strong>1)、仓库（Repository）</strong><br>受版本控制的所有文件修订历史的共享数据库</p>
-<p><strong>2)、工作空间（Workspace)</strong><br>本地硬盘或Unix 用户帐户上编辑的文件副本</p>
-<p><strong>3)、工作树/区（Working tree）</strong><br>工作区中包含了仓库的工作文件。您可以修改的内容和提交更改作为新的提交到仓库。</p>
-<p><strong>4)、暂存区（Staging area）</strong><br>暂存区是工作区用来提交更改（commit）前可以暂存工作区的变化。</p>
-<p><strong>5)、索引（Index）</strong><br>索引是暂存区的另一种术语。</p>
-<p><strong>6)、签入（Checkin）</strong><br>将新版本复制回仓库</p>
-<p><strong>7)、签出（Checkout）</strong><br>从仓库中将文件的最新修订版本复制到工作空间</p>
-<p><strong>8)、提交（Commit）</strong><br>对各自文件的工作副本做了更改，并将这些更改提交到仓库</p>
-<p><strong>9)、冲突（Conflict）</strong><br>多人对同一文件的工作副本进行更改，并将这些更改提交到仓库</p>
-<p><strong>10)、合并（Merge）</strong><br>将某分支上的更改联接到此主干或同为主干的另一个分支</p>
-<p><strong>11)、分支（Branch）</strong><br>从主线上分离开的副本，默认分支叫master</p>
-<p><strong>12)、锁（Lock）</strong><br>获得修改文件的专有权限。</p>
-<p><strong>13)、头（HEAD）</strong><br>头是一个象征性的参考，最常用以指向当前选择的分支。</p>
-<p><strong>14)、修订（Revision）</strong><br>表示代码的一个版本状态。Git通过用SHA1 hash算法表示的ID来标识不同的版本。</p>
-<p><strong>15)、标记（Tags）</strong><br>标记指的是某个分支某个特定时间点的状态。通过标记，可以很方便的切换到标记时的状态。</p>
-<h2 id="Git的工作原理"><a href="#Git的工作原理" class="headerlink" title="Git的工作原理"></a>Git的工作原理</h2><h3 id="处理数据的方式"><a href="#处理数据的方式" class="headerlink" title="处理数据的方式"></a>处理数据的方式</h3><ul>
-<li><p><code>Git</code> 和其它版本控制系统（包括<code>Subversion</code>和近似工具）的主要差别在于 <code>Git</code> 对待数据的方法。</p>
-</li>
-<li><p><code>SVN</code>——以文件变更列表的方式存储信息。</p>
-</li>
-</ul>
-<p>将保存的信息看作是一组文件+文件随时间累积的差异。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15174741778710.png" alt=""></p>
-<ul>
-<li><code>Git</code>——直接记录快照，而非差异比较</li>
-</ul>
-<p>每次你提交更新，或在 <code>Git</code> 中保存项目状态时，它主要对当时的全部文件制作一个快照并保存这个快照的索引。 为了高效，如果文件没有修改，<code>Git</code> 不再重新存储该文件，而是只保留一个链接指向之前存储的文件。 <code>Git</code> 对待数据更像是一个快照流。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195464162401.png" alt=""></p>
-<p>这是 <code>Git</code> 与几乎所有其它版本控制系统的重要区别, <code>Git</code> 分支管理时，将探究这种方式对待数据所能获得的益处。</p>
-<h4 id="Git的计算校验和的机制"><a href="#Git的计算校验和的机制" class="headerlink" title="Git的计算校验和的机制"></a>Git的计算校验和的机制</h4><p><code>Git</code> 中所有数据在存储前都计算校验和，然后以校验和来引用。 这意味着不可能在 <code>Git</code> 不知情时更改任何文件内容或目录内容。 若你在传送过程中丢失信息或损坏文件，<code>Git</code> 就能发现。</p>
-<p><code>Git</code> 用以计算校验和的机制叫做<code>SHA-1</code> 散列（hash，哈希）。 这是一个由 40 个十六进制字符（0-9 和 a-f）组成字符串，基于 <code>Git</code> 中文件的内容或目录结构计算出来。 <code>SHA-1</code>哈希看起来是这样：</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">24b9da6552252987aa493b52f8696cd6d3b00373</span><br></pre></td></tr></table></figure>
-<p>为什么<code>commit id</code>需要用这么一大串数字表示呢？因为<code>Git</code>是分布式的版本控制系统，后面我们还要研究多人在同一个版本库里工作，如果大家都用1，2，3……作为版本号，那肯定就冲突了。<br><code>Git</code> 中使用这种哈希值的情况很多，你将经常看到这种哈希值。 实际上，<code>Git</code> 数据库中保存的信息都是以文件内容的哈希值来索引，而不是文件名。</p>
-<h4 id="Git-一般只添加数据"><a href="#Git-一般只添加数据" class="headerlink" title="Git 一般只添加数据"></a>Git 一般只添加数据</h4><p>你执行的 <code>Git</code> 操作，几乎只往 <code>Git</code> 数据库中增加数据。 很难让 <code>Git</code> 执行任何不可逆操作，或者让它以任何方式清除数据。</p>
-<h1 id="Git的工作流程"><a href="#Git的工作流程" class="headerlink" title="Git的工作流程"></a>Git的工作流程</h1><h2 id="Git的三个工作区域"><a href="#Git的三个工作区域" class="headerlink" title="Git的三个工作区域"></a>Git的三个工作区域</h2><p><code>Git</code> 有三种状态，你的文件可能处于其中之一：</p>
-<ul>
-<li>已修改（<code>modified</code>）： 修改了文件，但还没保存到数据库中。</li>
-<li>已暂存（<code>staged</code>） ：对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。</li>
-<li>已提交（<code>committed</code>）：数据已经安全的保存在本地数据库中</li>
-</ul>
-<p>由此引入 <code>Git</code> 项目的的概念：<code>Git</code> 仓库、工作目录以及暂存区域。一个<code>Git</code>项目可以被看做一下三个部分：</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15287084301410.jpg" alt=""></p>
-<ol>
-<li><strong>Working Directory</strong>: 工作目录是对项目的某个版本独立提取出来的内容。 这些从 <code>Git</code> 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。你将在里面完成文件的创建、编辑、删除、整理的所有工作。</li>
-<li><strong>Staging Area</strong>: <strong>暂存区域是一个文件</strong>，保存了下次将提交的文件列表信息，一般在 <code>Git</code> 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域，列出对工作目录所做的更改。</li>
-<li><strong>Repository</strong>:  <code>Git</code> 仓库是 <code>Git</code> 用来保存项目的元数据和对象数据库的地方。 <code>Git</code>永久的保存着这个项目版本间的不同变化。这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</li>
-</ol>
-<p>工作区和暂存区概念：</p>
-<p>工作区（Working Directory）就是你本地仓库文件夹里能看到的目录。</p>
-<p>版本库（Repository） 工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15282570694035.jpg" alt=""></p>
-<p>Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫<code>HEAD</code>。</p>
-<h3 id="Git工作流程"><a href="#Git工作流程" class="headerlink" title="Git工作流程"></a>Git工作流程</h3><ol>
-<li>在工作目录中修改文件。</li>
-<li>暂存文件，将文件的快照放入暂存区域。</li>
-<li>提交更新，找到暂存区域的文件，将快照永久性存储到 <code>Git</code> 仓库目录。</li>
-</ol>
-<h4 id="Git工作流程命令"><a href="#Git工作流程命令" class="headerlink" title="Git工作流程命令"></a>Git工作流程命令</h4><ul>
-<li>git add files 把把文件修改添加到暂存区。</li>
-<li>git commit 给暂存区域生成快照并提交。</li>
-<li>git reset – files 用来撤销最后一次git add files，你也可以用git reset 撤销所有暂存区域文件。</li>
-<li>git checkout – files 把文件从暂存区域复制到工作目录，用来丢弃本地修改。暂存区的所有内容提交到当前分支</li>
-</ul>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15190972722623.jpg" alt=""></p>
-<h2 id="Git-配置"><a href="#Git-配置" class="headerlink" title="Git 配置"></a>Git 配置</h2><p>所有config命令参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">语法: git config [&lt;options&gt;]        </span><br><span class="line"></span><br><span class="line">文件位置        </span><br><span class="line">    --global                  #use global config file 使用全局配置文件</span><br><span class="line">    --system                  #use system config file 使用系统配置文件</span><br><span class="line">    --local                   #use repository config file    使用存储库配置文件</span><br><span class="line">    -f, --file &lt;file&gt;         #use given config file    使用给定的配置文件</span><br><span class="line">    --blob &lt;blob-id&gt;          #read config from given blob object    从给定的对象中读取配置</span><br><span class="line"></span><br><span class="line">动作        </span><br><span class="line">    --get                     #get value: name [value-regex]    获得值：[值]名[正则表达式]</span><br><span class="line">    --get-all                 #get all values: key [value-regex]    获得所有值：[值]名[正则表达式]</span><br><span class="line">    --get-regexp          #get values for regexp: name-regex [value-regex]    得到的值根据正则</span><br><span class="line">    --get-urlmatch            #get value specific for the URL: section[.var] URL    为URL获取特定的值</span><br><span class="line">    --replace-all             #replace all matching variables: name value [value_regex]    替换所有匹配的变量：名称值[ value_regex ]</span><br><span class="line">    --add                     #add a new variable: name value    添加一个新变量：name值</span><br><span class="line">    --unset                   #remove a variable: name [value-regex]    删除一个变量名[值]：正则表达式</span><br><span class="line">    --unset-all               #remove all matches: name [value-regex]    删除所有匹配的正则表达式：名称[值]</span><br><span class="line">    --rename-section          #rename section: old-name new-name    重命名部分：旧名称 新名称</span><br><span class="line">    --remove-section          #remove a section: name    删除部分：名称</span><br><span class="line">    -l, --list                #list all    列出所有</span><br><span class="line">    -e, --edit            #open an editor    打开一个编辑器</span><br><span class="line">    --get-color               #find the color configured: slot [default]    找到配置的颜色：插槽[默认]</span><br><span class="line">    --get-colorbool           #find the color setting: slot [stdout-is-tty]    发现颜色设置：槽[ stdout是TTY ]</span><br><span class="line"></span><br><span class="line">类型        </span><br><span class="line">    --bool                    #value is &quot;true&quot; or &quot;false&quot;    值是“真”或“假”。</span><br><span class="line">    --int                     #value is decimal number    值是十进制数。</span><br><span class="line">    --bool-or-int             #value is --bool or --int    值--布尔或int</span><br><span class="line">    --path                    #value is a path (file or directory name)    值是路径（文件或目录名）</span><br><span class="line"></span><br><span class="line">其它        </span><br><span class="line">    -z, --null                #terminate values with NUL byte    终止值与null字节</span><br><span class="line">    --name-only               #show variable names only    只显示变量名</span><br><span class="line">    --includes                #respect include directives on lookup    尊重包括查找指令</span><br><span class="line">    --show-origin             #show origin of config (file, standard input, blob, command line)    显示配置（文件、标准输入、数据块、命令行）的来源</span><br></pre></td></tr></table></figure>
-<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>有些时候我们不想把某些文件纳入版本控制中，比如数据库文件，临时文件，设计文件等</p>
-<p>在主目录下建立”.gitignore”文件，此文件有如下规则：</p>
-<ol>
-<li>忽略文件中的空行或以井号（#）开始的行将会被忽略。</li>
-<li>可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,…}）代表可选的字符串等。</li>
-<li>如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。</li>
-<li>如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在此目录下，而子目录中的文件不忽略。</li>
-<li>如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。</li>
-</ol>
-<p>如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#为注释</span><br><span class="line">*.txt #忽略所有 .txt结尾的文件</span><br><span class="line">!lib.txt #但lib.txt除外</span><br><span class="line">/temp #仅忽略项目根目录下的TODO文件,不包括其它目录temp</span><br><span class="line">build/ #忽略build/目录下的所有文件</span><br><span class="line">doc/*.txt #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br></pre></td></tr></table></figure>
-<h2 id="Git-配置问题"><a href="#Git-配置问题" class="headerlink" title="Git 配置问题"></a>Git 配置问题</h2><h3 id="多个git账号切换"><a href="#多个git账号切换" class="headerlink" title="多个git账号切换"></a>多个git账号切换</h3><p>如果本地有多个Git账号，添加<code>ssh</code>秘钥后，就会在<code>~/.ssh/</code>文件夹中生成多个对应的ssh秘钥。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15364877367764.jpg" alt=""></p>
-<p>然而可能在你提交的时候，你当前ssh对应的git账号并非你所需要提交的目标账号，可以通过以下步骤制定目标Git账号：</p>
-<ul>
-<li>用： <code>ssh -T git@github.com</code>命令，检查当前配置的SSH对应的git账号；</li>
-<li>用<code>$ ssh-add -K ~/.ssh/id_rsa</code> (id_rsa对应目标账户的私钥)命令，制定目标Git账号。</li>
-</ul>
-<h3 id="仓库出现多个用户和邮箱"><a href="#仓库出现多个用户和邮箱" class="headerlink" title="仓库出现多个用户和邮箱"></a>仓库出现多个用户和邮箱</h3><p>问题：More than one value for the key user.name Git</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385835895868.jpg" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># If you just want to reset all of them:</span><br><span class="line">git config --local --replace-all user.email &quot;new@mail.com&quot;</span><br><span class="line">git config --global --replace-all user.email &quot;new@mail.com&quot;</span><br></pre></td></tr></table></figure>
-<p><a href="https://stackoverflow.com/questions/4310974/more-than-one-value-for-the-key-user-name-git" target="_blank" rel="noopener">github - More than one value for the key user.name Git - Stack Overflow</a></p>
-<h2 id="Where-to-Go-Next"><a href="#Where-to-Go-Next" class="headerlink" title="Where to Go Next"></a>Where to Go Next</h2><p>读完这篇相信你对 <code>Git</code> 有了更初步的理解，那么具体在开发中，如何使用用<code>Git</code>来完成版本控制，可以在下篇<a href="http://frizzlefur.com/2018/02/28/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/">Git 笔记系列（二）—— Git工作流程</a>得到回答，第二篇将会对 <code>Git</code> 的工作流和常用命令进行简单介绍。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
-<li><a href="http://git.oschina.net/progit/" target="_blank" rel="noopener">ProGit中文版</a> ProGit中文版</li>
-<li><a href="https://learngitbranching.js.org/" target="_blank" rel="noopener">learngitbranching</a> 交互式学习Git的网站</li>
-<li><a href="https://try.github.io/" target="_blank" rel="noopener">Resources to learn Git</a> Resources to learn Git</li>
-<li><a href="https://www.atlassian.com/Git/tutorials/setting-up-a-repository" target="_blank" rel="noopener">Setting up a repository | Atlassian Git Tutorial</a></li>
-<li><a href="https://Github.com/geeeeeeeeek/Git-recipes" target="_blank" rel="noopener">Git-recipes</a> 高质量的Git中文教程，Atlassian Git Tutorial的翻译</li>
-<li><a href="https://Gi-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6" target="_blank" rel="noopener">Git - 关于版本控制</a></li>
-<li><a href="http://danielkummer.Github.io/Git-flow-cheatsheet/index.zh_CN.html" target="_blank" rel="noopener">Git-flow 备忘清单</a></li>
-<li><a href="https://www.raywenderlich.com/166884/new-course-beginning-git" target="_blank" rel="noopener">Beginning Git  | Ray Wenderlich</a></li>
-<li><a href="https://www.raywenderlich.com/167622/new-course-mastering-git" target="_blank" rel="noopener">New Course: Mastering Git | Ray Wenderlich</a></li>
-<li><a href="https://guides.github.com/introduction/git-handbook/" target="_blank" rel="noopener">Git Handbook · GitHub Guides</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2018/02/27/Git 笔记系列（一）—— Git简介/" data-id="cjrno7hx5001ra7cchdi9u3yj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/02/28/Git 笔记系列（二）—— Git工作流程/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Git 笔记系列（二）—— Git工作流程
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/01/01/iOS_Swift初见/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Swift初见</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug

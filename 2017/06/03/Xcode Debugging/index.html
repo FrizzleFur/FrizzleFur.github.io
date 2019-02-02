@@ -1,445 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>Xcode Debugging | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="变更记录    序号 录入时间 备注      1 2017-06-03 新建文章   2 2018-02-28 更新引言   2 2018-04-14 整理格式    引言 你的代码，或者任何人的代码中总会有bug存在，你可以把调试看做是更好地理解代码的一种方式 —— By Advanced_Apple_Debugging_&amp;amp;_Reverse_Engineering_v0.9.5  Th">
-<meta name="keywords" content="Tool">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Xcode Debugging">
-<meta property="og:url" content="http://frizzlefur.com/2017/06/03/Xcode Debugging/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="变更记录    序号 录入时间 备注      1 2017-06-03 新建文章   2 2018-02-28 更新引言   2 2018-04-14 整理格式    引言 你的代码，或者任何人的代码中总会有bug存在，你可以把调试看做是更好地理解代码的一种方式 —— By Advanced_Apple_Debugging_&amp;amp;_Reverse_Engineering_v0.9.5  Th">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-05-21-14953337356733.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-05-21-14953347612931.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-03-14964589170284.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-05-23-14955445977510.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-03-14964707712015.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-17-15056004873850.jpg">
-<meta property="og:image" content="https://i.imgur.com/cC9pKq9.gif">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.439Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode Debugging">
-<meta name="twitter:description" content="变更记录    序号 录入时间 备注      1 2017-06-03 新建文章   2 2018-02-28 更新引言   2 2018-04-14 整理格式    引言 你的代码，或者任何人的代码中总会有bug存在，你可以把调试看做是更好地理解代码的一种方式 —— By Advanced_Apple_Debugging_&amp;amp;_Reverse_Engineering_v0.9.5  Th">
-<meta name="twitter:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-05-21-14953337356733.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Xcode Debugging" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/03/Xcode Debugging/" class="article-date">
-  <time datetime="2017-06-03T03:23:35.000Z" itemprop="datePublished">2017-06-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Xcode Debugging
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>变更记录</strong></p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>录入时间</th>
-<th>备注 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>2017-06-03</td>
-<td>新建文章</td>
-</tr>
-<tr>
-<td>2</td>
-<td>2018-02-28</td>
-<td>更新引言</td>
-</tr>
-<tr>
-<td>2</td>
-<td>2018-04-14</td>
-<td>整理格式</td>
-</tr>
-</tbody>
-</table>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
-<p>你的代码，或者任何人的代码中总会有bug存在，<strong>你可以把调试看做是更好地理解代码的一种方式</strong> —— By Advanced_Apple_Debugging_&amp;_Reverse_Engineering_v0.9.5</p>
-</blockquote>
-<h2 id="The-Debugging-Process"><a href="#The-Debugging-Process" class="headerlink" title="The Debugging Process"></a>The Debugging Process</h2><ol>
-<li>Reproduce the problem<blockquote>
-<p>if you cannot reproduce the problem, then you (probably) do not understand it.</p>
-</blockquote>
-</li>
-</ol>
-<ol start="2">
-<li><p>Gather Debug Information</p>
-<blockquote>
-<p>Logs, program, state,…<br>What is the value of a variable?<br>What kind of error?(ex.EXC_BAD_ACCESS)<br>What line of code caused the error?<br>Which functions or methods led to the error?</p>
-</blockquote>
-</li>
-<li><p>Form a Hypothesis</p>
-</li>
-<li><p>Try a fix</p>
-<blockquote>
-<p>Maximize the information gained per fix!</p>
-</blockquote>
-</li>
-</ol>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-05-21-14953337356733.jpg" alt=""></p>
-<a id="more"></a>
-<h3 id="Print-Debugging"><a href="#Print-Debugging" class="headerlink" title="Print Debugging"></a>Print Debugging</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-05-21-14953347612931.jpg" alt=""></p>
-<h2 id="TOOL"><a href="#TOOL" class="headerlink" title="TOOL"></a>TOOL</h2><h3 id="LLDB"><a href="#LLDB" class="headerlink" title="LLDB"></a>LLDB</h3><blockquote>
-<p>Use commands to debugging, save your time in rebuild and make breakpoints.</p>
-</blockquote>
-<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p><code>po</code> —— call the description method on an object.<br> <code>p</code> —— print the value of 数量级 values</p>
-<h4 id="Print-variable-frame"><a href="#Print-variable-frame" class="headerlink" title="Print variable frame"></a>Print variable frame</h4><p><code>frame variable</code><br><code>fr v</code></p>
-<h4 id="Expression命令"><a href="#Expression命令" class="headerlink" title="Expression命令"></a>Expression命令</h4><p>expression命令的作用是执行一个表达式，并将表达式返回的结果输出。expression的完整语法是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression &lt;cmd-options&gt; -- &lt;expr&gt;</span><br></pre></td></tr></table></figure>
-<p>说expression是LLDB里面最重要的命令都不为过。因为他能实现2个功能。</p>
-<p>执行某个表达式。 我们在代码运行过程中，可以通过执行某个表达式来动态改变程序运行的轨迹。 假如我们在运行过程中，突然想把self.view颜色改成红色，看看效果。我们不必写下代码，重新run，只需暂停程序，用expression改变颜色，再刷新一下界面，就能看到效果</p>
-<p>  // 改变颜色<br><code>(lldb) expression -- self.view.backgroundColor = [UIColor redColor]</code><br>  // 刷新界面<br><code>(lldb) expression -- (void)[CATransaction flush]</code><br>将返回值输出。 也就是说我们可以通过expression来打印东西。 假如我们想打印self.view：<br>Objective-C</p>
-<pre><code>(lldb) expression -- self.view
-(UIView *) $1 = 0x00007fe322c18a10
-
-(lldb) expression -- self.view
-(UIView *) $1 = 0x00007fe322c18a10
-</code></pre><p><code>expression</code> 可以支持多行输入，输入<code>expression</code>后回车，会显示行号，每行输入后换行，双击回车代表完成输入，过掉断言即刻看到表达式的效果。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-03-14964589170284.jpg" alt=""></p>
-<h4 id="BreakPoint"><a href="#BreakPoint" class="headerlink" title="BreakPoint"></a>BreakPoint</h4><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-05-23-14955445977510.jpg" alt=""></p>
-<h5 id="breakpoint-command-add给断点添加命令"><a href="#breakpoint-command-add给断点添加命令" class="headerlink" title="breakpoint command add给断点添加命令"></a>breakpoint command add给断点添加命令</h5><p>e.g: 假设我们需要在ViewController的viewDidLoad中查看self.view的值<br>我们首先给-[ViewController viewDidLoad]添加一个断点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(lldb) breakpoint set -n &quot;-[ViewController viewDidLoad]&quot;</span><br><span class="line">&apos;breakpoint 3&apos;: where = TLLDB`-[ViewController viewDidLoad] + 20 at ViewController.m:23, address = 0x00000001055e6004</span><br></pre></td></tr></table></figure></p>
-<p>可以看到添加成功之后，这个breakpoint的id为3，然后我们给他增加一个命令：<code>po self.view</code><br><code>(lldb) breakpoint command add -o &quot;po self.view&quot; 3</code></p>
-<p>-o完整写法是–one-liner，表示增加一条命令。3表示对id为3的breakpoint增加命令。<br>添加完命令之后，每次程序执行到这个断点就可以自动打印出self.view的值了</p>
-<p>如果我们一下子想增加多条命令，比如我想在viewDidLoad中打印当前frame的所有变量，但是我们不想让他中断，也就是在打印完成之后，需要继续执行。我们可以这样玩：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(lldb) breakpoint command add 3</span><br><span class="line">Enter your debugger command(s).  Type &apos;DONE&apos; to end.</span><br><span class="line">&gt; frame variable</span><br><span class="line">&gt; continue</span><br><span class="line">&gt; DONE</span><br></pre></td></tr></table></figure>
-<p>输入breakpoint command add 3对断点3增加命令。他会让你输入增加哪些命令，输入’DONE’表示结束。这时候你就可以输入多条命令了</p>
-<p>多次对同一个断点添加命令，后面命令会将前面命令覆盖</p>
-<h5 id="breakpoints添加通过条件"><a href="#breakpoints添加通过条件" class="headerlink" title="breakpoints添加通过条件"></a>breakpoints添加通过条件</h5><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-03-14964707712015.jpg" alt=""></p>
-<p>breakpoint</p>
-<p>调试过程中，我们用得最多的可能就是断点了。LLDB中的断点命令也非常强大</p>
-<p>breakpoint set</p>
-<p>breakpoint set命令用于设置断点，LLDB提供了很多种设置断点的方式：</p>
-<p>使用-n根据方法名设置断点：</p>
-<p>e.g: 我们想给所有类中的viewWillAppear:设置一个断点:</p>
-<pre><code>(lldb) breakpoint set -n viewWillAppear:
-Breakpoint 13: 33 locations.
-</code></pre><p>使用-f指定文件</p>
-<p>e.g: 我们只需要给ViewController.m文件中的viewDidLoad设置断点：</p>
-<pre><code>(lldb) breakpoint set -f ViewController.m -n viewDidLoad
-Breakpoint 22: where = TLLDB`-[ViewController viewDidLoad] + 20 at ViewController.m:22, address = 0x000000010272a6f4
-</code></pre><p>这里需要注意，如果方法未写在文件中（比如写在category文件中，或者父类文件中），指定文件之后，将无法给这个方法设置断点。</p>
-<p>使用-l指定文件某一行设置断点</p>
-<p>e.g: 我们想给ViewController.m第38行设置断点</p>
-<p>(lldb) breakpoint set -f ViewController.m -l 38<br>Breakpoint 23: where = TLLDB`-[ViewController text:] + 37 at ViewController.m:38, address = 0x000000010272a7d5<br>使用-c设置条件断点</p>
-<p>e.g: text:方法接受一个ret的参数，我们想让ret == YES的时候程序中断：</p>
-<p>(lldb) breakpoint set -n text: -c ret == YES<br>Breakpoint 7: where = TLLDB`-[ViewController text:] + 30 at ViewController.m:37, address = 0x0000000105ef37ce<br>使用-o设置单次断点</p>
-<p>e.g: 如果刚刚那个断点我们只想让他中断一次：</p>
-<p>(lldb) breakpoint set -n text: -o<br>‘breakpoint 3’: where = TLLDB`-[ViewController text:] + 30 at ViewController.m:37, address = 0x000000010b6f97ce<br>breakpoint command</p>
-<p>有的时候我们可能需要给断点添加一些命令，比如每次走到这个断点的时候，我们都需要打印self对象。我们只需要给断点添加一个po self命令，就不用每次执行断点再自己输入po self了</p>
-<p>breakpoint command add</p>
-<p>breakpoint command add命令就是给断点添加命令的命令。</p>
-<p>e.g: 假设我们需要在ViewController的viewDidLoad中查看self.view的值<br>我们首先给-[ViewController viewDidLoad]添加一个断点</p>
-<p>(lldb) breakpoint set -n “-[ViewController viewDidLoad]”<br>‘breakpoint 3’: where = TLLDB`-[ViewController viewDidLoad] + 20 at ViewController.m:23, address = 0x00000001055e6004<br>可以看到添加成功之后，这个breakpoint的id为3，然后我们给他增加一个命令：po self.view</p>
-<p>(lldb) breakpoint command add -o “po self.view” 3<br>-o完整写法是–one-liner，表示增加一条命令。3表示对id为3的breakpoint增加命令。<br>添加完命令之后，每次程序执行到这个断点就可以自动打印出self.view的值了</p>
-<p>如果我们一下子想增加多条命令，比如我想在viewDidLoad中打印当前frame的所有变量，但是我们不想让他中断，也就是在打印完成之后，需要继续执行。我们可以这样玩：</p>
-<p>(lldb) breakpoint command add 3<br>Enter your debugger command(s).  Type ‘DONE’ to end.</p>
-<blockquote>
-<p>frame variable<br>continue<br>DONE<br>输入breakpoint command add 3对断点3增加命令。他会让你输入增加哪些命令，输入’DONE’表示结束。这时候你就可以输入多条命令了</p>
-</blockquote>
-<p>多次对同一个断点添加命令，后面命令会将前面命令覆盖<br>breakpoint command list</p>
-<p>如果想查看某个断点已有的命令，可以使用breakpoint command list。<br>e.g: 我们查看一下刚刚的断点3已有的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(lldb) breakpoint command list 3</span><br><span class="line">&apos;breakpoint 3&apos;:</span><br><span class="line">    Breakpoint commands:</span><br><span class="line">      frame variable</span><br><span class="line">      continue</span><br></pre></td></tr></table></figure>
-<p>可以看到一共有2条命令，分别为frame variable和continue</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">breakpoint command delete</span><br></pre></td></tr></table></figure>
-<p>有增加就有删除，breakpoint command delete可以让我们删除某个断点的命令<br>e.g: 我们将断点3中的命令删除:</p>
-<p>(lldb) breakpoint command delete 3<br>(lldb) breakpoint command list 3<br>Breakpoint 3 does not have an associated command.<br>可以看到删除之后，断点3就没有命令了</p>
-<p>breakpoint list</p>
-<p>如果我们想查看已经设置了哪些断点，可以使用breakpoint list<br>e.g:</p>
-<p>(lldb) breakpoint list<br>Current breakpoints:<br>4: name = ‘-[ViewController viewDidLoad]’, locations = 1, resolved = 1, hit count = 0<br>  4.1: where = TLLDB`-[ViewController viewDidLoad] + 20 at ViewController.m:23, address = 0x00000001055e6004, resolved, hit count = 0<br>我们可以看到当前只有一个断点，打在-[ViewController viewDidLoad]上，id是4</p>
-<p>breakpoint disable/enable</p>
-<p>有的时候我们可能暂时不想要某个断点，可以使用breakpoint disable让某个断点暂时失效<br>e.g: 我们来让刚刚的断点4失效</p>
-<p>(lldb) breakpoint disable 4<br>1 breakpoints disabled.<br>输入完命令之后，显示断点已经失效</p>
-<p>当我们又需要这个断点的时候，可以使用breakpoint enable再次让他生效<br>e.g: 重新启用断点4</p>
-<p>(lldb) breakpoint enable 4<br>1 breakpoints enabled.<br>breakpoint delete</p>
-<p>如果我们觉得这个断点以后再也用不上了，可以用breakpoint delete直接删除断点.<br>e.g: 删除断点4</p>
-<p>(lldb) breakpoint delete 4<br>1 breakpoints deleted; 0 breakpoint locations disabled.<br>如果我们想删除所有断点，只需要不指定breakpoint delete参数即可</p>
-<p>(lldb) breakpoint delete<br>About to delete all breakpoints, do you want to do that?: [Y/n] y<br>All breakpoints removed. (1 breakpoint)<br>删除的时候他会提示你，是不是真的想删除所有断点，需要你再次输入Y确认。如果想直接删除，不需要他的提示，使用-f命令选项即可</p>
-<p>(lldb) breakpoint delete -f<br>All breakpoints removed. (1 breakpoint)<br>实际平时我们真正使用breakpoint命令反而比较少，因为Xcode已经内置了断点工具。我们可以直接在代码上打断点，可以在断点工具栏里面查看编辑断点，这比使用LLDB命令方便很多。不过了解LLDB相关命令可以让我们对断点理解更深刻。<br>如果你想了解怎么使用Xcode设置断点，可以阅读这篇文章《Xcode中断点的威力》</p>
-<p>打印所在的方法： </p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-17-15056004873850.jpg" alt=""></p>
-<h5 id="非重写方法的符号断点"><a href="#非重写方法的符号断点" class="headerlink" title="非重写方法的符号断点"></a>非重写方法的符号断点</h5><p><a href="https://objccn.io/issue-19-2/" target="_blank" rel="noopener">非重写方法的符号断点</a><br>假设你想知道 -[MyViewController viewDidAppear:] 什么时候被调用。如果这个方法并没有在MyViewController 中实现，而是在其父类中实现的，该怎么办呢？试着设置一个断点，会出现以下结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) b -[MyViewController viewDidAppear:]</span><br><span class="line">Breakpoint 1: no locations (pending).</span><br><span class="line">WARNING:  Unable to resolve breakpoint to any actual locations.</span><br></pre></td></tr></table></figure>
-<p>因为 LLDB 会查找一个符号，但是实际在这个类上却找不到，所以断点也永远不会触发。你需要做的是为断点设置一个条件 <code>[self isKindOfClass:[MyViewController class]]</code>，然后把断点放在 <code>UIViewController</code> 上。正常情况下这样设置一个条件可以正常工作。但是这里不会，因为我们没有父类的实现。</p>
-<p><code>viewDidAppear</code>: 是苹果实现的方法，因此没有它的符号；在方法内没有 <code>self</code> 。如果想在符号断点上使用 <code>self</code>，你必须知道它在哪里 (它可能在寄存器上，也可能在栈上；在 x86 上，你可以在 $esp+4 找到它)。但是这是很痛苦的，因为现在你必须至少知道四种体系结构 (x86，x86-64，armv7，armv64)。想象你需要花多少时间去学习命令集以及它们每一个的调用约定，然后正确的写一个在你的超类上设置断点并且条件正确的命令。幸运的是，这个在 facebook的<a href="https://github.com/facebook/chisel" target="_blank" rel="noopener">Chisel</a> 被解决了。这被成为 <code>bmessage</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(lldb) bmessage -[MyViewController viewDidAppear:]</span><br><span class="line">Setting a breakpoint at -[UIViewController viewDidAppear:] with condition (void*)object_getClass((id)$rdi) == 0x000000010e2f4d28</span><br><span class="line">Breakpoint 1: where = UIKit`-[UIViewController viewDidAppear:], address = 0x000000010e11533c</span><br><span class="line">LLDB 和 Python</span><br></pre></td></tr></table></figure></p>
-<h5 id="command和expr的组合"><a href="#command和expr的组合" class="headerlink" title="command和expr的组合"></a>command和expr的组合</h5><p>建立一个breakPoint.<br>使用expr表达式<br>用command添加到br上面。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">br com add 1</span><br><span class="line">&gt;expr ...</span><br><span class="line">&gt;continue</span><br><span class="line">&gt;DONE</span><br></pre></td></tr></table></figure>
-<h4 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h4><p><code>thread until (line number)</code><br><code>thread select (thread number)</code><br><code>thread return (value)</code><br><code>frame variable</code> 查看线程相关变量<br><code>bt (thread backtrace)</code>  backtrace</p>
-<h4 id="Watchpoint"><a href="#Watchpoint" class="headerlink" title="Watchpoint"></a>Watchpoint</h4><h4 id="Chisel"><a href="#Chisel" class="headerlink" title="Chisel"></a>Chisel</h4><p><a href="https://www.raywenderlich.com/72244/video-tutorial-using-lldb-ios-part-7-using-chisel" target="_blank" rel="noopener">Chisel Tutorial</a><br><a href="https://github.com/facebook/chisel" target="_blank" rel="noopener">Chisel</a> </p>
-<p><code>border</code> 标记view<br><code>mask</code> 标记view<br><code>pca</code> layer tree<br><code>presponder</code> responder chain<br><code>pclass</code> class hierachy<br><code>vs</code> vs view,  change the view hierachy<br><code>caflush</code> refresh screen<br><code>visualize</code> previews views<br><code>pviews</code> Print the recursive view description for the key window.<br><code>pvc</code> Print the recursive view controller description for the key window.<br><code>fv</code> Find a view in the hierarchy whose class name matches the provided regex.<br><code>fvc</code>  Find a view controller in the hierarchy whose class name matches the provided regex.<br><code>bmessage</code>  Set a symbolic breakpoint on the method of a class or the method of an instance without worrying which class in the hierarchy actually implements the method.<br><code>wivar</code>     Set a watchpoint on an instance variable of an object.    </p>
-<h3 id="Xcode-Debugging-Hotkeys"><a href="#Xcode-Debugging-Hotkeys" class="headerlink" title="Xcode Debugging Hotkeys"></a>Xcode Debugging Hotkeys</h3><blockquote>
-<p>Here is a listing of Xcode hotkeys (related to debugging) we mentioned in this course. Let us know if we missed any!</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Show Navigator (⌘+0)</span><br><span class="line">Show Debug Navigator (⌘+6)</span><br><span class="line">Show Breakpoint Navigator (⌘+7)</span><br><span class="line">Show Debug Area (⌘+Shift+Y)</span><br><span class="line">Open Documentation (⌘+Shift+0)</span><br><span class="line">Step Over (F6)</span><br><span class="line">Step Into (F7)</span><br><span class="line">Step Out (F8)</span><br><span class="line">Continue (⌘+Ctrl+Y)</span><br><span class="line">Build (⌘+B)</span><br><span class="line">Run (⌘+R)</span><br><span class="line">Activate/Deactivate Breakpoint (⌘+Y)</span><br><span class="line">Quick Search (⌘+Shift+O)</span><br></pre></td></tr></table></figure>
-<p><a href="https://classroom.udacity.com/courses/ud774/lessons/4388088536/concepts/44197787450923" target="_blank" rel="noopener">Xcode Debugging Hotkeys</a></p>
-<h3 id="Icon-Injection-Plugin-for-Xcode"><a href="#Icon-Injection-Plugin-for-Xcode" class="headerlink" title="Icon Injection Plugin for Xcode"></a>Icon Injection Plugin for Xcode</h3><p><a href="https://github.com/johnno1962/injectionforxcode#user-content-use-with-appcode" target="_blank" rel="noopener">Icon Injection Plugin for Xcode</a></p>
-<p><img src="https://i.imgur.com/cC9pKq9.gif" alt=""></p>
-<blockquote>
-<p>一个Xcode的插件，让你在改完代码后无需重新运行Xcode就可以看到效果。</p>
-</blockquote>
-<p>将需要调试的代码写到<code>injected</code>这个方法中，然后在和这个方法中设置一个断言，使用<code>Ctr + =</code>,即会停在这个断言里，每次修改，使用一下<code>Ctr + =</code>就会重新注入，释放断言就可以看到效果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)injected</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;I&apos;ve been injected: %@&quot;, self);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>The plugin can be removed either via Alcatraz, or by running:<br><code>rm -rf ~/Library/Application\ Support/Developer/Shared/Xcode/Plug-ins/InjectionPlugin.xcplugin</code></p>
-</blockquote>
-<p><strong>注意</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)injected as an instance method, which gives you the chance to re-update an object with new contexts.</span><br><span class="line">+ (void)injected as a class method, making it possible to update globals with new information</span><br><span class="line">Listening for INJECTION_BUNDLE_NOTIFICATION, allowing other classes to listen out for injection calls, this is useful for providing app level changes.</span><br></pre></td></tr></table></figure>
-<p><strong>原理</strong></p>
-<p>它通过解析应用程序的生成日志来确定源文件是如何最后编译的。用这个包将重新编译成一个<code>bundle</code>，该<code>bundle</code>使用动态加载程序注入应用程序。现在在<code>bundle</code>中就有两个版本，原版本和新的修改版本。修改后的版本是“调和”在原版本发生变化。</p>
-<h3 id="LLDB-cheatsheet"><a href="#LLDB-cheatsheet" class="headerlink" title="LLDB cheatsheet"></a>LLDB cheatsheet</h3><blockquote>
-<p>A cheatsheet for commands and ideas on how to use LLDB.</p>
-</blockquote>
-<h3 id="Getting-help"><a href="#Getting-help" class="headerlink" title="Getting help"></a>Getting help</h3><p><code>(lldb) help</code><br>List all commands and aliases.</p>
-<p><code>(lldb) help po</code><br>Get help documentation for po (expression) command. </p>
-<p><code>(lldb) help break set</code><br>Get help documentation for breakpoint set. </p>
-<p><code>(lldb) apropos step-in</code><br>Search through help documentation containing step-in.</p>
-<h3 id="Finding-code"><a href="#Finding-code" class="headerlink" title="Finding code"></a>Finding code</h3><p>  <code>(lldb) image lookup -rn UIAlertController</code><br>Look up all code containing UIAlertController that’s compiled or loaded into an executable.</p>
-<p><code>(lldb) image lookup -rn (?i)hosturl</code><br>Case insensitive search for any code that contains “hosturl”.</p>
-<p><code>(lldb) image lookup -rn &#39;UIViewController\ set\w+:\]&#39;</code><br>Look up all setter property methods UIViewController implements or overrides. </p>
-<p><code>(lldb) image lookup -rn . Security</code><br>Look up all code located within the Security module. </p>
-<p><code>(lldb) image lookup -a 0x10518a720</code><br>Look up code based upon address 0x10518a720. </p>
-<p><code>(lldb) image lookup -s mmap</code><br>Look up code for the symbol named mmap.</p>
-<h3 id="Breakpoints"><a href="#Breakpoints" class="headerlink" title="Breakpoints"></a>Breakpoints</h3><p><code>(lldb) b viewDidLoad</code><br>Creates a breakpoint on all methods named viewDidLoad for both Swift and Objective-C.</p>
-<p><code>(lldb) b setAlpha:</code><br>Creates a breakpoint on either the setAlpha: Objective-C method or the setter of the Objective-C alpha property.</p>
-<p><code>(lldb) b -[CustomViewControllerSubclass viewDidLoad]</code><br>Creates a breakpoint on the Objective-C method [CustomViewControllerSubclass viewDidLoad].</p>
-<p><code>(lldb) rbreak CustomViewControllerSubclass.viewDidLoad</code><br>Creates a regex breakpoint to match either an Objective-C or Swift class CustomViewControllerSubclass which contains viewDidLoad. Could be Objective-C - [CustomViewControllerSubclass viewDidLoad] or could be Swift ModuleName.CustomViewControllerSubclass.viewDidLoad () -&gt; ().</p>
-<p><code>(lldb) breakpoint delete</code><br>Deletes all breakpoints.</p>
-<p><code>(lldb) breakpoint delete 2</code><br>Deletes breakpoint ID 2.</p>
-<p><code>(lldb) breakpoint list</code><br>List all breakpoints and their IDs.</p>
-<p><code>(lldb) rbreak viewDid</code><br>Creates a regex breakpoint on .<em>viewDid.</em>. </p>
-<p><code>(lldb) rbreak viewDid -s SwiftRadio</code><br>Creates a breakpoint on .<em>viewDid.</em>, but restricts the breakpoint(s) to the SwiftRadio module.</p>
-<p><code>(lldb) rbreak viewDid(Appear|Disappear) -s SwiftHN</code><br>Creates a breakpoint on viewDidAppear or viewDidDisappear inside the SwiftHN module.</p>
-<p><code>(lldb) rb &quot;\-\[UIViewController\ set&quot; -s UIKit</code><br>Creates a breakpoint on any Objective-C style breakpoints containing - [UIViewController set within the UIKit module.</p>
-<p><code>(lldb) rb . -s SwiftHN -o</code><br>Create a breakpoint on every function in the SwiftHN module, but remove all breakpoints once the breakpoint is hit.</p>
-<p><code>(lldb) rb . -f ViewController.m</code><br>Create a breakpoint on every function found in ViewController.m.</p>
-<h3 id="Expressions"><a href="#Expressions" class="headerlink" title="Expressions"></a>Expressions</h3><p><code>(lldb) po &quot;hello, debugger&quot;</code><br>Prints “hello, debugger” regardless of the debugging context.</p>
-<p><code>(lldb) expression -lobjc -O -- [UIApplication sharedApplication]</code><br>Print the shared UIApplication instance in an Objective-C context. </p>
-<p><code>(lldb) expression -lswift -O -- UIApplication.shared</code><br>Print the shared UIApplication instance in a Swift context.</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><p><a href="https://classroom.udacity.com/courses/ud774/lessons/4377638660/concepts/43903186280923" target="_blank" rel="noopener">The Debugging Process</a></p>
-</li>
-<li><p><a href="https://videos.raywenderlich.com/courses/82-rwdevcon-2017-vault-workshops/lessons/1" target="_blank" rel="noopener">Advanced Apple Debugging &amp; Reverse Engineering</a></p>
-</li>
-<li><p><a href="https://developer.apple.com/videos/play/wwdc2012/412/" target="_blank" rel="noopener">Debugging in Xcode2012</a></p>
-</li>
-<li><p><a href="https://developer.apple.com/videos/play/wwdc2015/402/" target="_blank" rel="noopener">What’s New in LLDB 2015</a></p>
-</li>
-</ol>
-<h4 id="LLDB-1"><a href="#LLDB-1" class="headerlink" title="LLDB"></a>LLDB</h4><ol>
-<li><p><a href="http://www.jianshu.com/p/e89af3e9a8d7" target="_blank" rel="noopener">小笨狼与LLDB的故事</a></p>
-</li>
-<li><p><a href="https://lldb.llvm.org/tutorial.html" target="_blank" rel="noopener">lldb.llvm.org</a></p>
-</li>
-<li><p><a href="https://github.com/facebook/chisel" target="_blank" rel="noopener">Chisel</a> </p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2017/06/03/Xcode Debugging/" data-id="cjrno7hxa0023a7cc6xyroswi" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/06/04/4点起床/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          4点起床
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/05/16/读书笔记/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">如何阅读一本书</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug

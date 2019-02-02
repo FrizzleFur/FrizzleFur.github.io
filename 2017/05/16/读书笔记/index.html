@@ -1,345 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>如何阅读一本书 | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="读书方法    不会读书 会读书     选书购书 【对书没有形成意识】  别人推荐什么读什么 没有目的性的读书被广告和销量排行榜左右 【搜集信息制作购书清单，按清单购买书】发现并按照自己的需求选书读书目的很明确能排除干扰而不是被动选书有效利用各种信息定制自己需要的书单   读书 【随意读读】   读书没有重点，需要很长时间  读书过程容易变得单调范围  读过以后很难提炼要点   【以记录读书笔记">
-<meta name="keywords" content="Tool">
-<meta property="og:type" content="article">
-<meta property="og:title" content="如何阅读一本书">
-<meta property="og:url" content="http://frizzlefur.com/2017/05/16/读书笔记/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="读书方法    不会读书 会读书     选书购书 【对书没有形成意识】  别人推荐什么读什么 没有目的性的读书被广告和销量排行榜左右 【搜集信息制作购书清单，按清单购买书】发现并按照自己的需求选书读书目的很明确能排除干扰而不是被动选书有效利用各种信息定制自己需要的书单   读书 【随意读读】   读书没有重点，需要很长时间  读书过程容易变得单调范围  读过以后很难提炼要点   【以记录读书笔记">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941075788.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941120244.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941185022.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941195778.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941202720.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941233695.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941267133.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941395662.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941429451.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941453474.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941471513.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941487752.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941555278.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941563187.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941570090.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941574652.png">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.448Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何阅读一本书">
-<meta name="twitter:description" content="读书方法    不会读书 会读书     选书购书 【对书没有形成意识】  别人推荐什么读什么 没有目的性的读书被广告和销量排行榜左右 【搜集信息制作购书清单，按清单购买书】发现并按照自己的需求选书读书目的很明确能排除干扰而不是被动选书有效利用各种信息定制自己需要的书单   读书 【随意读读】   读书没有重点，需要很长时间  读书过程容易变得单调范围  读过以后很难提炼要点   【以记录读书笔记">
-<meta name="twitter:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941075788.png">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-读书笔记" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/05/16/读书笔记/" class="article-date">
-  <time datetime="2017-05-16T08:57:52.000Z" itemprop="datePublished">2017-05-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      如何阅读一本书
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="读书方法"><a href="#读书方法" class="headerlink" title="读书方法"></a>读书方法</h2><table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">不会读书</th>
-<th style="text-align:center">会读书</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">选书<br>购书</td>
-<td style="text-align:center"><strong>【对书没有形成意识】</strong> <br> 别人推荐什么读什么 <br>没有目的性的读书<br>被广告和销量排行榜左右</td>
-<td style="text-align:center"><strong>【搜集信息制作购书清单，按清单购买书】</strong><br>发现并按照自己的需求选书<br>读书目的很明确<br>能排除干扰而不是被动选书<br>有效利用各种信息定制自己需要的书单</td>
-</tr>
-<tr>
-<td style="text-align:center">读书</td>
-<td style="text-align:center"><strong>【随意读读】</strong>  <br> 读书没有重点，需要很长时间 <br> 读书过程容易变得单调范围 <br> 读过以后很难提炼要点  <br></td>
-<td style="text-align:center"><strong>【以记录读书笔记和创造价值的概念读书】</strong>  <br> 目的明确，速度更快<br> 读的过程做记号，读完做笔记，印象深刻 <br> 读完后能够迅速提炼要点 <br></td>
-</tr>
-<tr>
-<td style="text-align:center">记录</td>
-<td style="text-align:center"><strong>【仅仅是读过】</strong><br> 没有记录回顾 <br> 不记得曾经读过 <br> 无法回忆内容 <br></td>
-<td style="text-align:center"><strong>【拥有扎实有价值的个人笔记】</strong> <br>  提炼书中要点 <br>  记录个人感受 <br> 对书中价值点印象深刻 <br> 以书为媒介丰富思想 <br></td>
-</tr>
-<tr>
-<td style="text-align:center">活用</td>
-<td style="text-align:center"><strong>【书在书架上】</strong><br> 难以进行参考 <br> 书被遗忘在角落 <br> 浪费了时间、空间、金钱 <br></td>
-<td style="text-align:center"><strong>【回顾读书笔记】</strong><br> 便于参考 <br> 可以脱离原书 <br> 通过读书笔记吸取知识便于实践和提升 <br></td>
-</tr>
-</tbody>
-</table>
-<h2 id="康奈尔笔记法"><a href="#康奈尔笔记法" class="headerlink" title="康奈尔笔记法"></a>康奈尔笔记法</h2><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941075788.png" alt=""></p>
-<a id="more"></a>
-<h3 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h3><ol>
-<li><p>准备出一个专门的笔记本。</p>
-</li>
-<li><p>画一条水平线，连接纸的左右两端的边线。这条线会把页面的上下两部分比例划分为3:1，距离页面底端留出2英寸的空隙。这块是预留出来做总结的区域。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941120244.png" alt="2"></p>
-</li>
-<li><p>在左侧画一条垂直的线。这一竖线应该在距离左侧边线约2.5英寸的地方。这一块是用来复习的区域。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941185022.png" alt="3"></p>
-</li>
-</ol>
-<ol start="4">
-<li>如你所见，在页面右边空出了很大的一部分空白。这一块是用来做听课笔记或者读书笔记的区域，让你可以有充足的空间来记录一些要点。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941195778.png" alt="4"></li>
-</ol>
-<ol start="5">
-<li>当然，如果你不想过于麻烦，那么，你可以使用在网上下载的模板。你可以把“康奈尔风格”的模板打印出来进行使用。译者注：下载模板可以谷歌搜索“Cornell template”。</li>
-</ol>
-<h3 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h3><ol>
-<li><p>在页面顶端写上你的课程名称，日期，授课的题目或者所读书目的标题。坚持这样做，这样会让你的笔记更加系统，而且当你复习的时候也更加容易找到你想要复习的那部分内容。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941202720.png" alt="1"></p>
-</li>
-<li><p>在每页最大的一块区域做笔记。当你在听课或者阅读的时候，只能把笔记记在右手边的区域。笔记应该包括：老师在黑板上的所有板书内容或者是幻灯片中的内容。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941233695.png" alt="2"></p>
-</li>
-<li><p>利用笔记做主动学习，包括主动的听讲和阅读。当你要把遇到的每个要点都记下来。留意重要信息的发出讯号。如果你的老师这样子说：“XXX的三个最重要的含义是……”或者“XXX现象发生，是由两个基本的原因造成的，”那么，这样的信息就应该被记到你的笔记当中。如果你在聆听一个讲座，那么，被反复强调的东西就有可能是重要的。这些小窍门在你阅读文本的时候也同样受用。课本一般会把重要的内容用粗体字标记出来，而且书中的图表信息也值得我们再三斟酌。</p>
-</li>
-<li><p>保持简洁。想着这一点：你的笔记最后要可以成为授课内容或者所读书本的一个大纲。专注于获取关键词或者关键语句，这样你才能跟得上授课或者演讲人的速度——之后你将有足够的时间查缺补漏。不要试图把每一个字都记在纸上，使用着重号、特殊符号（比如用“&amp;”代替“和”）、缩略词或者你自己“发明”的速记符号。这样你更容易保持注意力去跟上思路，同时也没有遗漏掉信息。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941267133.png" alt="4"></p>
-</li>
-<li><p>记录中心思想，抛开解释性的例子。把主旨或者主要思想记下来，而不要试着去记录那些例证，例证只是为了证明中心思想而存在的。对中心思想的转述不仅可以节约时间和空间，也会迫使你用自己的语言表述那些给出的观点，这将会让你更容易记住他们。</p>
-</li>
-</ol>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941395662.png" alt="5"></p>
-<ol start="6">
-<li><p>当你开始下一个题目的学习，那么，和你之前的笔记隔开几行，或者画一条分割线，或者直接翻开下一页吧！这将让你在脑海里把材料系统化。当你需要查看的时候，这也可以帮你更快的聚焦到到不同的部分。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941429451.png" alt="6"></p>
-</li>
-<li><p>记下你遇到的任何一个疑问，不论是什么时候。如果有什么地方是不懂的或者不清楚的，那么就把它快速的记下来吧。这些疑问会有助于你消化这些当前的知识。</p>
-</li>
-</ol>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941453474.png" alt="7"></p>
-<ol start="8">
-<li>时刻纠正你的笔记。如果你的笔记中有任何难以读懂的或者是没有意义的东西，那么就趁着这些知识还在你脑海中的时候改正它吧。</li>
-</ol>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941471513.png" alt="8"></p>
-<h3 id="第三部分-复习和拓展"><a href="#第三部分-复习和拓展" class="headerlink" title="第三部分 复习和拓展"></a>第三部分 复习和拓展</h3><ol>
-<li>总结关键词。当你听完一场演讲或者看完一本书的时候，尽快的从笔记本右手边的部分提炼出关键思想和关键事实。把浓缩后的要点记录在左手边的那一栏。关注那些关键的字词和那些最为重要的概念。用一天时间来重温一遍课程材料（也包括演讲或者阅读材料），这将会加强记忆效果。如果你是个视觉型学习者的话，你可以把页面右侧一栏中的主要观点划线标记，或者是用荧光笔圈出。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941487752.png" alt="1"></li>
-</ol>
-<ol start="2">
-<li><p>在左栏中写出联想到的相关问题。思考右栏中的笔记内容，猜测可能出现在考试中的问题，然后写在左栏中。接下来，这些就会成为我们学习的工具。</p>
-</li>
-<li><p>把总结写在页面底部的那一栏。这将会使你的思路更加明晰。一般来说，我们的总结写上短短几句话就足够了，如果必要的话，可以再附上公式、方程、图表。你可以用自己的语言来总结内容的要旨，这是个检查你的理解程度的好方法。如果你可以用自己的语言来总结要旨，那么就说明你对课程材料有了一定程度上的掌握。然后，你或许可以问问自己：“如果我要向别人解释这些观点，我该怎么说？”但是，如果你在总结某段课程材料的时候遇到了麻烦，不妨看看自己的笔记中是否有什么问题还未弄明白，或者可以直接请教老师。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941555278.png" alt="3"></p>
-</li>
-</ol>
-<h3 id="第四部分-把你的笔记学起来"><a href="#第四部分-把你的笔记学起来" class="headerlink" title="第四部分 把你的笔记学起来"></a>第四部分 把你的笔记学起来</h3><ol>
-<li><p>阅读你的笔记。专心看你左栏和低栏中的笔记。这些地方记录了你在测验或者考试中最需要的那些要点。如果你喜欢的话，在复习的时候把最重要的部分可以划线标记。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941563187.png" alt="1"></p>
-</li>
-<li><p>用笔记来测验你对知识的掌握程度。用你的手掌或者一张纸盖住你右手边那一部分，试着回答你曾经在左栏中写下的那些问题。然后拿开手掌或者纸片进行核对。你也可以请你的朋友来提问你。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941570090.png" alt="2"></p>
-</li>
-<li><p>尽可能频繁的复习笔记。在较长时间内，保持时时复习的好习惯，而不是在考试前才临时抱佛脚，这将极大地提高你的记忆，并且深化你的理解。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/201612-1494941574652.png" alt="3"></p>
-</li>
-</ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过有效的使用康奈尔笔记法，你将会让面对的阻力最小化，保持学习效果的最大化！</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li><p><a href="https://github.com/lijianfeigeek/lijianfeigeek.github.io/wiki/%E5%BA%B7%E5%A5%88%E5%B0%94%E7%AC%94%E8%AE%B0%E6%B3%95" target="_blank" rel="noopener">康奈尔笔记法</a></p>
-</li>
-<li><p><a href="http://lsc.cornell.edu/study-skills/cornell-note-taking-system/" target="_blank" rel="noopener">CornellEdu</a></p>
-</li>
-<li><p><a href="http://www.ifanr.com/app/660421" target="_blank" rel="noopener">高效记笔记：Evernote 里活用康奈尔笔记</a></p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2017/05/16/读书笔记/" data-id="cjrno7hwx001ka7cc9axb2bxi" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/06/03/Xcode Debugging/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Xcode Debugging
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/05/16/设计模式/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">设计模式</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug

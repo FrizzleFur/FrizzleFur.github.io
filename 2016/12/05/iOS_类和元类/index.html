@@ -1,325 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>关于Objc中的类和元类——《Effective Objective-C 2.0 编写高质量iOS与OS X代码的52个有效方法》读后感 | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我觉得EffectiveOC（暂且简称为EffectiveOC）这本书主要针对iOS开发中的一些常见问题和需要注意的地方供一些建议，但是每个点讲的比较深入，不仅告诉你这样做，并且从底层上讲解why，从讲解的why上我对OC有了更多的理解，这里做一点分享，也算做懒人的一种笔记吧.最近又翻开关于类和元类这个有点鸡生蛋的问题（~~），到底这个元类和类是什么关系呢？我找到那张有名的 class diag">
-<meta name="keywords" content="iOS101">
-<meta property="og:type" content="article">
-<meta property="og:title" content="关于Objc中的类和元类——《Effective Objective-C 2.0 编写高质量iOS与OS X代码的52个有效方法》读后感">
-<meta property="og:url" content="http://frizzlefur.com/2016/12/05/iOS_类和元类/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="我觉得EffectiveOC（暂且简称为EffectiveOC）这本书主要针对iOS开发中的一些常见问题和需要注意的地方供一些建议，但是每个点讲的比较深入，不仅告诉你这样做，并且从底层上讲解why，从讲解的why上我对OC有了更多的理解，这里做一点分享，也算做懒人的一种笔记吧.最近又翻开关于类和元类这个有点鸡生蛋的问题（~~），到底这个元类和类是什么关系呢？我找到那张有名的 class diag">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112506999252.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112512635482.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112511322781.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112511121054.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112508168734.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112508358881.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112508819933.png">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-e6115d1e3d6d0e86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112504019864.jpg">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.441Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于Objc中的类和元类——《Effective Objective-C 2.0 编写高质量iOS与OS X代码的52个有效方法》读后感">
-<meta name="twitter:description" content="我觉得EffectiveOC（暂且简称为EffectiveOC）这本书主要针对iOS开发中的一些常见问题和需要注意的地方供一些建议，但是每个点讲的比较深入，不仅告诉你这样做，并且从底层上讲解why，从讲解的why上我对OC有了更多的理解，这里做一点分享，也算做懒人的一种笔记吧.最近又翻开关于类和元类这个有点鸡生蛋的问题（~~），到底这个元类和类是什么关系呢？我找到那张有名的 class diag">
-<meta name="twitter:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112506999252.png">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-iOS_类和元类" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/05/iOS_类和元类/" class="article-date">
-  <time datetime="2016-12-05T06:08:06.000Z" itemprop="datePublished">2016-12-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      关于Objc中的类和元类——《Effective Objective-C 2.0 编写高质量iOS与OS X代码的52个有效方法》读后感
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>我觉得EffectiveOC（暂且简称为EffectiveOC）这本书主要针对iOS开发中的一些常见问题和需要注意的地方供一些建议，但是每个点讲的比较深入，不仅告诉你这样做，并且从底层上讲解why，从讲解的why上我对OC有了更多的理解，这里做一点分享，也算做懒人的一种笔记吧.<br>最近又翻开关于类和元类这个有点鸡生蛋的问题（~~），到底这个元类和类是什么关系呢？我找到那张有名的 <code>class diagram</code> 图的原文，查看了一下。</p>
-</blockquote>
-<h3 id="一、-EffectiveOC目录"><a href="#一、-EffectiveOC目录" class="headerlink" title="一、 EffectiveOC目录"></a>一、 EffectiveOC目录</h3><p>优化Objective-C对象之间的互动与关系.<br>掌握接口与API的设计原则，写出令开发者用起来得心应手的类.<br>善用协议与分类，编写便于维护且不易出现bug的代码.<br>在自动引用计数(ARC)环境下避免内存泄漏.<br>用”块”与”大中枢派发”编写呈模块化且功能强大的代码.<br>理解Objective-C中的协议与其他编程语言中的多重继承有何区别，并掌握协议的用法.<br>通过数组、字典、集合等组合对象来提高代码性能.<br>揭示Cocoa与Cocoa Touch框架的强大之处.</p>
-<h3 id="二、-进一步熟悉内存机制"><a href="#二、-进一步熟悉内存机制" class="headerlink" title="二、 进一步熟悉内存机制"></a>二、 进一步熟悉内存机制</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *str = [[NSString alloc] initWithString:@&quot;This is a string&quot;];</span><br></pre></td></tr></table></figure>
-<p>常说的实例对象其实是指向对象内存地址的指针。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112506999252.png" alt="实例对象.png"><br><a id="more"></a></p>
-<h3 id="三、-命名规范"><a href="#三、-命名规范" class="headerlink" title="三、 命名规范"></a>三、 命名规范</h3><p>OC的方法名可能很长，但是是为了避免歧义，在命名方面，先要保证表达清楚，没有歧义，然后再考虑长度优化。</p>
-<h3 id="四、-进一步理解消息转发机制"><a href="#四、-进一步理解消息转发机制" class="headerlink" title="四、 进一步理解消息转发机制"></a>四、 进一步理解消息转发机制</h3><p>OC是一门极其动态语言，在编译器定义好的方法在运行期系统会查找、调用某方法的实现代码，才能真正确定所调用的方法，如果类无法立即响应某个Selector，就会启动消息转发流程。</p>
-<ol>
-<li>objc_msgSend传递消息<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112512635482.png" alt="objc_msgSend"></li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id returnValue = [someObject messageName: parameter];</span><br></pre></td></tr></table></figure>
-<p>消息传递调用的核心函数叫做objc_msgSend，编译器会把刚才的方法转换成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id returnValue = objc_msgSend(someObject, @selecor(messageName:), parameter);</span><br></pre></td></tr></table></figure></p>
-<p>在<code>objc_msgSend()</code>方法中，主要通过以下步骤来查找和调用函数：<br>根据对象obj找到对象类中存储的函数列表methodLists。<br>再根据SEL@selector(doSth)在<code>methodLists</code>中查找对应的函数指针<code>method_imp</code>。<br>根据函数指针<code>method_imp</code>调用响应的函数。</p>
-<p><code>old_method_list</code>结构体:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct old_method_list &#123;</span><br><span class="line">    void *obsolete;        //废弃的属性</span><br><span class="line">    int method_count;    //方法的个数</span><br><span class="line">    /* variable length structure */</span><br><span class="line">    struct old_method method_list[1];    //方法的首地址</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p><code>old_method</code>结构体:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct old_method &#123;</span><br><span class="line">    SEL method_name;    //函数的SEL</span><br><span class="line">    char *method_types;        //函数的类型</span><br><span class="line">    IMP method_imp;        //函数指针</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>obj-&gt;isa(Class类型) obj对象通过isa属性拿到对应的Class<br>Class-&gt;methodLists(old_method_list类型) Class通过methodLists属性拿到存放所有方法的列表<br>old_method_list-&gt;old_method 在old_method_list中通过SEL查找到对应的old_method<br>old_method-&gt;method_imp(IMP类型) old_method通过method_imp属性拿到函数指针<br>method_imp-&gt;调用函数 通过函数指针调用函数<br><code>objc_msgSend</code>函数会根据接受者和Selector的类型来调用适当的方法，如果找到与Selector名称相符的方法名，就跳转到该方法的实现代码，如果没有就沿着继承体系继续向上查找，如果还是找不到，就执行消息转发。</p>
-<ol start="2">
-<li><p>消息转发<br>2.1 “动态方法解析”(<code>dynamic method resolution</code>) 查看所属的类是否能动态添加方法，已处理当前的未知选择子（unknown selector）.<br>2.2 “完整的消息转发机制”（<code>full forwatding mechanism</code>）请接受者看看有没有其他对象能处理这个消息，如果可以就把消息转发给那个对象，如果没有”备援接受者”（<code>replacement receiver</code>）则启动完整的消息转发机制，运行期系统会把消息有关的全部细节封装到<code>NSInvocation</code>对象中，给receiver最后一次机会，设法解决这条未处理的消息.<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112511322781.png" alt="消息转发"><br><code>Selector</code>是方法选择器，里面存放的是方法的名字。对应方法的映射列表。<br><code>objc_msgSend</code>函数会一句及守着与Selector的类型来调用适当的方法，他会在方法接受者所属类中搜寻方法列表，如果找到了与Selector名称相符的方法。</p>
-</li>
-<li><p>Method Swizzing<br>使用<code>method_exchangeImplemetations</code>(<code>originalMethod, swappedMethod</code>);实现运行时的<code>Selector</code>交换<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112511121054.png" alt="methodSwizzing"></p>
-</li>
-</ol>
-<h3 id="五、-类和元类"><a href="#五、-类和元类" class="headerlink" title="五、 类和元类"></a>五、 类和元类</h3><h4 id="1-理解类"><a href="#1-理解类" class="headerlink" title="1. 理解类"></a>1. 理解类</h4><p>比起类，可能对象的概念更熟悉一点，这是对象的定义：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112508168734.png" alt="对象的结构体"></p>
-<p>你会发现有一个定义成<code>Class</code>类型的<code>isa</code>，这是实例对象用以表明其所属类型的，指向<code>Class</code>对象的指针。通过<code>Class</code>搭建了类的继承体系(<code>class hirerarchy</code>)。</p>
-<p>其实类也是对象，打开定义的头文件，发现是用一个结构体来存储类的信息。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112508358881.png" alt="类的结构体"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">typedef struct objc_class *Class;</span><br><span class="line">struct objc_class &#123;</span><br><span class="line">    Class isa; // 指向metaclass </span><br><span class="line">    Class superclass;  // 指向父类Class</span><br><span class="line">    const char *name;  // 类名</span><br><span class="line">    uint32_t version;  // 类的版本信息</span><br><span class="line">    uint32_t info;        // 一些标识信息，标明是普通的Class还是metaclass</span><br><span class="line">    uint32_t instance_size;        // 该类的实例变量大小(包括从父类继承下来的实例变量);</span><br><span class="line">    struct old_ivar_list *ivars;    //类中成员变量的信息</span><br><span class="line">    struct old_method_list **methodLists;    类中方法列表</span><br><span class="line">    Cache cache;    查找方法的缓存，用于提升效率</span><br><span class="line">    struct old_protocol_list *protocols;  // 存储该类遵守的协议 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>类的结构体存放着该类的信息：类的方法列表，实例变量，协议，父类等信息。<br>每个类的<code>isa</code>指针指向该类的所属类型元类(<code>metaClass</code>),用来表述类对象的数据。每个类仅有一个类对象，而每个类对象仅有一个与之相关的”元类”。<br>比如一个继承<code>NSObjct</code>名叫SomeClass的类，其继承体系如下:<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112508819933.png" alt="类的继承体系"><br>在<code>Objective-C</code>中任何的类定义都是对象。即在程序启动的时候任何类定义都对应于一块内存。在编译的时候，编译器会给每一个类生成一个且只生成一个”描述其定义的对象”,也就是水果公司说的类对象(<code>class object</code>),它是一个单例(<code>singleton</code>).<br>因此,程序里的所有实例对象(<code>instance object</code>)都是在运行时由<code>Objective-C</code>的运行时库生成的，而这个类对象(<code>class object</code>)就是运行时库用来创建实例对象(<code>instance object</code>)的依据。</p>
-<p><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/DefiningClasses/DefiningClasses.html" target="_blank" rel="noopener">Programming with Objective-C</a>的说法就是：<code>Classes Are Blueprints for Objects</code>,  类是对象的抽象设计图。</p>
-<h4 id="2-查询类型信息"><a href="#2-查询类型信息" class="headerlink" title="2. 查询类型信息"></a>2. 查询类型信息</h4><p>有时候会需要查询一个”objct”对象的所属的类，有人会这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id objct = /* ... */</span><br><span class="line">if ([objct class] == [SomeClass class]) &#123;</span><br><span class="line">	//objct is an instance of SomeClass.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其实<code>Objective-C</code>中提供了专门用于查询类型信息的方法，由于<code>runtime</code>在运行时的动态性，对于对象所属类的查询，建议使用<code>isKindOfClass</code>和<code>isMemberOfClass</code>,因为某些对象可能实现了消息转发功能，从而判断可能不准确.</p>
-<h4 id="3-理解元类（meta-class）"><a href="#3-理解元类（meta-class）" class="headerlink" title="3. 理解元类（meta class）"></a>3. 理解元类（<code>meta class</code>）</h4><p>为了调用类里的方法，类的isa指针必须指向包含这些类方法的类结构体。<br>这就引出了元类的定义：元类是类对象的类。<br>简单说就是：<br>当你给对象发送消息时，消息是在寻找这个对象的类的方法列表。<br>当你给类发消息时，消息是在寻找这个类的元类的方法列表。<br>元类是必不可少的，因为它存储了类的类方法。每个类都必须有独一无二的元类，因为每个类都有独一无二的类方法。</p>
-<h4 id="4-”元类的类”"><a href="#4-”元类的类”" class="headerlink" title="4.”元类的类”"></a>4.”元类的类”</h4><p>元类，就像之前的类一样，它也是一个对象。你也可以调用它的方法。自然的，这就意味着他必须也有一个类。<br>所有的元类都使用根元类（继承体系中处于顶端的类的元类）作为他们的类。这就意味着所有<code>NSObject</code>的子类（大多数类）的元类都会以<code>NSObject</code>的元类作为他们的类<br>根据这个规则，所有的元类使用根元类作为他们的类，根元类的元类则就是它自己。也就是说基类的元类的<code>isa</code>指针指向他自己。<br>关于这两点，原文是这样描述的：</p>
-<p><strong>A metaclass is an instance of the root class’s metaclass; the root   metaclass is itself an instance of the root metaclass.</strong></p>
-<p>所谓的元类就是根类的元类的一个实例。</p>
-<p>第二点： <strong>And the root metaclass’s superclass is the root class</strong>，就说名 <code>根元类</code> (Root Class meta)的父类是 <code>根类</code> (Root Class class).可以看到图中的 <code>根元类</code> (Root Class meta)的superclass是指向 <code>根类</code> (Root Class class)的。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/225323-e6115d1e3d6d0e86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类的图解.png"></p>
-<h4 id="5-类和元类的继承"><a href="#5-类和元类的继承" class="headerlink" title="5.类和元类的继承"></a>5.类和元类的继承</h4><p>类用<code>super_class</code>指针指向了超类，同样的，元类用<code>super_class</code>指向类的<code>super_class</code>的元类。<br>说的更拗口一点就是，根元类把它自己的基类设置成了<code>super_class</code>。<br>在这样的继承体系下，所有实例、类以及元类（<code>meta class</code>）都继承自一个基类。<br>这意味着对于继承于<code>NSObject</code>的所有实例、类和元类，他们可以使用<code>NSObject</code>的所有实例方法，类和元类可以使用<code>NSObject</code>的所有类方法<br>这些文字看起来莫名其妙难以理解，可以用一份图谱来展示这些关系：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15112504019864.jpg" alt="类和元类"></p>
-<p>如上图，对象是由按照类所定义的各个属性和方法“制造”的，类作为对象的模板，也可看成是对象。正如工厂里面的模子也是要专门制作模子的机器生产，<code>元类</code> (<code>meta class</code>)就是设计、管理 <code>类</code> (class)的角色。所以图上直观的表现出类和元类平行的父类链，表明实例方法和类方法都是并行继承的，每个对象都响应了根类的方法。</p>
-<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>需要弄清的有两点：</p>
-<pre><code>1. 所谓的元类就是根类的元类的一个实例，而根元类的实例就是它自己。
-2. 根元类的父类是根类。
-</code></pre><h3 id="类方法和实例方法"><a href="#类方法和实例方法" class="headerlink" title="类方法和实例方法"></a>类方法和实例方法</h3><h4 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h4><p>以<code>+</code>开头的方法是类方法。Objc中的类方法类似Java中的static静态方法，它是属于类本身的方法，不属于类的某一个实例对象，所以不需要实例化类，用类名即可使用，是将消息发送给类：</p>
-<p>类方法可以独立于对象而执行，所以在其他的语言里面类方法有的时候被称为静态方法。</p>
-<ol>
-<li>类方法可以调用类方法。</li>
-<li>类方法不可以调用实例方法，但是类方法可以通过创建对象来访问实例方法。</li>
-<li>类方法不可以使用任何实例变量。但是类方法可以使用<code>self</code>，因为<code>self</code>不是实例变量。</li>
-<li>类方法作为消息，可以被发送到类或者对象里面去（实际上，就是可以通过类或者对象调用类方法的意思）。</li>
-</ol>
-<h4 id="self到底是什么"><a href="#self到底是什么" class="headerlink" title="self到底是什么"></a><code>self</code>到底是什么</h4><p><code>self</code>的规则大家需要记住下面的规则：</p>
-<ol>
-<li>实例方法里面的<code>self</code>，是对象的首地址。</li>
-<li>类方法里面的<code>self</code>，是<code>Class</code>.</li>
-</ol>
-<p>尽管在同一个类里面的使用<code>self</code>，但是<code>self</code>却有着不同的解读。在类方法里面的<code>self</code>，可以翻译成<code>class self</code>；在实例方法里面的<code>self</code>，应该被翻译成为<code>object self</code>。在类方法里面的<code>self</code>和实例方法里面的<code>self</code>有着本质上的不同，尽管他们的名字都叫<code>self</code>。</p>
-<h4 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h4><p>以<code>-</code>开头的方法是实例方法。它属于类的某一个或某几个实例对象，即类对象必须实例化后才可以使用的方法，将消息发送给实例对象：</p>
-<h4 id="类方法和实例方法认知的误区"><a href="#类方法和实例方法认知的误区" class="headerlink" title="类方法和实例方法认知的误区"></a>类方法和实例方法认知的误区</h4><ol>
-<li><p>类方法常驻内存，所以比实例方法效率高，类方法效率高但占内存<br>答：事实上，方法都是一样的，在加载时机和占用内存上，静态方法和实例方法是一样的，在类型第一次被使用时加载。调用的速度基本上没有差别。</p>
-</li>
-<li><p>类方法分配在堆上，实例方法分配在栈上。<br>答：事实上，所有的方法都不可能分配在堆栈区，方法作为二进制代码是存储在内存的程序代码区，这个内存区域是不可写的。</p>
-</li>
-</ol>
-<h4 id="其他注意"><a href="#其他注意" class="headerlink" title="其他注意"></a>其他注意</h4><ul>
-<li>实例方法需要先创建实例才可以调用，比较麻烦，静态方法不用，比较简单。</li>
-<li><strong>静态方法是静态绑定到子类，不是被继承。</strong></li>
-<li>一般使用频繁的方法用静态方法，用的少的方法用动态的。静态的速度快，占内存。动态的速度相对慢些，但调用完后，立即释放，可以节省内存，可以根据自己的需要选择是用动态方法还是静态方法。</li>
-<li>静态方法修改的是类的状态，而对象修改的是各个对象的状态。</li>
-<li><strong>类的实例调用是在类的生命周期中存在，当类没有了以后，对应的实例也就没有了，对应的方法也就没有了</strong>。静态类不然，只要你引用了那个静态类的命名空间，它就会一直存在，直到我们退出系统。</li>
-</ul>
-<h2 id="isa指针"><a href="#isa指针" class="headerlink" title="isa指针"></a>isa指针</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>任何直接或间接继承了<code>NSObject</code>的类，它的实例对象 (<code>instacne object</code>)中都有一个<code>isa</code>指针，指向它的类对象(<code>class object</code>)。这个类对象(<code>class object</code>)中存储了关于这个实例对象(<code>instace object</code>)所属的类的定义的一切：包括变量，方法，遵守的协议等等。</li>
-<li><code>NSObject</code>的<code>isa</code>指针指向所述的类，而类对象(<code>class object</code>)的<code>isa</code>指针指向元类对象(<code>metaClass object</code>),类对象包含了类的实例变量、实例方法的定义，是用来描述该类的对象的信息;元类对象中包含了类的类方法的定义，是用来描述类的信息（类名，版本，类方法）.</li>
-<li>元类(<code>meta class</code>)是<code>Class</code>对象的类。每个类（<code>Class</code>）都有自己独一无二的元类（每个类都有自己第一无二的方法列表）。这意味着所有的类对象都不同。所有的元类使用基类的元类作为自己的基类，对于顶层基类的元类也是一样，只是它指向自己而已。</li>
-<li>理解类与元类的关系有利理解OC面向对象的思想，了解类的继承关系。对类这个概念更加熟悉。</li>
-</ol>
-<h3 id="参考阅读"><a href="#参考阅读" class="headerlink" title="参考阅读"></a>参考阅读</h3><ol>
-<li><a href="http://www.jianshu.com/p/25a319aee33d" target="_blank" rel="noopener">Objective-C特性：Runtime</a></li>
-<li><a href="https://book.douban.com/subject/25829244/" target="_blank" rel="noopener">Effective Objective C 2.0</a></li>
-<li><a href="http://tech.glowing.com/cn/objective-c-runtime/" target="_blank" rel="noopener">Objective-C Runtime</a></li>
-<li><a href="http://ios.jobbole.com/81657/" target="_blank" rel="noopener">Objective-C 中的元类（meta class）是什么？</a></li>
-<li><a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" target="_blank" rel="noopener">Classes and metaclasses</a> 这篇文章主要为我们阐述在OC面向对象思想中，对象，类和元类的关系，类作为对象的角度去看OC是如何管理对象、类、元类之间的关系的。</li>
-<li><a href="http://www.devtalking.com/articles/method-category-protocol/" target="_blank" rel="noopener">Objective-C中的实例方法、类方法、Category、Protocol | 程序员说</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2016/12/05/iOS_类和元类/" data-id="cjrno7hwu001da7ccao4nhrer" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS101/">iOS101</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/03/05/搭建博客-给Hexo换皮肤/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          搭建博客-给Hexo换皮肤
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/11/19/准备读的健身书籍/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">准备读的健身书籍</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug

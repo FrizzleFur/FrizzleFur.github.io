@@ -1,492 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>Xcode帮助文档 | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2017-03-31 iOS_Docs 变更记录    序号 录入时间 备注      1 2017-03-31 新建文章   2 2018-02-28 更新引言    TODO   更新Xib和AutoLayout  引言 对于iOS开发中，Xcode是我们天天打交道使用的官方开发工具，经过许多个版本的迭代，Xcode已经越来越好用，功能越来越强大，开发者虽然经常使用，但是不一定清楚Xcode的">
-<meta name="keywords" content="Docs">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Xcode帮助文档">
-<meta property="og:url" content="http://frizzlefur.com/2017/03/31/Xcode帮助文档/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="2017-03-31 iOS_Docs 变更记录    序号 录入时间 备注      1 2017-03-31 新建文章   2 2018-02-28 更新引言    TODO   更新Xib和AutoLayout  引言 对于iOS开发中，Xcode是我们天天打交道使用的官方开发工具，经过许多个版本的迭代，Xcode已经越来越好用，功能越来越强大，开发者虽然经常使用，但是不一定清楚Xcode的">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002865349.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002923914.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002948136.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002990217.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003039443.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003047819.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003059927.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003181148.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003220717.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003273314.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003285234.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003323963.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003403091.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003453721.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003482674.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003517569.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003542717.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005829012.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005907321.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005946772.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005956976.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006003859.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006029965.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006055779.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006076628.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006101430.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006114728.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006137479.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006232930.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006275884.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006356046.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006399329.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006416612.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006424375.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006441240.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006457430.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006660675.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006669462.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049094311734.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049093396370.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049106143779.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049113815227.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006494270.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006605823.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006590382.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-17-15056007191311.jpg">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.439Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode帮助文档">
-<meta name="twitter:description" content="2017-03-31 iOS_Docs 变更记录    序号 录入时间 备注      1 2017-03-31 新建文章   2 2018-02-28 更新引言    TODO   更新Xib和AutoLayout  引言 对于iOS开发中，Xcode是我们天天打交道使用的官方开发工具，经过许多个版本的迭代，Xcode已经越来越好用，功能越来越强大，开发者虽然经常使用，但是不一定清楚Xcode的">
-<meta name="twitter:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002865349.png">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Xcode帮助文档" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/31/Xcode帮助文档/" class="article-date">
-  <time datetime="2017-03-31T06:18:01.000Z" itemprop="datePublished">2017-03-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Xcode帮助文档
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><code>2017-03-31</code> <code>iOS_Docs</code></p>
-<p><strong>变更记录</strong></p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>录入时间</th>
-<th>备注 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>2017-03-31</td>
-<td>新建文章</td>
-</tr>
-<tr>
-<td>2</td>
-<td>2018-02-28</td>
-<td>更新引言</td>
-</tr>
-</tbody>
-</table>
-<p><strong>TODO</strong></p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> 更新Xib和AutoLayout</li>
-</ul>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
-<p>对于iOS开发中，<code>Xcode</code>是我们天天打交道使用的官方开发工具，经过许多个版本的迭代，<code>Xcode</code>已经越来越好用，功能越来越强大，开发者虽然经常使用，但是不一定清楚<code>Xcode</code>的一切奇赢技巧。本篇将介绍从常用快捷键、debug方法以及常见问题等来全面介绍<code>Xcode</code>。</p>
-</blockquote>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="#Build settings reference">Build settings reference</a><br><a href="#Scheme Menu">Scheme Menu</a><br><a href="#添加文件">添加文件</a><br><a href="#搜索">搜索</a><br><a href="#Signing">Signing</a><br><a href="#Distribution发布App">Distribution发布App</a><br><a href="#Debug">Debug</a><br><a href="#Code Test">Code Test</a><br><a href="#附录">附录</a><br><a href="#参考">参考</a><br><a id="more"></a></p>
-<h2 id="Build-settings-reference"><a href="#Build-settings-reference" class="headerlink" title="Build settings reference"></a><a id="Build settings reference"></a>Build settings reference</h2><p><a href="http://help.apple.com/xcode/mac/8.0/#/itcaec37c2a6" target="_blank" rel="noopener">构建设置参考</a></p>
-<h2 id="Scheme-Menu"><a href="#Scheme-Menu" class="headerlink" title="Scheme Menu"></a><a id="Scheme Menu"></a>Scheme Menu</h2><p>Use the scheme menu to switch the active scheme and destination. You can also use the scheme menu to create, edit, and manage schemes, and to add and download simulators.<br>使用“计划”菜单切换活动方案和目标。您还可以使用“计划”菜单创建、编辑和管理计划，并添加和下载模拟器。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002865349.png" alt=""></p>
-<p><code>Scheme</code>s and <code>destination</code>s are distinct. <code>Scheme</code>s specify the settings for building, running, testing, profiling, analyzing, and archiving your project.<br><code>Destination</code>s specify installation locations for your app.<br>Typically, a <code>scheme</code> exists for each <code>target</code> in your project. <code>Destinations</code> exist for physical devices and simulators.</p>
-<p>计划和目的地是不同的。计划指定设置、运行、测试、分析、分析和归档项目的设置。目的地指定应用程序的安装位置。通常，项目中的每个目标存在一个计划。目的地存在物理设备和模拟器。</p>
-<h2 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a><a id="添加文件"></a>添加文件</h2><ol>
-<li><p>如果要将文件和文件夹驻留在项目文件夹中，请选择此选项。<br>Copy the files and folders into the project:<br>Select “Copy items if needed.”</p>
-</li>
-<li><p>如果希望该组结构与文件结构相同<br>Create groups for each folder: Select “Create groups.”</p>
-</li>
-<li><p>如果要将文件夹及其内容显示在项目导航器中，但实际上不驻留在项目中，请选择此选项。文件夹引用是项目导航器中文件系统中的文件夹的引用。<br>Create references for each folder: Select “Create folder references.”</p>
-</li>
-</ol>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002923914.png" alt="Alt text"></p>
-<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002948136.png" alt="Alt text"></p>
-<h3 id="浏览项目中的类、函数和其他符号"><a href="#浏览项目中的类、函数和其他符号" class="headerlink" title="浏览项目中的类、函数和其他符号"></a>浏览项目中的类、函数和其他符号</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495002990217.png" alt="Alt text"></p>
-<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a><a id="搜索"></a>搜索</h2><h3 id="1-Find-and-replace-content-in-a-project"><a href="#1-Find-and-replace-content-in-a-project" class="headerlink" title="1. Find and replace content in a project"></a>1. Find and replace content in a project</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003039443.png" alt="Alt text"></p>
-<h3 id="2-Find-symbol-references"><a href="#2-Find-symbol-references" class="headerlink" title="2. Find symbol references"></a>2. Find symbol references</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003047819.png" alt="Alt text"></p>
-<h3 id="3-Find-the-call-hierarchy-of-a-method"><a href="#3-Find-the-call-hierarchy-of-a-method" class="headerlink" title="3. Find the call hierarchy of a method"></a>3. Find the call hierarchy of a method</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003059927.png" alt="Alt text"></p>
-<h3 id="4-Scope-a-find-or-replace-operation"><a href="#4-Scope-a-find-or-replace-operation" class="headerlink" title="4. Scope a find or replace operation"></a>4. Scope a find or replace operation</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003181148.png" alt="Alt text"></p>
-<h3 id="Add-code-annotations-to-the-jump-bar"><a href="#Add-code-annotations-to-the-jump-bar" class="headerlink" title="Add code annotations to the jump bar"></a>Add code annotations to the jump bar</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003220717.png" alt="Alt text"></p>
-<ol>
-<li><p>Add a <code>to-do</code> item: Insert a comment with the prefix TODO:. For example: // TODO: [your to-do item].</p>
-</li>
-<li><p>Add a bug fix reminder: Insert a comment with the prefix<code>FIXME</code>:. For example: // FIXME: [your bug fix reminder].</p>
-</li>
-<li><p>Add a heading: Insert a comment with the prefix <code>MARK</code>:. For example: // MARK: [your section heading].</p>
-</li>
-<li><p>Add a separator line: To add a separator above an annotation, add a hyphen (-) before the comment portion of the annotation. For example: // MARK: - [your content]. To add a separator below an annotation, add a hyphen (-) after the comment portion of the annotation. For example: // MARK: [your content] -.</p>
-</li>
-</ol>
-<h3 id="Create-and-use-code-snippets"><a href="#Create-and-use-code-snippets" class="headerlink" title="Create and use code snippets"></a>Create and use code snippets</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003273314.png" alt="Alt text"></p>
-<h3 id="Auto-Layout-Guide"><a href="#Auto-Layout-Guide" class="headerlink" title="Auto Layout Guide"></a>Auto Layout Guide</h3><p><a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/ViewswithIntrinsicContentSize.html#//apple_ref/doc/uid/TP40010853-CH13-SW1" target="_blank" rel="noopener">AutoLayout Guide</a></p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003285234.png" alt="Alt text"></p>
-<h2 id="Signing"><a href="#Signing" class="headerlink" title="Signing"></a><a id="Signing"></a>Signing</h2><h3 id="1-Add-apple-ID"><a href="#1-Add-apple-ID" class="headerlink" title="1.  Add apple ID"></a>1.  Add apple ID</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003323963.png" alt="Alt text"></p>
-<h3 id="2-Assign-a-project-to-a-team"><a href="#2-Assign-a-project-to-a-team" class="headerlink" title="2.  Assign a project to a team"></a>2.  Assign a project to a team</h3><p>In order to sign your app, each target in your Xcode project must be assigned to the same team. If you enroll as an individual, you’re considered a one-person team. If you are not a member of the Apple Developer Program, Xcode will create a personal team for you.</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003403091.png" alt="Alt text"></p>
-<h3 id="3-Launch-an-app-on-a-device"><a href="#3-Launch-an-app-on-a-device" class="headerlink" title="3.  Launch an app on a device"></a>3.  Launch an app on a device</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003453721.png" alt="Alt text"></p>
-<h3 id="4-Manually-sign-your-app"><a href="#4-Manually-sign-your-app" class="headerlink" title="4.  Manually sign your app"></a>4.  Manually sign your app</h3><p>Use manual signing if you want to create your own provisioning profiles and signing identities. For example, you use one build configuration to develop for the store and another build configuration to develop for distribution outside of the store. You’ll need to sign in to your developer account to perform some of the signing steps manually. Your team role determines what tasks you can perform in Xcode and the developer account.</p>
-<h4 id="4-1-Enable-manual-signing"><a href="#4-1-Enable-manual-signing" class="headerlink" title="4.1  Enable manual signing"></a>4.1  Enable manual signing</h4><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003482674.png" alt="Alt text"></p>
-<h4 id="4-2-Download-the-provisioning-profile-from-your-developer-account"><a href="#4-2-Download-the-provisioning-profile-from-your-developer-account" class="headerlink" title="4.2  Download the provisioning profile from your developer account"></a>4.2  Download the provisioning profile from your developer account</h4><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003517569.png" alt="Alt text"></p>
-<h4 id="4-3-Import-the-provisioning-profile"><a href="#4-3-Import-the-provisioning-profile" class="headerlink" title="4.3  Import the provisioning profile"></a>4.3  Import the provisioning profile</h4><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495003542717.png" alt="Alt text"></p>
-<h4 id="4-4-Profile讲解"><a href="#4-4-Profile讲解" class="headerlink" title="4.4 Profile讲解"></a>4.4 Profile讲解</h4><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005829012.png" alt="Alt text"></p>
-<p>商店供应配置文件是分发配置文件，授权您的应用程序使用某些应用程序服务，并确保你是一个上传你的应用程序。存储配置文件包含单个应用程序ID，该应用程序ID匹配一个或多个应用程序和分发证书。你的配置应用程序ID间接通过Xcode使用某些应用程序的服务。通过设置权限和执行其他配置步骤，启用和配置应用程序服务。有的权利是App ID启用（一套你的团队创建的应用程序），和其他人在Xcode项目。当你上传你的应用程序商店，Xcode签署应用程序包与分布在存储配置文件引用的证书。</p>
-<p><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/Art/store_provisioning_2x.png" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/Art/store_provisioning_2x.png</a></p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005907321.png" alt="Alt text"></p>
-<p><strong>查阅设备上的provisioning profiles</strong></p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005946772.png" alt="Alt text"></p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495005956976.png" alt="Alt text"></p>
-<h4 id="4-5-检查Code-Signing"><a href="#4-5-检查Code-Signing" class="headerlink" title="4.5 检查Code Signing"></a>4.5 检查Code Signing</h4><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006003859.png" alt="Alt text"></p>
-<h4 id="4-6-Ad-Hoc讲解"><a href="#4-6-Ad-Hoc讲解" class="headerlink" title="4.6  **Ad Hoc讲解"></a>4.6 <a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/TestingYouriOSApp/TestingYouriOSApp.html" target="_blank" rel="noopener"> **Ad Hoc讲解</a></h4><blockquote>
-<p>An ad hoc provisioning profile is a distribution provisioning profile that allows your app to be installed on designated devices and to use app services without the assistance of Xcode. It’s one of the two types of distribution provisioning profiles that you can create for apps. (You use the other type of distribution provisioning profile later to submit your app to the store.) An ad hoc provisioning profile ensures that test versions of your app aren’t copied and distributed without your knowledge.<br>When you’re ready to distribute your app to testers, you create an ad hoc provisioning profile specifying an App ID that matches one or more of your apps, a set of test devices, and a single distribution certificate.</p>
-</blockquote>
-<p><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/Art/ad_hoc_provisioning_2x.png" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/Art/ad_hoc_provisioning_2x.png</a></p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006029965.png" alt="Alt text"></p>
-<blockquote>
-<p>Each device in an ad hoc provisioning profile is identified by its unique device ID (UDID). The devices you register and add to a provisioning profile are stored in your developer account. Each individual or organization can register up to 100 devices per product family per membership year for development and testing. You can register 100 devices of each type per year. For iOS apps, you can register 100 iPad, 100 iPhone, and 100 iPod Touch devices.</p>
-</blockquote>
-<p><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/Art/AdHocProfileLaunch_2x.png" target="_blank" rel="noopener">https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/Art/AdHocProfileLaunch_2x.png</a></p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006055779.png" alt="Alt text"></p>
-<blockquote>
-<p>You signed the iOS App file using the distribution certificate specified in the ad hoc provisioning profile. The ad hoc provisioning profile was included in the app bundle when you built and archived the app. Then you installed the app on a test device. The app successfully launches if the app’s bundle ID matches the App ID, the signature matches the distribution certificate, and the device is in the device list of the ad hoc provisioning profile.</p>
-</blockquote>
-<h4 id="Bundle-ID讲解"><a href="#Bundle-ID讲解" class="headerlink" title="Bundle ID讲解"></a>Bundle ID讲解</h4><p>Bundle ID精确地标识单个应用程序。在开发过程中，当应用程序分发给客户时，一个束ID被用来提供设备和操作系统。例如，游戏中心和应用程序购买使用Bundle ID，以确定您的应用程序时，使用这些应用程序服务。首选项系统使用此字符串来标识给定偏好应用程序。同样，启动服务使用Bundle ID来定位一个能够打开特定文件的应用程序，它使用给定标识符的第一个应用程序。Bundle ID也用于验证应用程序的签名。</p>
-<p>Bundle ID字符串必须是一个统一的类型标识符（UTI）只包含字母数字字符（a-z、A-Z、0-9），连字符（-），和周期（。）。字符串应该是反向DNS格式。例如，如果您的组织的域名acme.com和你创建一个应用程序命名为您好，您可以指定字符串com.acme.hello作为你的应用程序的包ID。<br>在开发过程中，您使用一个应用程序的BundleID在许多不同的地方，以鉴定你的应用程序。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006076628.png" alt="Alt text"></p>
-<blockquote>
-<p>Specifically, the bundle ID is located and used as follows:<br>In the Xcode project, the bundle ID is stored in the information property list file (Info.plist). This file is later copied into your app’s bundle when you build the project.<br>In iTunes Connect, you enter the bundle ID to identify your app. After your first build is uploaded to iTunes Connect, you can’t change your bundle ID or delete the associated explicit App ID.<br>In your developer account, Xcode creates an App ID that matches the app’s bundle ID. If the App ID is an explicit App ID, it exactly matches the bundle ID. However, unlike domain names, bundle IDs are case sensitive. If the App ID is lowercase, your bundle ID needs to be lowercase, too.<br>In iCloud, the container IDs you specify in your Xcode project are based on the bundle IDs of one or more apps.</p>
-</blockquote>
-<h2 id="Distribution发布App"><a href="#Distribution发布App" class="headerlink" title="Distribution发布App"></a><a id="Distribution发布App"></a>Distribution发布App</h2><h3 id="Validate-an-archive-of-your-app"><a href="#Validate-an-archive-of-your-app" class="headerlink" title="Validate an archive of your app"></a>Validate an archive of your app</h3><blockquote>
-<p>Validate an archive of your app to find out whether it meets minimum store submission requirements.</p>
-</blockquote>
-<p>开发完打包成Archive后，在提交到<code>AppStore</code>之前可以通过Validate archive来验证Archive是否有配置问题。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006101430.png" alt="Alt text"></p>
-<blockquote>
-<p>Review validation issues found, if any, and click Done.<br>If no issues are found, a green checkmark appears.<br>If Xcode doesn’t find an iTunes Connect record for your app, the validation fails. In iTunes Connect, create a record for your app and ensure that the bundle ID matches the bundle ID in your Xcode project.<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006114728.png" alt="Alt text"></p>
-</blockquote>
-<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a><a id="Debug"></a>Debug</h2><ol>
-<li>使用调试区域来控制和检查正在运行的应用程序</li>
-</ol>
-<p>变量视图显示可用在代码您现在的位置范围检查的变量列表。这份名单是披露的层次结构，揭示了一个可变的结构各部分的值作为你逐步扩大披露三角形。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006137479.png" alt="Alt text"></p>
-<p>该控制台包含一个交互式终端类文本区域。您可以使用它来直接与互动LLDB，请参阅使用打印描述的输出，并与您的应用程序的标准输入和输出工作。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006232930.png" alt="Alt text"></p>
-<h3 id="在调试区域中查看变量"><a href="#在调试区域中查看变量" class="headerlink" title="在调试区域中查看变量"></a>在调试区域中查看变量</h3><ul>
-<li><p>在调试区域中，单击暂停按钮或等待您的应用程序在您先前设置的断点处停止。</p>
-</li>
-<li><p>范围中的变量出现在调试区域的变量视图中。</p>
-</li>
-<li><p>要查看变量的结构，请展开变量左侧的公开三角形。</p>
-</li>
-<li><p>从变量视图左下角的弹出菜单中选择一个范围选项。</p>
-</li>
-<li><p>显示最近访问的变量：选择自动。</p>
-</li>
-<li><p>仅显示局部变量：选择本地。</p>
-</li>
-<li><p>显示所有变量，寄存器，全局变量和静态：选择全部。</p>
-</li>
-<li><p>要过滤结果，请在右下角的搜索字段中输入文本。</p>
-</li>
-</ul>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006275884.png" alt="Alt text"></p>
-<h3 id="Specialized-Debugging-Workflows"><a href="#Specialized-Debugging-Workflows" class="headerlink" title="Specialized Debugging Workflows"></a><a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/debugging_with_xcode/chapters/special_debugging_workflows.html" target="_blank" rel="noopener">Specialized Debugging Workflows</a></h3><p>This chapter focuses on often encountered but more specialized debugging scenarios and highlights the Xcode debugging tools used to work with them.</p>
-<h4 id="Enable-Zombie-Objects"><a href="#Enable-Zombie-Objects" class="headerlink" title="Enable Zombie Objects."></a>Enable Zombie Objects.</h4><p>Enable Zombie Objects. Replace deallocated objects with a “zombie” object that traps any attempt to use it. When you send a message to a zombie object, the runtime logs an error and crashes. You can look at the backtrace to see the chain of calls that triggered the zombie detector.<br>开启Zombie模式之后会导致内存上升，因为所以已经被释放（引用计数为0）的对象被僵尸对象取代，并未真的释放掉。这个时候再给僵尸对象发送消息，就会抛出异常，并打印出异常信息，你可以轻松的找到错误代码位置，结束Zombies时会释放。它的主要功能是检测野指针调用。<a href="http://www.jianshu.com/p/de52be679c43" target="_blank" rel="noopener">iOS开发之Xcode常用调试技巧总结
-</a></p>
-<h4 id="Using-the-Address-Sanitizer"><a href="#Using-the-Address-Sanitizer" class="headerlink" title="Using the Address Sanitizer"></a>Using the Address Sanitizer</h4><p>一旦启用了地址清洁程序，Xcode将在下次运行时重新编译您的应用程序，并添加工具来立即捕获内存违规并停止应用程序。你可以在这样发生的地方检查问题。还提供其他诊断信息，例如故障地址与堆上的有效对象之间的关系以及分配/释放信息，这有助于您快速找出并修复问题。</p>
-<p>将应用程序的代码添加到应用程序的代码中会产生性能损失，但是地址清洁程序的效率足以使用交互式应用程序定期使用。有关更多信息和地址清洁剂的演示，请参见此视频演示：<a href="https://developer.apple.com/videos/wwdc/2015/?id=413" target="_blank" rel="noopener">WWDC 2015：高级调试和地址消毒剂。</a></p>
-<h4 id="Using-the-Thread-Sanitizer"><a href="#Using-the-Thread-Sanitizer" class="headerlink" title="Using the Thread Sanitizer"></a>Using the Thread Sanitizer</h4><p>When enabled, the thread sanitizer checks for uninitialized mutexes, thread leaks, unsafe calls in signal handlers, and data races.</p>
-<p>Like the address sanitizer, running an app with the thread sanitizer introduces a small performance penalty, which should be negligible when interacting with most apps. For more information and a demo of thread sanitizer in action, see this video presentation: <a href="https://developer.apple.com/videos/play/wwdc2016/412/" target="_blank" rel="noopener">WWDC 2016: Thread Sanitizer and Static Analysis.</a></p>
-<blockquote>
-<p>参考</p>
-<ol>
-<li><a href="http://www.jianshu.com/p/1b804426d212" target="_blank" rel="noopener">iOS崩溃crash大解析</a></li>
-<li><a href="http://bugly.qq.com/bbs/forum.php?mod=viewthread&amp;tid=31&amp;highlight=%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8DObj-C%E9%87%8E%E6%8C%87%E9%92%88%E9%9A%8F%E6%9C%BACrash" target="_blank" rel="noopener">如何定位Obj-C野指针随机Crash(一)：先提高野指针Crash率</a><br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006356046.png" alt="Alt text"></li>
-</ol>
-</blockquote>
-<p><strong>更多Debug知识点请参考</strong><br><a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/debugging_with_xcode/chapters/debugging_tools.html" target="_blank" rel="noopener">Debugging with Xcode</a><br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006399329.png" alt="Alt text"></p>
-<p><strong>断点</strong></p>
-<p>发生异常时暂停<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006416612.png" alt="Alt text"></p>
-<p>当测试发生故障暂停<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006424375.png" alt="Alt text"></p>
-<h2 id="Code-Test"><a href="#Code-Test" class="headerlink" title="Code Test"></a><a id="Code Test"></a>Code Test</h2><h3 id="View-and-adjust-performance-tests"><a href="#View-and-adjust-performance-tests" class="headerlink" title="View and adjust performance tests"></a>View and adjust performance tests</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006441240.png" alt="Alt text"></p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a><a id="附录"></a>附录</h2><h3 id="调试技巧"><a href="#调试技巧" class="headerlink" title="调试技巧"></a>调试技巧</h3><p>真机调试直接截图到Mac</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006457430.png" alt="Alt text"></p>
-<h2 id="Xcode快捷键"><a href="#Xcode快捷键" class="headerlink" title="Xcode快捷键"></a><code>Xcode快捷键</code></h2><h4 id="1-Open-Quickly"><a href="#1-Open-Quickly" class="headerlink" title="1. Open Quickly"></a>1. Open Quickly</h4><p>都知道 <code>Cmd + Option + O</code> ，但是你知道怎么在辅助编辑器中打开吗？按住<code>Alt + Enter</code>， enjoy~</p>
-<h4 id="2-交换上下行代码：-Cmd-Option-or-Cmd-Option"><a href="#2-交换上下行代码：-Cmd-Option-or-Cmd-Option" class="headerlink" title="2. 交换上下行代码：  Cmd + Option + [ or Cmd + Option + ]"></a>2. 交换上下行代码：  <code>Cmd + Option + [</code> or <code>Cmd + Option + ]</code></h4><h4 id="3-To-jump-to-the-definition-光标所在处Command-Control-J"><a href="#3-To-jump-to-the-definition-光标所在处Command-Control-J" class="headerlink" title="3. To jump to the definition. 光标所在处Command + Control + J"></a>3. To jump to the definition. 光标所在处<code>Command + Control + J</code></h4><p>或者在辅助编辑器中打开</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">⌘⌥⌃+J.</span><br></pre></td></tr></table></figure>
-<h4 id="4-切换多个编辑器焦点："><a href="#4-切换多个编辑器焦点：" class="headerlink" title="4.切换多个编辑器焦点："></a>4.切换多个编辑器焦点：</h4><p> <code>Command + J</code></p>
-<h4 id="5-文件切换"><a href="#5-文件切换" class="headerlink" title="5. 文件切换"></a>5. 文件切换</h4><ul>
-<li>⌃+1 - Related items menu that shows files related to what you are currently working on</li>
-<li>⌃+2 - Previous and next buttons to navigate<br>between your most recent files<br>The rest of the jump bar consists of heierarchial navigation with each level given a separate shortcut.</li>
-<li>⌃+4 - Project level navigation</li>
-<li>⌃+5 - Switch between header and implementation files</li>
-<li>⌃+6 - Navigation within a file</li>
-</ul>
-<h4 id="6-在辅助编辑器中跳转到变量的定义：-Command-Alt-鼠标点击对应变量名"><a href="#6-在辅助编辑器中跳转到变量的定义：-Command-Alt-鼠标点击对应变量名" class="headerlink" title="6. 在辅助编辑器中跳转到变量的定义： Command + Alt + 鼠标点击对应变量名"></a>6. 在辅助编辑器中跳转到变量的定义： <code>Command + Alt</code> + 鼠标点击对应变量名</h4><h4 id="7-在点击文件名时候，按住Alt将让文件在辅助编辑器中打开"><a href="#7-在点击文件名时候，按住Alt将让文件在辅助编辑器中打开" class="headerlink" title="7. 在点击文件名时候，按住Alt将让文件在辅助编辑器中打开"></a>7. 在点击文件名时候，按住<code>Alt</code>将让文件在辅助编辑器中打开</h4><h4 id="8-在光标位置显示Help-⌃-⌘-⇧"><a href="#8-在光标位置显示Help-⌃-⌘-⇧" class="headerlink" title="8. 在光标位置显示Help: ⌃ + ⌘ + ⇧ + /"></a>8. 在光标位置显示Help: <code>⌃ + ⌘ + ⇧ + /</code></h4><h4 id="9-Filter-in-Navigator"><a href="#9-Filter-in-Navigator" class="headerlink" title="9. Filter in Navigator"></a>9. Filter in Navigator</h4><p>本来热键是<code>Cmd + Option + J</code>,发现貌似不起作用，就改成<code>Cmd + Option + O</code></p>
-<h4 id="10-断点全部disable"><a href="#10-断点全部disable" class="headerlink" title="10. 断点全部disable"></a>10. 断点全部disable</h4><p><code>Cmd+ Y</code>，灰色<br>删除添加某个断点 <code>Cmd + \</code></p>
-<h2 id="Xcode8-适配iOS10时遇见的一些坑"><a href="#Xcode8-适配iOS10时遇见的一些坑" class="headerlink" title="[Xcode8 适配iOS10时遇见的一些坑"></a>[Xcode8 适配iOS10时遇见的一些坑</h2><p>](<a href="http://m.blog.csdn.net/article/details?id=52602098" target="_blank" rel="noopener">http://m.blog.csdn.net/article/details?id=52602098</a>)<br>注意：Xcode8内置了开启注释的功能，位置在这里</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006660675.png" alt="Alt text"></p>
-<p>快捷键的设置在这里<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006669462.png" alt="Alt text"></p>
-<h3 id="加速你的Xcode"><a href="#加速你的Xcode" class="headerlink" title="加速你的Xcode!"></a>加速你的Xcode!</h3><p>在<code>Xcode</code>启动的时候,设置<code>Behaviors</code>:<br>默认是:<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049094311734.jpg" alt=""></p>
-<p>可以将调试的Debug放在另一个窗口，隐藏一些不需要的<code>NaviBar</code><br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049093396370.jpg" alt=""></p>
-<p>在断点的时候：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049106143779.jpg" alt=""></p>
-<p>还可以自定义场景，比如写代码的时候：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-09-15049113815227.jpg" alt=""></p>
-<p>还可以跑脚本</p>
-<h3 id="Xcode-8的坑"><a href="#Xcode-8的坑" class="headerlink" title="Xcode 8的坑"></a>Xcode 8的坑</h3><ol start="4">
-<li>代码注释不能用的解决办法<br>这个是因为苹果解决xcode ghost，把插件屏蔽了。<br>解决方法<br>打开终端，命令运行：<br><code>sudo /usr/libexec/xpccachectl</code><br>然后必须重启电脑后生效</li>
-<li>权限以及相关设置<br>注意，添加的时候，末尾不要有空格<br>我们需要打开info.plist文件添加相应权限的说明，否则程序在iOS10上会出现崩溃。<br>具体如下图：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006494270.png" alt="Alt text"></li>
-</ol>
-<ul>
-<li>麦克风权限：Privacy - Microphone Usage Description 是否允许此App使用你的麦克风？</li>
-<li>相机权限： Privacy - Camera Usage Description 是否允许此App使用你的相机？</li>
-<li>相册权限： Privacy - Photo Library Usage Description 是否允许此App访问你的媒体资料库？通讯录权限： Privacy - Contacts Usage Description 是否允许此App访问你的通讯录？</li>
-<li>蓝牙权限：Privacy - Bluetooth Peripheral Usage Description 是否许允此App使用蓝牙？</li>
-<li>语音转文字权限：Privacy - Speech Recognition Usage Description 是否允许此App使用语音识别？</li>
-<li>日历权限：Privacy - Calendars Usage Description 是否允许此App使用日历？</li>
-<li>定位权限：Privacy - Location When In Use Usage Description 我们需要通过您的地理位置信息获取您周边的相关数据</li>
-<li>定位权限: Privacy - Location Always Usage Description 我们需要通过您的地理位置信息获取您周边的相关数据</li>
-<li>定位的需要这么写，防止上架被拒。</li>
-</ul>
-<ol start="6">
-<li>字体变大，原有frame需要适配<br>经有的朋友提醒，发现程序内原来2个字的宽度是24，现在2个字需要27的宽度来显示了。。<br>希望有解决办法的朋友，评论告我一下耶，谢谢啦</li>
-<li>推送<br>如下图的部分，不要忘记打开。所有的推送平台，不管是极光还是什么的，要想收到推送，这个是必须打开的哟<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006605823.png" alt="Alt text"></li>
-</ol>
-<blockquote>
-<p>PS.苹果这次对推送做了很大的变化，希望大家多查阅查阅，处理推送的代理方法也变化了。<br>// 推送的代理<br><code>[&lt;UNUserNotificationCenterDelegate&gt;]</code><br>iOS10收到通知不再是在<br><code>[application: didReceiveRemoteNotification:]</code>方法去处理， iOS10推出新的代理方法，接收和处理各类通知（本地或者远程）</p>
-</blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(<span class="keyword">void</span> (^)(UNNotificationPresentationOptions))completionHandler &#123; <span class="comment">//应用在前台收到通知 NSLog(@"========%@", notification);&#125;- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler &#123; //点击通知进入应用 NSLog(@"response:%@", response);&#125;</span></span><br></pre></td></tr></table></figure>
-<ol start="8">
-<li>屏蔽杂乱无章的bug<br>更新Xcode8之后，新建立工程，都会打印一堆莫名其妙看不懂的Log.<br>如这些<br>subsystem: com.apple.UIKit, category: HIDEventFiltered, enable_level: 0, persist_level: 0, default_ttl: 0, info_ttl: 0, debug_ttl: 0, generate_symptoms: 0, enable_oversize: 1,<br>屏蔽的方法如下:<br>Xcode8里边 Edit Scheme-&gt; Run -&gt; Arguments, 在Environment Variables里边添加<br>OS_ACTIVITY_MODE ＝ Disable</li>
-</ol>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/201612-1495006590382.png" alt="Alt text"></p>
-<ol start="14">
-<li>iOS 10 字体随着手机系统字体而改变<br>当我们手机系统字体改变了之后，那我们App的label也会跟着一起变化，这需要我们写很多代码来进一步处理才能实现，但是iOS 10 提供了这样的属性adjustsFontForContentSizeCategory来设置。因为没有真机，具体实际操作还没去实现，如果理解错误帮忙指正。<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">UIFont</span> 的preferredFontForTextStyle: 意思是指定一个样式，并让字体大小符合用户设定的字体大小。</span><br><span class="line">   */</span><br><span class="line">    myLabel.font =[<span class="built_in">UIFont</span> preferredFontForTextStyle: <span class="built_in">UIFontTextStyleHeadline</span>]; <span class="comment">/*</span></span><br><span class="line"><span class="comment"> Indicates whether the corresponding element should automatically update its font when the device’s UIContentSizeCategory is changed.</span></span><br><span class="line"><span class="comment"> For this property to take effect, the element’s font must be a font vended using +preferredFontForTextStyle: or +preferredFontForTextStyle:compatibleWithTraitCollection: with a valid UIFontTextStyle.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//是否更新字体的变化</span></span><br><span class="line">myLabel.adjustsFontForContentSizeCategory = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="自定义Xcode快捷键"><a href="#自定义Xcode快捷键" class="headerlink" title="自定义Xcode快捷键"></a>自定义<code>Xcode</code>快捷键</h2><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-09-17-15056007191311.jpg" alt=""></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><a id="参考"></a>参考</h2><ol>
-<li><a href="http://help.apple.com/xcode/mac/8.0/#/" target="_blank" rel="noopener">Xcode Help</a> 官方文档</li>
-<li><a href="https://www.raywenderlich.com/72021/supercharging-xcode-efficiency" target="_blank" rel="noopener">Supercharging Your Xcode Efficiency</a></li>
-<li><a href="https://videos.raywenderlich.com/courses/88-xcode-tips-and-tricks/lessons/1" target="_blank" rel="noopener">Xcode Tips and Tricks - Part 1: Introduction | Ray Wenderlich</a></li>
-<li><a href="https://videos.raywenderlich.com/courses/59-rwdevcon-2016-vault/lessons/16" target="_blank" rel="noopener">PART 16: 208: Xcode Tips &amp; Tricks</a></li>
-<li><a href="http://www.pasanpremaratne.com/2014/05/16/becoming-an-xcode-power-user/" target="_blank" rel="noopener">Becoming an Xcode Power User</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2017/03/31/Xcode帮助文档/" data-id="cjrno7hxe0029a7cc4a7ktuvz" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docs/">Docs</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/04/02/Todo/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          ToDo
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/03/05/搭建博客-给Hexo换皮肤/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">搭建博客-给Hexo换皮肤</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug

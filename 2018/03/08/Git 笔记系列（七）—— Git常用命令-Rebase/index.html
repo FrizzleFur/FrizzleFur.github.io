@@ -1,556 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>Git 笔记系列（七）—— Git常用命令-Rebase | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="时间 更新备注     2018-03-08 新建文章   2018-06-09 整理补充    rebase 变基rebase的定义 Integrates the changes from the chosen branchinto your working copy. Your current HEAD branchwill be rebased onto the integrated">
-<meta name="keywords" content="Git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Git 笔记系列（七）—— Git常用命令-Rebase">
-<meta property="og:url" content="http://frizzlefur.com/2018/03/08/Git 笔记系列（七）—— Git常用命令-Rebase/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="时间 更新备注     2018-03-08 新建文章   2018-06-09 整理补充    rebase 变基rebase的定义 Integrates the changes from the chosen branchinto your working copy. Your current HEAD branchwill be rebased onto the integrated">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203114694870.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15192866815450.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178298763331.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203215969566.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203216153820.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203251416822.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285113273242.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285114862099.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285116391342.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285116198530.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178298852746.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178298937726.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178299079398.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178299134967.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300610660.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300701048.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300745333.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300786831.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178301165540.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15387150696176.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203253826791.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203254706437.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203255477506.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385903195845.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178302903450.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178302864675.jpg">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937411">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937418">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937420">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937424">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937422">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937426">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937428">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937430">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937432">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000005937489">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15387162622719.jpg">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15387164945050.jpg">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.432Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git 笔记系列（七）—— Git常用命令-Rebase">
-<meta name="twitter:description" content="时间 更新备注     2018-03-08 新建文章   2018-06-09 整理补充    rebase 变基rebase的定义 Integrates the changes from the chosen branchinto your working copy. Your current HEAD branchwill be rebased onto the integrated">
-<meta name="twitter:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203114694870.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Git 笔记系列（七）—— Git常用命令-Rebase" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/08/Git 笔记系列（七）—— Git常用命令-Rebase/" class="article-date">
-  <time datetime="2018-03-08T02:51:00.000Z" itemprop="datePublished">2018-03-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Git 笔记系列（七）—— Git常用命令-Rebase
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th>时间</th>
-<th>更新备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-03-08</td>
-<td>新建文章</td>
-</tr>
-<tr>
-<td>2018-06-09</td>
-<td>整理补充</td>
-</tr>
-</tbody>
-</table>
-<h2 id="rebase-变基"><a href="#rebase-变基" class="headerlink" title="rebase 变基"></a>rebase 变基</h2><h3 id="rebase的定义"><a href="#rebase的定义" class="headerlink" title="rebase的定义"></a>rebase的定义</h3><blockquote>
-<p>Integrates the changes from the chosen branch<br>into your working copy. Your current HEAD branch<br>will be rebased onto the integrated revisions.</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git-rebase - Reapply commits on top of another base tip</span><br></pre></td></tr></table></figure>
-<p>即将当前分支的提交放在其他分支的最新的提交后。但是这个<code>reapply</code>并非简单地将提交剪切复制到，<strong>Rebase 实际上就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。</strong></p>
-<a id="more"></a>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20Git%E7%AE%80%E4%BB%8B.html">Git 笔记系列（一）—— Git简介</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html">Git 笔记系列（二）—— Git工作流程</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E4%B8%80%E8%A7%88.html">Git 笔记系列（三）—— Git常用命令-一览</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Checkout.html">Git 笔记系列（四）—— Git常用命令-Checkout</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Branch.html">Git 笔记系列（五）—— Git常用命令-Branch</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Reset.html">Git 笔记系列（六）—— Git常用命令-Reset</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Rebase.html"><strong>Git 笔记系列（七）—— Git常用命令-Rebase</strong></a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Stash.html">Git 笔记系列（八）—— Git常用命令-Stash等</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89%E2%80%94%E2%80%94%20Git%E8%BF%9B%E9%98%B6.html">Git 笔记系列（九）—— Git进阶</a></li>
-</ul>
-<h3 id="rebase详解"><a href="#rebase详解" class="headerlink" title="rebase详解"></a>rebase详解</h3><p>在 Git 中整合来自不同分支的修改主要有两种方法：<code>merge</code> 以及 <code>rebase</code>。 在本节中我们将学习什么是“变基”，怎样使用“变基”，并将展示该操作的惊艳之处，以及指出在何种情况下你应避免使用它。</p>
-<p><code>git rebase</code>用于把一个分支的修改合并到当前分支。<br>假设你现在基于远程分支”origin”，创建一个叫”mywork”的分支。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b mywork origin</span><br></pre></td></tr></table></figure>
-<p>但是与此同时，有些人也在”origin”分支上做了一些修改并且做了提交了. 这就意味着”origin”和”mywork”这两个分支各自”前进”了，它们之间”分叉”了。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203114694870.jpg" alt=""></p>
-<p>如果你想让”mywork”分支历史看起来像没有经过任何合并一样，你也许可以用<code>git rebase</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout mywork</span><br><span class="line">$ git rebase origin</span><br></pre></td></tr></table></figure>
-<p>这些命令会把你的”mywork”分支里的每个提交(commit)取消掉，并且把它们临时保存为补丁(patch)(这些补丁放到”.git/rebase”目录中),然后把”mywork”分支更新 为最新的”origin”分支，最后把保存的这些补丁应用到”mywork”分支上。</p>
-<p>你也可以看到以前的提交并没有被销毁。他们根本无法直接访问。如果你还记得，分支只是一个指向提交的指针。因此，如果分支和标签都不指向提交，则这些提交几乎不可能被访问，但这些提交仍然存在。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15192866815450.jpg" alt=""></p>
-<p>当’mywork’分支更新之后，它会指向这些新创建的提交(commit),而那些老的提交会被丢弃。 如果运行垃圾收集命令(pruning garbage collection), 这些被丢弃的提交就会删除. （请查看 git gc)</p>
-<p>以前遇到commit写错总是使用git reset –soft回退到之前的状态，再commit后push -f强推到远程库，能够覆盖掉之前的commit。</p>
-<p>现在想想也是很low的做法，git rebase 可以帮你搞定这个问题。</p>
-<p>好了，随便提交了几个<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178298763331.jpg" alt=""></p>
-<p>在使用git时，我们通常非常频繁地向repo中做commit，但是我们的commit本身往往是零散的不连续的，比如：</p>
-<p>我在不同的topic之间来回切换，这样会导致我的历史中不同topic互相交叉，逻辑上组织混乱；<br>我们可能需要多个连续的commit来解决一个bug；<br>我可能会在commit中写了错别字，后来又做修改；<br>甚至我们在一次提交时纯粹就是因为懒惰的原因，我可能吧很多的变更都放在一个commit中做了提交。<br>上面的各种行为只要是保留在local repo中，这是没有问题的，也是正常的，但是如果为了尊重别人同时也为了自己将来能够返回来我绝对避免将这些杂乱的历史信息push到remote上去。在我push之前，我会使用git rebase -i的命令来清理一下历史。</p>
-<h3 id="rebase的基本操作"><a href="#rebase的基本操作" class="headerlink" title="rebase的基本操作"></a>rebase的基本操作</h3><p>回顾之前在 分支的合并 中的一个例子，会看到开发任务分叉到两个不同分支，又各自提交了更新。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203215969566.png" alt=""></p>
-<p>整合分支最容易的方法是 merge 命令。 它会把两个分支的最新快照（C3 和 C4）以及二者最近的共同祖先（C2）进行三方合并，合并的结果是生成一个新的快照（并提交）。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203216153820.png" alt=""></p>
-<p>其实，还有一种方法：你可以提取在 C4 中引入的补丁和修改，然后在 C3 的基础上应用一次。 在 Git 中，这种操作就叫做 变基。 你可以使用 rebase 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203251416822.png" alt=""></p>
-<p>它的原理是首先找到这两个分支（即当前分支 experiment、变基操作的目标基底分支 master）的最近共同祖先 C2，然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件，然后将当前分支指向目标基底 C3, 最后以此将之前另存为临时文件的修改依序应用。（译注：写明了 commit id，以便理解，下同）</p>
-<p>此时，C4’ 指向的快照就和上面使用 merge 命令的例子中 C5 指向的快照一模一样了。 这两种整合方法的最终结果没有任何区别，但是变基使得提交历史更加整洁。 你在查看一个经过变基的分支的历史记录时会发现，尽管实际的开发工作是并行的，但它们看上去就像是串行的一样，提交历史是一条直线没有分叉。</p>
-<p>一般我们这样做的目的是为了确保在向远程分支推送时能保持提交历史的整洁——例如向某个其他人维护的项目贡献代码时。 在这种情况下，你首先在自己的分支里进行开发，当开发完成时你需要先将你的代码变基到 origin/master 上，然后再向主项目提交修改。 这样的话，该项目的维护者就不再需要进行整合工作，只需要快进合并便可。</p>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>两个分支<code>master</code>和<code>bugfix</code>都提交了一些commit,使用rebase变基。</p>
-<ol>
-<li>切换到<code>bugfix</code>然后将<code>bugfix</code>的提交变基到<code>master</code></li>
-</ol>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout bugfix</span><br><span class="line"><span class="meta">$</span> git rebase master</span><br></pre></td></tr></table></figure>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285113273242.jpg" alt=""><br>现在 bugFix 分支上的工作在 master 的最顶端，同时我们也得到了一个更线性的提交序列。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285114862099.jpg" alt=""></p>
-<p>注意，提交记录 C3 依然存在（树上那个半透明的节点），而 C3’ 是我们 Rebase 到 master 分支上的 C3 的副本。</p>
-<p>现在<code>master</code>还没有更新，下面咱们就来更新它吧</p>
-<ol start="2">
-<li>切换到<code>master</code>上，然后rebase变基<code>bugfix</code>分支</li>
-</ol>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout master</span><br><span class="line"><span class="meta">$</span> git rebase bugfix</span><br></pre></td></tr></table></figure>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285116391342.jpg" alt=""></p>
-<p>好了！由于 <code>bugFix</code> 继承自 <code>master</code>，所以 Git 只是简单的把 <code>master</code> 分支的引用向前移动了一下而已。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285116198530.jpg" alt=""></p>
-<h3 id="rebase-和-merge"><a href="#rebase-和-merge" class="headerlink" title="rebase 和 merge"></a>rebase 和 merge</h3><p>无论是通过rebase，还是通过merge合并，整合的最终结果所指向的快照始终是一样的，只不过提交历史不同罢了。 </p>
-<ul>
-<li><strong>rebase是将一系列提交按照原有次序依次应用到另一分支上</strong></li>
-<li><strong>merge是把最终结果合在一起。</strong></li>
-</ul>
-<h3 id="二、解决冲突"><a href="#二、解决冲突" class="headerlink" title="二、解决冲突"></a>二、解决冲突</h3><p>在rebase的过程中，也许会出现冲突(conflict). 在这种情况，Git会停止rebase并会让你去解决 冲突；在解决完冲突后，用”git-add”命令去更新这些内容的索引(index), 然后，你无需执行 git-commit,只要执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --continue</span><br></pre></td></tr></table></figure></p>
-<p>这样git会继续应用(apply)余下的补丁。<br>在任何时候，你可以用–abort参数来终止rebase的行动，并且”mywork” 分支会回到rebase开始前的状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase --abort</span><br></pre></td></tr></table></figure></p>
-<h4 id="重写历史-git-rebase-i"><a href="#重写历史-git-rebase-i" class="headerlink" title="重写历史 git rebase -i"></a>重写历史 git rebase -i</h4><p>工作中，我们可能不小心写错commit，例如上面那个 “测试 git rebase”我写错了，我想改一改，怎么办呢？</p>
-<p>1.（打开terminal）</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i 233d7b3( 这个commit是在我们要修改的commit前一个)</span><br><span class="line"></span><br><span class="line">git rebase -i 233d7b3</span><br></pre></td></tr></table></figure>
-<p>然后就进入下面这里：</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178298852746.jpg" alt=""></p>
-<p>这里就是我们熟悉的vi，按i进入insert模式，</p>
-<ul>
-<li>pick = 要這條 commit ，什麼都不改</li>
-<li>reword = 要這條 commit ，但要改 commit message</li>
-<li>edit = 要這條 commit，但要改 commit 的內容</li>
-<li>squash = 要這條 commit，但要跟前面那條合併，並保留這條的 messages</li>
-<li>fixup = squash + 只使用前面那條 commit 的 message ，捨棄這條 message</li>
-<li>exec = 執行一條指令（但我沒用過）</li>
-</ul>
-<p><a href="https://blog.yorkxin.org/2011/07/29/git-rebase.html" target="_blank" rel="noopener">Git-rebase 小筆記 - Yu-Cheng Chuang’s Blog</a></p>
-<p>我们是要修改，所以改成</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reword 345c70f 测试 git rebase</span><br><span class="line"></span><br><span class="line">     esc ： wq 保存退出</span><br></pre></td></tr></table></figure>
-<p>接著儲存檔案後把檔案關掉（如 vim 的 :wq），就開始執行 rebase 啦，遇到 reword  時會再跳出編輯器，讓你重新輸入 commit message 。這時我把 studetns 改正為 students ，然後就跟平常 commit 一樣，存檔並關掉檔案。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178298937726.jpg" alt=""></p>
-<p>i进入insert模式，修改commit内容，esc  ： wq 保存退出。</p>
-<p>最后还需要强制push</p>
-<p>git push –force</p>
-<p>那么我们要如何合并几个commit呢？</p>
-<p>和上面类似，我们首先</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i f290515(我们要合并的commit的前一个)</span><br></pre></td></tr></table></figure>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178299079398.jpg" alt=""></p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pick 766f348 dsfdsf</span><br><span class="line"></span><br><span class="line">squash 233d7b3 sdfdsf</span><br><span class="line"></span><br><span class="line">squash 345c70f 测试 git rebase</span><br></pre></td></tr></table></figure>
-<p>我们可以这样修改  将后面两个改成<code>squash</code>，就是合并到第一个上去</p>
-<p>如果没有冲突就可以看到这个界面<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178299134967.jpg" alt=""></p>
-<p>保存退出</p>
-<p>最后<code>git push -f</code></p>
-<h4 id="rebase和merge有什么区别呢"><a href="#rebase和merge有什么区别呢" class="headerlink" title="rebase和merge有什么区别呢"></a>rebase和merge有什么区别呢</h4><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300610660.jpg" alt=""></p>
-<p>现在我们在这个分支做一些修改，然后生成两个提交(commit).</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> 修改文件</span><br><span class="line"><span class="meta">$</span> git commit</span><br><span class="line"><span class="meta">$</span> 修改文件</span><br><span class="line"><span class="meta">$</span> git commit</span><br></pre></td></tr></table></figure>
-<p>但是与此同时，有些人也在”origin”分支上做了一些修改并且做了提交了. 这就意味着”origin”和”mywork”这两个分支各自”前进”了，它们之间”分叉”了</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300701048.jpg" alt=""></p>
-<p>在这里，你可以用”pull”命令把”origin”分支上的修改拉下来并且和你的修改合并； 结果看起来就像一个新的”合并的提交”(merge commit):<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300745333.jpg" alt=""><br>但是，如果你想让”mywork”分支历史看起来像没有经过任何合并一样，你也许可以用 git rebase:</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout mywork</span><br><span class="line"><span class="meta">$</span> git rebase origin</span><br></pre></td></tr></table></figure>
-<p>这些命令会把你的”mywork”分支里的每个提交(commit)取消掉，并且把它们临时 保存为补丁(patch)(这些补丁放到”.git/rebase”目录中),然后把”mywork”分支更新 为最新的”origin”分支，最后把保存的这些补丁应用到”mywork”分支上。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178300786831.jpg" alt=""><br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178301165540.jpg" alt=""></p>
-<h3 id="快速sum-up：-核心工作流原则和心法"><a href="#快速sum-up：-核心工作流原则和心法" class="headerlink" title="快速sum up： 核心工作流原则和心法"></a>快速sum up： 核心工作流原则和心法</h3><p>下面的几个心法是你在使用git时必须磨砺在心的，在本文的后面，我们将具体说明哪些命令来负责执行这些心法：</p>
-<ol>
-<li><p>当我需要merge一个临时的本地branch时。。。我确保这个branch不会在版本变更历史图谱中显示，我总是使用一个fast-forward merge策略来merge这类branch，而这往往需要在merge之前做一个rebase;</p>
-</li>
-<li><p>当我需要merge一个项目组都知道的local branch时。。。我得确保这个branch的信息会在历史图谱中一直展示，我总是执行一个true merge;</p>
-</li>
-<li><p>当我准备push我的本地工作时。。。我得首先清理我的本地历史信息以便我总是push一些清晰易读有用的功能；</p>
-</li>
-<li><p>当我的push由于和别人已经发布的工作相冲突而被拒绝时，我总是rebase更新到最新的remote branch以避免用一些无意义的micro-merge来污染历史图谱</p>
-</li>
-</ol>
-<h4 id="聪明地merge一个branch"><a href="#聪明地merge一个branch" class="headerlink" title="聪明地merge一个branch"></a>聪明地merge一个branch</h4><p>前面讲过，你只有在需要合并融入一个分支所提供的所有feature时才做merge。在这时，你需要问你的核心的问题是：这个分支需要在历史图谱中展示吗？</p>
-<p>当这个分支代表了一个团队都熟知的一块工作时（比如在项目管理系统中的一个task,一个关联到一个ticket的bugfix,一个user story或者use case的实现，一个项目文档工作等），那么在这种情况下，我们应该将branch的信息永远留存在产品历史图谱中，甚至即使branch本身已经被删除。</p>
-<p>否则，如果不代表一个well-known body of work,那么branch本身仅仅是一个技术意义上的实体，我们没有理由将它呈现在产品历史图谱中。我们得使用一个rebase+fast-forward merge来完成merge。</p>
-<p>我们来看看上面两种场景分别长什么样：</p>
-<p>通过”true merge”来保留历史信息<br>我们假设我们一个乘坐oauth-signin的feature branch,该branch的merge 目标是master.</p>
-<p>如果master分支在oauth-signin分支从master创建后又往前走了一些commits（这可能是由于其他的branch已经merge到了master,或者在master上直接做了commit，或者有人在master上cherry-picked了一些commits)，那么这时在master和oauth-signin之间就产生了分叉（也就是说master不可能在不会退的情况下直接到oauth-signin)。在这种情况下，git将会自动地产生一个”true merge”</p>
-<p> 这是我们要的也是我们希望的，并不需要任何额外工作。</p>
-<p>然而，如果master在oauth-signin创建后并未向前走，后者就是master的直接后代（无分叉），这时GIT默认地在merge时是执行一个fast-forward的merge策略，git并不会创建一个merge commit而是简单地把master分支标签移动到oauth-signin分支tip所指向的commit。这时oauth-sigin分支就变成了一个”透明”的分支了：在历史图谱中无法得知oauth-signin分支的起始位置在哪里，并且一旦这个branch被删除，那么从历史上我们再也无法看到任何关于这个开发分支曾经存在的历史渊源。</p>
-<p>这不是我们所想要的，所以我们通过强制git产生一个真正的merge—通过使用–no-ff参数（no fast forward的意思）。</p>
-<p>通过fast-forward merge来实现merge的透明<br>这是相反的情况：我们的branch因为没有任何实质语义，所以我们不希望它在历史图谱中存在。我们必须确保merge会使用fast-forward策略。</p>
-<p>我们假设我们有一个仅仅为了开发的安全性起了一个local branch命名为quick-fixes,而master仍然是要merge到的目标分支。</p>
-<p>如果master在quick-fixes创建之后再也没有往前走，我们知道git会产生一个fast-forward的merge:</p>
-<p>另一方面，如果master在quick-fixes创建后又往前走了的话，我们如果直接merge的话git会给我们一个true merge，产生一个merge commit，那么我们的branch就会污染历史图谱，这不是我们想要的。</p>
-<p>在这种情况下，我们要做的事调整quick-fixes分支使得它重新成为master分支的直接后代（也就是不再分叉），这样就可以fast-forward merge了。要完成这个目的，我们需要使用git rebase命令。我们希望通过更改quick-fixes分支的base commit，以便它的base commit不再是master的老tip，而是当前的tip(注意tip是随着commit的不断引入而不断往前移动的！）。这个动作会重写quick-fixes分支的历史，由于quick-fixes完全是本地分支，重写历史是无关紧要的。</p>
-<p>在这里我们特别要注意这个场景是如何运作的：</p>
-<ol>
-<li><p>我们有一个分叉过的分支但是我们希望透明化地merge，所以。。。</p>
-</li>
-<li><p>我们首先变基到master的最新commit;</p>
-</li>
-<li><p>我们随后到master上，执行merge命令就产生一个fast-forward</p>
-</li>
-</ol>
-<p>注意：我这里额外提醒一下，实际上我们看到上面的word1,word2,word3的commit可能还是不爽，我们在第3.步骤中可以使用git merge quick-fixes –squash，来讲所有的word1,2,3都合并成一个commit;</p>
-<p>注意留心merge的一些默认配置<br>如果在练习上面的操作时，你发现git并未如你所愿，你需要检查一下git对于merge的一些默认配置。</p>
-<p>比如:branch.master.mergeoptions = –no-ff/merge.ff=false或者branch.master.mergeoptions=–ff-only/merge.ff=only</p>
-<h4 id="Rebase一个古老的分支"><a href="#Rebase一个古老的分支" class="headerlink" title="Rebase一个古老的分支"></a>Rebase一个古老的分支</h4><p>有时候你创建一个feature分支开始工作后可能很长时间没有时间再做这个feature开发，当你回来时，你的feature分支就会缺失很多master上的bugfix或者一些其他的feature。在这种个情况下，我们先假设除了你没有其他人在这个分支上工作，那么你可以rebase你的feature分支：</p>
-<p>git rebase [basebranch] [topicbranch] 注意这时git rebase的参数顺序，第一个为基分支，第二个为要变基的分支</p>
-<p>(master) $ git rebase master better-stats<br>注意：如果那个feature分支已经被push到remote了的话，你必须使用-f参数来push它，以便你覆盖这个分支的commits历史，这时覆盖这个branch历史也无所谓，因为历史的所有commits都已经相应重新生成了！！。（一个分支的历史由分支的起始commit和头tip commit来描述.有一点需要注意：一旦我们做一次rebase后，那么这个分支上的所有commit由于这次变基，其commit HASH都会改变！！）另外需要注意我们只能对private分支做这个rebase并且git push –force操作！！</p>
-<h4 id="在Push之前清理你的本地历史"><a href="#在Push之前清理你的本地历史" class="headerlink" title="在Push之前清理你的本地历史"></a>在Push之前清理你的本地历史</h4><p>如果你正确地使用git，相信我们都会频繁地做一些原子commit.我们也要铭记以下警句：不要落入SVN人员的行为模式：commit+push，这是集中式版本控制系统的最常见工作模式：每一个commit都立即push到server上。</p>
-<p>事实上，如果那样做的话，你就失去了分布式版本控制系统的灵活性：只要我们没有push，我们就有足够的灵活性。所有我们本地的commits只要没有push都是我们自己的，所以我们有完全的自由来清理这些commit，甚至删除取消某些commits。为什么我们要那么每个commit都频繁地Push从而失去我们应该有的灵活性呢？</p>
-<p>在一个git的典型工作流中，你每天可能会产生10到30个commit,但是我们往往可能只会push 2到3次，甚至更少。</p>
-<p>再次重申：在push之前，我应该清理我的本地历史。</p>
-<p>有很多原因会导致我们的本地历史是混乱的，前面已经提及，但是现在还想再说一遍：</p>
-<p>我在不同的topic之间来回切换，这样会导致我的历史中不同topic互相交叉，逻辑上组织混乱；<br>我们可能需要多个连续的commit来解决一个bug；<br>我可能会在commit中写了错别字，后来又做修改；<br>甚至我们在一次提交时纯粹就是因为懒惰的原因，我可能吧很多的变更都放在一个commit中做了提交。<br>这些场景都会导致一个混乱的历史产生，非常难以阅读，难以理解，难以被他人所重用，注意：这里的他人也可能是你自己哦，想想两个月后你再来看这段代码吧。</p>
-<p>幸运的是，git给你提供了一个漂亮的方法来不用花什么精力就能理清你的本地历史：</p>
-<ol>
-<li><p>reorder commits;</p>
-</li>
-<li><p>squash them together;</p>
-</li>
-<li><p>split one up(trickier)</p>
-</li>
-<li><p>remove commits altogether;</p>
-</li>
-<li><p>rephrase commit messages</p>
-</li>
-</ol>
-<p>interactive rebasing就和普通的rebase很相像，它给你一个个地选择编辑你的commit的机会。</p>
-<p>在我们当下rebase -i的情形，rebase操作本身并不会实际的真真实实地变基。rebase -i操作仅仅会重写历史。在每天的工作场景中，可能那个分支已经在你的远端库中存在（也就是说已经发布了），你需要做的是清理自从最近一次git pull之后的所有local commits。假设你正在一个experiment分支。你的命令行可能是这样的：</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(experiment) $ git rebase -i origin/experiment</span><br></pre></td></tr></table></figure>
-<p>在这里你在rebase你的当前分支（experiment分支)到一个已经存在历史中的commit(origin/experiment).如果这个rebase不是interactive的话，那么这个动作是毫无意义的（实际上会被作为一个短路的no-op).但是正是有了这个-i选项，你将可以编辑rebase将要执行的这个脚本化过程。那个脚本将会打开一个git editor,就像我们在commit提交时弹出的编辑框一样。</p>
-<h2 id="Rebase的恢复"><a href="#Rebase的恢复" class="headerlink" title="Rebase的恢复"></a>Rebase的恢复</h2><ol>
-<li>使用reflog查看命令</li>
-</ol>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15387150696176.jpg" alt=""></p>
-<ul>
-<li>找到rebase之前的hash</li>
-<li>reset hash –hard</li>
-</ul>
-<ol>
-<li>使用<code>ORIG_HEAD</code><br>ORIG_HEAD会保存上一次比较危险的rebase操作之前的的HEAD。</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset ORIG_HEAD --hard</span><br></pre></td></tr></table></figure>
-<h2 id="rebase的切换"><a href="#rebase的切换" class="headerlink" title="rebase的切换"></a>rebase的切换</h2><p>在对两个分支进行变基时，所生成的“重放”并不一定要在目标分支上应用，你也可以指定另外的一个分支进行应用。 就像 从一个特性分支里再分出一个特性分支的提交历史 中的例子那样。 你创建了一个特性分支 server，为服务端添加了一些功能，提交了 C3 和 C4。 然后从 C3 上创建了特性分支 client，为客户端添加了一些功能，提交了 C8 和 C9。 最后，你回到 server 分支，又提交了 C10。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203253826791.png" alt=""></p>
-<p>假设你希望将 client 中的修改合并到主分支并发布，但暂时并不想合并 server 中的修改，因为它们还需要经过更全面的测试。 这时，你就可以使用 git rebase 命令的 –onto 选项，选中在 client 分支里但不在 server 分支里的修改（即 C8 和 C9），将它们在 master 分支上重放：</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git rebase --onto master server client</span><br></pre></td></tr></table></figure>
-<p>以上命令的意思是：“取出 client 分支，找出处于 client 分支和 server 分支的共同祖先之后的修改，然后把它们在 master 分支上重放一遍”。 这理解起来有一点复杂，不过效果非常酷。</p>
-<p>现在可以快进合并 master 分支了。（如图 快进合并 master 分支，使之包含来自 client 分支的修改）：</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout master</span><br><span class="line"><span class="meta">$</span> git merge client</span><br></pre></td></tr></table></figure>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203254706437.png" alt=""></p>
-<p>接下来你决定将 server 分支中的修改也整合进来。 使用 git rebase [basebranch] [topicbranch] 命令可以直接将特性分支（即本例中的 server）变基到目标分支（即 master）上。这样做能省去你先切换到 server 分支，再对其执行变基命令的多个步骤。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase master server</span><br></pre></td></tr></table></figure>
-<p>如图 将 server 中的修改变基到 master 上 所示，server 中的代码被“续”到了 master 后面。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15203255477506.png" alt=""></p>
-<h2 id="rebase的风险"><a href="#rebase的风险" class="headerlink" title="rebase的风险"></a>rebase的风险</h2><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385903195845.jpg" alt=""></p>
-<p>因为在rebase 公共分支的时候，团队其他成员可能会已经提交，造成rebase修改历史之后，push推送到远端的时候，造成冲突，分支错乱。</p>
-<h3 id="rebase黄金定律"><a href="#rebase黄金定律" class="headerlink" title="rebase黄金定律"></a>rebase黄金定律</h3><p><strong>不要对在你的仓库外有副本的分支（共享分支）执行变基。</strong><br><strong>不要对已经推出去的内容进行修改历史</strong></p>
-<ul>
-<li>共享分支，我的意思是存在于远端存储库中的分支以及您团队中的其他人员可以进行分支。</li>
-</ul>
-<p><em>rebase操作的实质是丢弃一些现有的提交，然后相应地新建一些内容一样但实际上不同的提交</em>。 如果你已经将提交推送至某个仓库，而其他人也已经从该仓库拉取提交并进行了后续工作，此时，如果你用 <code>git rebase</code> 命令重新整理了提交并再次推送，你的同伴因此将不得不再次将他们手头的工作与你的提交进行整合，如果接下来你还要拉取并整合他们修改过的提交，事情就会变得一团糟。</p>
-<p>永远不要rebase一个已经分享的分支（到非remote分支，比如rebase到master,develop,release分支上），也就是说永远不要rebase一个已经在中央库中存在的分支.<strong>只能rebase你自己使用的私有分支</strong></p>
-<h3 id="rebase正确使用例子"><a href="#rebase正确使用例子" class="headerlink" title="rebase正确使用例子"></a>rebase正确使用例子</h3><p>如你和你的同事John都工作在一个feature开发上，你和他分别做了一些commit，随后你fetch了John的feature分支（或者已经被John分享到中央库的feature分支），那么你的repo的版本历史可能已经是下面的样子了：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178302903450.jpg" alt=""></p>
-<p>这时你希望集成John的feature开发工作，你也有两个选择，要么merge,要么rebase,<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15178302864675.jpg" alt=""></p>
-<p>记住在这个场景中，你rebase到John/feature分支的操作并不违反rebase的黄金定律，因为：</p>
-<p>只有你的local本地私有（还未push的） <code>feature commits</code>被移动和重写历史了，而你的本地commit之前的所有commit都未做改变。这就像是说“把我的改动放到John的工作之上”。在大多数情况下，这种rebase比用merge要好很多</p>
-<h3 id="rebase错误使用例子"><a href="#rebase错误使用例子" class="headerlink" title="rebase错误使用例子"></a>rebase错误使用例子</h3><p><a href="https://segmentfault.com/a/1190000005937408" target="_blank" rel="noopener">Git Rebase原理以及黄金准则详解 - 某熊的全栈之路 - SegmentFault 思否</a></p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937411" alt=""></p>
-<p>相信对于rebase肯定不会陌生，就好像上图描述的过程一样，当你使用rebase命令的时候，即好像将你需要去rebase的分支拔下来然后重新插到另一个分支上。官方对于rebase的描述为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">“git-rebase: Forward-port local commits to the updated upstream head”— git doc</span><br></pre></td></tr></table></figure>
-<p>翻译一下，就是讲你在某个分支上的所有提交记录移花接木到另一个分支上。这边需要强调一个概念：reapply，使用rebase并不是简单地好像你用ctrl-x/ctrl-v进行剪切复制一样，rebase会依次地将你所要操作的分支的所有提交应用到目标分支上。也就是说，实际上在执行rebase的时候，有两个隐含的注意点：</p>
-<ul>
-<li><p>在重放之前的提交的时候，Git会创建新的提交，也就是说即使你重放的提交与之前的一模一样Git也会将之当做新的独立的提交进行处理。</p>
-</li>
-<li><p>Git rebase并不会删除老的提交，也就是说你在对某个分支执行了rebase操作之后，老的提交仍然会存放在.git文件夹的objects目录下。如果你对于Git是如何存放你的提交不太了解的话可以参考这篇文章：<a href="https://medium.freecodecamp.com/understanding-git-for-real-by-exploring-the-git-directory-1e079c15b807#.6ylqa5e2w" target="_blank" rel="noopener">Understanding git for real by exploring the .git directory</a></p>
-</li>
-</ul>
-<p>基于以上表述，我们可以得出以下相对更准确的Git rebase的工作流程：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937418" alt=""></p>
-<p>从上图可以看出，在对特征分支进行rebase之后，其等效于创建了新的提交。并且老的提交也没有被销毁，只是简单地不能再被访问或者使用。在对于分支的章节我们曾经提及，一个分支只是一个执行提交的指针。因此如果既没有分支或者Tag指向某个提交，该提交将无法再被访问使用，但是该提交会一直存在于你的文件系统中，占用着你的磁盘存储。</p>
-<blockquote>
-<p>“No one shall rebase a shared branch” — Everyone about rebase</p>
-</blockquote>
-<p>估计你也肯定看过这个原则，不过可能表述不一样罢了。本章节就是用实例的角度来探讨下，为啥不能再一个共享的分支上进行Git rebase操作。所谓共享的分支，即是指那些存在于远端并且允许团队中的其他人进行Pull操作的分支。假设现在Bob和Anna在同一个项目组中工作，项目所属的仓库和分支大概是下图这样：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937420" alt=""></p>
-<p>现在Bob为了图一时方便打破了原则，正巧这时Anna在特征分支上进行了新的提交，此时的结构图大概是这样的：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937424" alt=""></p>
-<p>当Bob打算推送自己的分支到远端的时候，它收到了如下的警告：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937422" alt=""></p>
-<p>Git尝试着使用fast-forward来合并你的分支，具体的细节我们会在其他博客中进行讨论，这边只需要明白远端的Git Server被Bob搞得一头雾水，不知道应该如何去合并。此时Bob为了推送他的本地的提交，只能选择强行合并，即告诉远端：不要再尝试着合并我推送给你的和你已经有点提交，一切按照我推送过去的来。那么Git会进行如下操作：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937426" alt=""></p>
-<p>然后呢，当Anna也进行推送的时候，她会得到如下的提醒：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937428" alt=""></p>
-<p>这个消息很正常，没啥特殊的，只是Git提醒Anna她本地的版本与远程分支并不一致，在Anna提交之前，分支中的Commit序列是如下这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">A--B--C--D&apos;   origin/feature // GitHub</span><br><span class="line"></span><br><span class="line">A--B--D--E    feature        // Anna</span><br></pre></td></tr></table></figure>
-<p>在进行Pull操作之后，Git会进行自动地合并操作，结果大概是这样的：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937430" alt=""></p>
-<p>这个第M个提交即代表着合并的提交，也就是Anna本地的分支与Github上的特征分支最终合并的点，现在Anna解决了所有的合并冲突并且可以Push她的代码，在Bob进行Pull之后，每个人的Git Commit结构为：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937432" alt=""></p>
-<p>到这里，看到上面这个混乱的流线图，相信你对于Rebase和所谓的黄金准则也有了更形象深入的理解。这还只是仅有两个人，一个特征分支的项目因为误用rebase产生的后果。如果你团队中的每个人都对公共分支进行rebase操作，那还不得一团乱麻。另外，相信你也注意到，在远端的仓库中存有大量的重复的Commit信息，这会大大浪费我们的存储空间。如果你还觉得这么什么，那我们来假设下还有一哥们Emma，第三个开发人员，在他进行了本地Commit并且Push到远端之后，仓库变为了：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000005937489" alt=""></p>
-<p>在执行git rebase之前，总是多问问你自己：“有没有其他人也需要这个分支来工作？”，如果答案是yes，那么你就需要思考必须使用一种非破坏性的方式来完成rebase一样的工作（就是需要合入别人的工作成果），比如使用git revert命令。否则，如果这个branch没有别人来使用，那么很好，你可以非常安全地随心所欲地re-write history（注意rebase往往会重写历史，所有已经存在的commits虽然内容没有改变，但是commit本身的hash都会改变!!!）</p>
-<h3 id="用rebase解决rebase"><a href="#用rebase解决rebase" class="headerlink" title="用rebase解决rebase"></a>用rebase解决rebase</h3><p>在本例中另一种简单的方法是使用 git pull –rebase 命令而不是直接 git pull。 又或者你可以自己手动完成这个过程，先 <code>git fetch</code>，再 <code>git rebase teamone/master</code>。</p>
-<h2 id="Rebase实例"><a href="#Rebase实例" class="headerlink" title="Rebase实例"></a>Rebase实例</h2><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15387162622719.jpg" alt=""></p>
-<p>rebase生成新的节点，包含变基后的所有改动。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15387164945050.jpg" alt=""></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现在，让我们回到之前的问题上来，到底合并还是变基好？希望你能明白，这并没有一个简单的答案。 Git 是一个非常强大的工具，它允许你对提交历史做许多事情，但每个团队、每个项目对此的需求并不相同。 既然你已经分别学习了两者的用法，相信你能够根据实际情况作出明智的选择。</p>
-<p>总的原则是，只对尚未推送或分享给别人的<strong>本地修改</strong>执行变基操作清理历史，从不对已推送至别处的提交执行变基操作**，这样，你才能享受到两种方式带来的便利。<br>一句话，私有的用rebase，公开的用merge。</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>只要你的分支上需要rebase的所有commits历史还没有被push过(比如上例中rebase时从分叉处开始有两个commit历史会被重写)，就可以安全地使用git rebase来操作。<br>上述结论可能还需要修正：对于不再有子分支的branch，并且因为rebase而会被重写的commits都还没有push分享过，可以比较安全地做rebase</p>
-<p>上述结论可能还需要修正：对于不再有子分支的branch，并且因为rebase而会被重写的commits都还没有push分享过，可以比较安全地做rebase</p>
-<p>我们在rebase自己的私有分支后希望push到中央库中，但是却会由于rebase改写了历史，因此push时肯定会存在冲突，从而git拒绝你的push，这时，你可以安全地使用-f参数来覆盖中央库的历史（同时其他对这个feature也使用的人员可以git pull）:</p>
-<p>git push –force</p>
-<p>用rebase：</p>
-<ul>
-<li>一个人工作</li>
-<li>私有分支</li>
-<li>本地内容</li>
-</ul>
-<p>用merge</p>
-<ul>
-<li>多人协作</li>
-<li>公开分支</li>
-<li>公开内容</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%8F%98%E5%9F%BA#rrbdiag_g" target="_blank" rel="noopener">Git - 变基</a></li>
-<li><a href="https://git-scm.com/docs/git-rebase" target="_blank" rel="noopener">git-rebase</a></li>
-<li><a href="https://www.jianshu.com/p/cca69cb695a6" target="_blank" rel="noopener">git rebase使用笔记</a></li>
-<li><a href="https://medium.freecodecamp.org/git-rebase-and-the-golden-rule-explained-70715eccc372" target="_blank" rel="noopener">Git rebase and the golden rule explained.</a></li>
-<li><a href="https://www.jianshu.com/p/384a945f6e7e" target="_blank" rel="noopener">用了两年git，rebase原来这样用 - 简书</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2018/03/08/Git 笔记系列（七）—— Git常用命令-Rebase/" data-id="cjrno7hxk002ea7ccyyaxoij3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Git 笔记系列（八）—— Git常用命令-Stash
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/03/02/Git 笔记系列（六）—— Git常用命令-Reset/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Git 笔记系列（六）—— Git常用命令-Reset</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug
