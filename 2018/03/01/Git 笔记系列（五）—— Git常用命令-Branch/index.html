@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Git 笔记系列（五）—— Git常用命令-Branch"><meta name="keywords" content="Git"><meta name="author" content="FrizzleFur"><meta name="copyright" content="FrizzleFur"><title>Git 笔记系列（五）—— Git常用命令-Branch | FFur</title><link rel="shortcut icon" href="/images/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="manifest" href="/manifest.json"><link rel="manifest" href="/manifest.json"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git分支的本质"><span class="toc-number">3.</span> <span class="toc-text">Git分支的本质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HEAD指针"><span class="toc-number">3.1.</span> <span class="toc-text">HEAD指针</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看HEAD指针"><span class="toc-number">3.1.1.</span> <span class="toc-text">查看HEAD指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分离的-HEAD"><span class="toc-number">3.1.2.</span> <span class="toc-text">分离的 HEAD</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#让分支指向另一个提交"><span class="toc-number">3.2.</span> <span class="toc-text">让分支指向另一个提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分支创建"><span class="toc-number">3.3.</span> <span class="toc-text">分支创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分支删除"><span class="toc-number">3.4.</span> <span class="toc-text">分支删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分支查看"><span class="toc-number">3.5.</span> <span class="toc-text">分支查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分支切换"><span class="toc-number">3.6.</span> <span class="toc-text">分支切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#临时性分支"><span class="toc-number">3.7.</span> <span class="toc-text">临时性分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程分支"><span class="toc-number">3.8.</span> <span class="toc-text">远程分支</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#建立追踪关系"><span class="toc-number">3.8.1.</span> <span class="toc-text">建立追踪关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#远程分支的补充"><span class="toc-number">3.8.2.</span> <span class="toc-text">远程分支的补充</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分支的合并"><span class="toc-number">3.9.</span> <span class="toc-text">分支的合并</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举个栗子"><span class="toc-number">3.9.1.</span> <span class="toc-text">举个栗子</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#撤消合并"><span class="toc-number">3.9.2.</span> <span class="toc-text">撤消合并</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#修复引用"><span class="toc-number">3.9.2.1.</span> <span class="toc-text">修复引用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#还原提交"><span class="toc-number">3.9.2.2.</span> <span class="toc-text">还原提交</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的分支命令"><span class="toc-number">3.10.</span> <span class="toc-text">常见的分支命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://pic-mike.oss-cn-hongkong.aliyuncs.com/Blog/avatar.png"></div><div class="author-info__name text-center">FrizzleFur</div><div class="author-info__description text-center">stay on your way</div><div class="follow-button"><a href="https://github.com/FrizzleFur">Follow me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">40</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">15</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://juejin.im/user/57f8ffda2e958a005581e3c0/posts">J_Knight</a><a class="author-info-links__name text-center" href="https://halfrost.com/">Halfrost</a><a class="author-info-links__name text-center" href="https://github.com/draveness/analyze">draveness</a><a class="author-info-links__name text-center" href="https://juejin.im/user/5a52075e6fb9a01c9d31b107/posts">老司机周报</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">FFur</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/ideas">思所</a><a class="site-page" href="/booknotes">读书</a><a class="site-page" href="/gallery">相册</a><a class="site-page" href="/about">关于</a></span></div><div id="post-info"><div id="post-title">Git 笔记系列（五）—— Git常用命令-Branch</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-03-01</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>更新备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-03-01</td>
+<td>新建文章</td>
+</tr>
+<tr>
+<td>2018-06-08</td>
+<td>整理补充</td>
+</tr>
+</tbody>
+</table>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
+<p>几乎所有的版本控制系统都以某种形式支持分支。 使用分支意味着你可以把你的工作从开发主线上分离开来，以免影响开发主线。 在很多版本控制系统中，这是一个略微低效的过程——常常需要完全创建一个源代码目录的副本。对于大项目来说，这样的过程会耗费很多时间。</p>
+</blockquote>
+<blockquote>
+<p><code>Git</code> 处理分支的方式可谓是难以置信的轻量，创建新分支这一操作几乎能在瞬间完成，并且在不同分支之间的切换操作也是一样便捷。 与许多其它版本控制系统不同， 理解和精通<code>Git</code> 分支，你便会意识到 <code>Git</code> 是如此的强大而又独特，并且从此真正改变你的开发方式。</p>
+</blockquote>
+<blockquote>
+<p>那么，<code>Git</code> 又是怎么知道当前在哪一个分支上呢？ 也很简单，<strong>它有一个名为 <code>HEAD</code> 的特殊指针。 请注意它和许多其它版本控制系统（如 <code>Subversion</code> 或 <code>CVS</code>）里的 <code>HEAD</code> 概念完全不同。 在 <code>Git</code> 中，它是一个指针，指向当前所在的本地分支（译注：将 <code>HEAD</code> 想象为当前分支的别名）</strong>。 在本例中，你仍然在 <code>master</code> 分支上。 因为 <code>git branch</code> 命令仅仅 创建 一个新分支，并不会自动切换到新分支中去。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>Git 的分支也非常轻量。它们只是简单地指向某个提交纪录 —— 仅此而已。所以许多 Git 爱好者传颂：”早建分支！多用分支！”这是因为即使创建再多分的支也不会造成储存或内存上的开销，并且按逻辑分解工作到不同的分支要比维护那些特别臃肿的分支简单多了。</p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20Git%E7%AE%80%E4%BB%8B.html">Git 笔记系列（一）—— Git简介</a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html">Git 笔记系列（二）—— Git工作流程</a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E4%B8%80%E8%A7%88.html">Git 笔记系列（三）—— Git常用命令-一览</a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Checkout.html">Git 笔记系列（四）—— Git常用命令-Checkout</a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Branch.html"><strong>Git 笔记系列（五）—— Git常用命令-Branch</strong></a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Reset.html">Git 笔记系列（六）—— Git常用命令-Reset</a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Rebase.html">Git 笔记系列（七）—— Git常用命令-Rebase</a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Stash.html">Git 笔记系列（八）—— Git常用命令-Stash等</a></li>
+<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89%E2%80%94%E2%80%94%20Git%E8%BF%9B%E9%98%B6.html">Git 笔记系列（九）—— Git进阶</a></li>
+</ul>
+<h2 id="Git分支的本质"><a href="#Git分支的本质" class="headerlink" title="Git分支的本质"></a>Git分支的本质</h2><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15286802902555.jpg" alt="分支图一览"></p>
+<p><code>Git</code> 保存的不是文件的变化或者差异，而是一系列不同时刻的文件快照。</p>
+<p><strong>在进行提交操作时，Git 会保存一个提交对象（commit object）</strong>。知道了 Git 保存数据的方式，我们可以很自然的想到——<em>该提交对象会包含一个指向暂存内容快照的指针。 但不仅仅是这样，该提交对象还包含了作者的姓名和邮箱、提交时输入的信息以及指向它的父对象的指针</em>。首次提交产生的提交对象没有父对象，普通提交操作产生的提交对象有一个父对象，而由多个分支合并产生的提交对象有多个父对象，</p>
+<p><em><code>Git</code> 的分支，其实本质上仅仅是指向提交对象的可变指针。</em>  <code>Git</code> 的默认分支名字是 master。 在多次提交操作之后，你其实已经有一个指向最后那个提交对象的 master 分支。 它会在每次的提交操作中自动向前移动。<br><code>Git</code> 的 “master” 分支并不是一个特殊分支。 它就跟其它分支完全没有区别。 之所以几乎每一个仓库都有 <code>master</code> 分支，是因为 <code>git init</code> 命令默认创建它，并且大多数人都懒得去改动它。</p>
+<p>为了更加形象地说明，我们假设现在有一个工作目录，里面包含了三个将要被暂存和提交的文件。 暂存操作会为每一个文件计算校验和（使用我们在 起步 中提到的 <code>SHA-1</code> 哈希算法），然后会把当前版本的文件快照保存到 <code>Git</code> 仓库中（<code>Git</code> 使用 blob 对象来保存它们），最终将校验和加入到暂存区域等待提交：</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15284143318970.png" alt=""></p>
+<h3 id="HEAD指针"><a href="#HEAD指针" class="headerlink" title="HEAD指针"></a>HEAD指针</h3><p>我们首先看一下 “HEAD”。 HEAD 是一个对当前检出记录的符号引用 —— 也就是指向你正在其基础上进行工作的提交记录。</p>
+<p>HEAD 总是指向当前分支上最近一次提交记录。大多数修改提交树的 Git 命令都是从改变 HEAD 的指向开始的。<br>HEAD 通常情况下是指向分支名的（如 bugFix）。在你提交时，改变了指向分支的状态，这一变化通过 HEAD 变得可见。</p>
+<p>HEAD 是当前分支引用的指针，它总是指向该分支上的最后一次提交。这表示 HEAD 将是下一次提交的父结点。 通常，理解 HEAD 的最简方式，就是将它看做 你的上一次提交 的快照。</p>
+<h4 id="查看HEAD指针"><a href="#查看HEAD指针" class="headerlink" title="查看HEAD指针"></a>查看HEAD指针</h4><p>可以通过以下命令查看HEAD指针</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cat .git/HEAD</span><br><span class="line"><span class="meta">$</span> git symbolic-ref HEAD</span><br><span class="line"></span><br><span class="line">ref: refs/heads/master</span><br></pre></td></tr></table></figure>
+<h4 id="分离的-HEAD"><a href="#分离的-HEAD" class="headerlink" title="分离的 HEAD"></a>分离的 HEAD</h4><p>分离的 HEAD 就是让其指向了某个具体的提交记录而不是分支名。在命令执行之前的状态如下所示：<br>HEAD -&gt; master -&gt; C1</p>
+<p>HEAD 指向 master， master 指向 C1</p>
+<p> <img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285149246016.jpg" alt=""></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout C1</span><br></pre></td></tr></table></figure>
+<p>现在变成了</p>
+<p>HEAD -&gt; C1</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15285438051410.jpg" alt=""></p>
+<p>那么这会造成HEAD分离。这是非常危险的，如果你接着添加新的提交，然后切换到别的分支之后就没办法回到之前添加的这些提交。因此，<strong>在为分离的HEAD添加新的提交的时候你应该创建一个新的分支</strong>。</p>
+<h3 id="让分支指向另一个提交"><a href="#让分支指向另一个提交" class="headerlink" title="让分支指向另一个提交"></a>让分支指向另一个提交</h3><p>可以直接使用 -f 选项让分支指向另一个提交。例如:</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15286772387724.jpg" alt=""></p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -f master HEAD~3</span><br></pre></td></tr></table></figure>
+<p>上面的命令会将 master 分支强制指向 <code>HEAD</code> 的第 3 级父提交。这里以 <code>HEAD</code> 作为参考坐标</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15286772962779.jpg" alt=""></p>
+<p>注意，移动的节点（commits）数是沿着制定分支进行的。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15286817989582.jpg" alt=""></p>
+<h3 id="分支创建"><a href="#分支创建" class="headerlink" title="分支创建"></a>分支创建</h3><p>Git 创建分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 创建本地分支</span><br><span class="line">git branch  &lt;branch-name&gt;</span><br><span class="line"># 创建并且切换到该分支</span><br><span class="line">git checkout -b  &lt;branch-name&gt;</span><br><span class="line"># 创建远程分支</span><br><span class="line">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</span><br></pre></td></tr></table></figure>
+<p><code>Git</code> 是怎么创建新分支的呢？ 很简单，<strong>它只是为你创建了一个可以移动的新的指针</strong>。 比如，创建一个 <code>testing</code> 分支， 你需要使用 <code>git branch</code> 命令：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15284144571908.png" alt=""></p>
+<p>那么，<code>Git</code> 又是怎么知道当前在哪一个分支上呢？ 也很简单，它有一个名为 <code>HEAD</code> 的特殊指针。 请注意它和许多其它版本控制系统（如 Subversion 或 CVS）里的 <code>HEAD</code> 概念完全不同。 在 <code>Git</code> 中，它是一个指针，指向当前所在的本地分支（译注：将 HEAD 想象为当前分支的别名）。 在本例中，你仍然在 <code>master</code> 分支上。 因为 <code>git branch</code> 命令仅仅 创建 一个新分支，并不会自动切换到新分支中去。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-07-13-14999389256791.png" alt=""></p>
+<ol>
+<li>新建本地分支，追踪本地分支</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --track origin/trackingRemoteBranch</span><br></pre></td></tr></table></figure>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15188745680824.jpg" alt=""></p>
+<p><code>Git</code> 是怎么创建新分支的呢？ 很简单，它只是为你创建了一个可以移动的新的指针。 比如，创建一个 <code>testing</code> 分支， 你需要使用 <code>git branch</code> 命令：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch testing</span><br></pre></td></tr></table></figure>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195345520155.png" alt=""></p>
+<p><strong>由于 Git 的分支实质上仅是包含所指对象校验和（长度为 40 的 SHA-1 值字符串）的文件，所以它的创建和销毁都异常高效</strong>。 创建一个新分支就相当于往一个文件中写入 41 个字节（40 个字符和 1 个换行符），如此的简单能不快吗？</p>
+<p>这与过去大多数版本控制系统形成了鲜明的对比，它们在创建分支时，将所有的项目文件都复制一遍，并保存到一个特定的目录。 完成这样繁琐的过程通常需要好几秒钟，有时甚至需要好几分钟。所需时间的长短，完全取决于项目的规模。而在 <code>Git</code> 中，任何规模的项目都能在瞬间创建新分支。 同时，由于每次提交都会记录父对象，所以寻找恰当的合并基础（译注：即共同祖先）也是同样的简单和高效。 这些高效的特性使得 <code>Git</code> 鼓励开发人员频繁地创建和使用分支。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195347313909.png" alt=""></p>
+<h3 id="分支删除"><a href="#分支删除" class="headerlink" title="分支删除"></a>分支删除</h3><ul>
+<li>删除本地分支</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -d &lt;branchname&gt;</span><br><span class="line">#    -d, --delete          delete fully merged branch</span><br><span class="line">#    -D                    delete branch (even if not merged)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除远程分支<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -r -d origin/&lt;originBranch&gt;</span><br><span class="line">git push origin :&lt;originBranch&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="分支查看"><a href="#分支查看" class="headerlink" title="分支查看"></a>分支查看</h3><ul>
+<li>查看所有远程分支</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -r</span><br><span class="line">git branch -rv</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看所有的本地和远程分支</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -av</span><br></pre></td></tr></table></figure>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15386992302177.jpg" alt=""></p>
+<h3 id="分支切换"><a href="#分支切换" class="headerlink" title="分支切换"></a>分支切换</h3><p>要切换到一个已存在的分支，你需要使用 <code>git checkout</code> 命令。 我们现在切换到新创建的 <code>testing</code> 分支去：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout testing</span><br></pre></td></tr></table></figure>
+<p>这样 <code>HEAD</code> 就指向 <code>testing</code> 分支了。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15284149385711.png" alt=""></p>
+<p>那么，这样的实现方式会给我们带来什么好处呢？ 现在不妨再提交一次：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> vim test.rb</span><br><span class="line"><span class="meta">$</span> git commit -a -m 'made a change'</span><br></pre></td></tr></table></figure>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15284149792681.png" alt=""></p>
+<p><code>HEAD</code> 所指向的分支会随着提交操作自动向前移动<br>这条命令做了两件事。 一是使 <code>HEAD</code> 指回 master 分支，二是将工作目录恢复成 master 分支所指向的快照内容。 也就是说，你现在做修改的话，项目将始于一个较旧的版本。 本质上来讲，这就是忽略 testing 分支所做的修改，以便于向另一个方向进行开发。</p>
+<p>如图所示，你的 <code>testing</code> 分支向前移动了，但是 <code>master</code> 分支却没有，它仍然指向运行 <code>git checkout</code> 时所指的对象。 这就有意思了，现在我们切换回 <code>master</code> 分支看看：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout master</span><br></pre></td></tr></table></figure>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15284150349869.png" alt=""></p>
+<h3 id="临时性分支"><a href="#临时性分支" class="headerlink" title="临时性分支"></a>临时性分支</h3><p><code>Git</code>里比较强大的以前就是对于分支的管理，在初始化<code>Git</code>的时候，<code>Git</code>会默认创建一条名为<code>master</code>的分支，俗称”主分支”，其实和分支并无不同，在日常开发的过程，<code>master</code>默认是版本开发完成的<code>release</code>分支，然而在迭代开发的过程中，可能有新的功能需求插入以及Bug的修复，这时候，为了保证代码的整洁和功能的完整性，需要开辟新的分支进行管理和开发。一般来说，分支的命名如下：</p>
+<ul>
+<li>版本主分支——“Master”</li>
+<li>开发分支——“Develop”</li>
+<li>功能需求分支——“Feature”</li>
+<li>bug修改完善分支——“Fixbug”</li>
+<li>预发布分支——“Release”</li>
+</ul>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195275238474.jpg" alt=""></p>
+<p>首先，代码库应该有一个、且仅有一个主分支。所有提供给用户使用的正式版本，都在这个主分支上发布。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195276353848.jpg" alt=""></p>
+<p>开发分支：主分支只用来分布重大版本，日常开发应该在另一条分支上完成。我们把开发用的分支，叫做Develop。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195276292775.jpg" alt=""></p>
+<p>功能分支：它是为了开发某种特定功能，从<code>Develop</code>分支上面分出来的。开发完成后，要再并入<code>Develop</code>。<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195275559373.jpg" alt=""></p>
+<p>预发布分支：它是指发布正式版本之前（即合并到<code>Master</code>分支之前），我们可能需要有一个预发布的版本进行测试。预发布分支是从<code>Develop</code>分支上面分出来的，预发布结束以后，必须合并进<code>Develop</code>和<code>Master</code>分支。它的命名，可以采用<code>release-*</code>的形式。</p>
+<p>对于分支开发的详细列表，可以根据自己团队的需求进行合适的调整，这里放上<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">A successful Git branching model</a>的分支开发参考图：<br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15195278952343.jpg" alt=""></p>
+<h3 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h3><p><strong>远程分支（remote branch）是对远程仓库中的分支的索引。它们是一些无法移动的本地分支；</strong>只有在 Git 进行网络交互时才会更新。远程分支就像是书签，提醒着你上次连接远程仓库时上面各分支的位置。</p>
+<p>我们用 <code>(远程仓库名)/(分支名)</code> 这样的形式表示远程分支。比如我们想看看上次同 <code>origin</code> 仓库通讯时 <code>master</code> 分支的样子，就应该查看 <code>origin/master</code> 分支。如果你和同伴一起修复某个问题，但他们先推送了一个 <code>iss53</code> 分支到远程仓库，虽然你可能也有一个本地的 <code>iss53</code> 分支，但指向服务器上最新更新的却应该是 <code>origin/iss53</code> 分支。</p>
+<p>如果你从远端服务器克隆，Git 会自动为你将此远程仓库命名为 origin，并下载其中所有的数据，建立一个指向它的 master 分支的指针，在本地命名为 <code>origin/master</code>，但你无法在本地更改其数据。接着，Git 建立一个属于你自己的本地 master 分支，始于 origin 上 master 分支相同的位置，你可以就此开始工作</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15287601672070.jpg" alt=""></p>
+<p>如果你在本地 <code>master</code> 分支做了些改动，与此同时，其他人向 <code>git.ourcompany.com</code> 推送了他们的更新，那么服务器上的 <code>master</code> 分支就会向前推进，而与此同时，你在本地的提交历史正朝向不同方向发展。不过只要你不和服务器通讯，你的 <code>origin/master</code> 指针仍然保持原位不会移动（见下图 ）。</p>
+<p><img src="https://git-scm.com/figures/18333fig0323-tn.png" alt=""></p>
+<p>在本地工作的同时有人向远程仓库推送内容会让提交历史开始分流</p>
+<p>可以运行 <code>git fetch origin</code> 来同步远程服务器上的数据到本地。该命令首先找到 <code>origin</code> 是哪个服务器（本例为 <code>git.ourcompany.com</code>），从上面获取你尚未拥有的数据，更新你本地的数据库，然后把 <code>origin/master</code> 的指针移到它最新的位置上（见下图）。</p>
+<p><img src="https://git-scm.com/figures/18333fig0324-tn.png" alt=""></p>
+<p>git fetch 命令会更新本地数据库中的 remote 索引，指向<code>origin/master</code>的索引和最新的服务器的索引保持同步。</p>
+<h4 id="建立追踪关系"><a href="#建立追踪关系" class="headerlink" title="建立追踪关系"></a>建立追踪关系</h4><p>新建一个分支，与指定的远程分支建立追踪关系使用命令：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch --track [branch] [remote-branch]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git branch -u upstream/foo</span><br><span class="line">Or, if local branch foo is not the current branch:</span><br><span class="line"></span><br><span class="line">git branch -u upstream/foo foo</span><br><span class="line">Or, if you like to type longer commands, these are equivalent to the above two:</span><br><span class="line"></span><br><span class="line">git branch --set-upstream-to=upstream/foo</span><br><span class="line"></span><br><span class="line">git branch --set-upstream-to=upstream/foo foo</span><br><span class="line">As of Git 1.7.0:</span><br><span class="line"></span><br><span class="line">git branch --set-upstream foo upstream/foo</span><br></pre></td></tr></table></figure>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15387205487585.jpg" alt=""></p>
+<p><a href="https://stackoverflow.com/questions/520650/make-an-existing-git-branch-track-a-remote-branch" target="_blank" rel="noopener">Make an existing Git branch track a remote branch? - Stack Overflow</a></p>
+<h4 id="远程分支的补充"><a href="#远程分支的补充" class="headerlink" title="远程分支的补充"></a>远程分支的补充</h4><ul>
+<li><p>远程分支就是本地分支push到服务器上</p>
+</li>
+<li><p>提交分支数据到远程服务器</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin &lt;local_branch_name&gt;:&lt;remote_branch_name&gt;</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev:dev</span><br></pre></td></tr></table></figure>
+<p>一般当前如果不在该分支时，使用这种方式提交。如果当前在 dev 分支下，也可以直接提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+<h3 id="分支的合并"><a href="#分支的合并" class="headerlink" title="分支的合并"></a>分支的合并</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15288806855719.jpg" alt=""></p>
+<p>合并，和之间将分支指针向前推进所不同的是，Git 将此次三方合并的结果做了一个新的快照并且自动创建一个新的提 交指向它。这个被称作一次合并提交，它的特别之处在于他有不止一个父提交。</p>
+<p><img src="https://i.loli.net/2018/10/22/5bcd195ecfe76.jpg" alt=""></p>
+<h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><p>任何因包含合并冲突而有待解决的文件，都会以未合并状态标识出来。Git 会在有冲突的文件中加入标准的冲突 解决标记，这样你可以打开这些包含冲突的文件然后手动解决冲突。出现冲突的文件会包含一些特殊区段，看起 来像下面这个样子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:index.html</span><br><span class="line"> &lt;div id=&quot;footer&quot;&gt;contact : email.support@github.com&lt;/div&gt;</span><br><span class="line"> =======</span><br><span class="line"> &lt;div id=&quot;footer&quot;&gt; </span><br><span class="line"></span><br><span class="line">please contact us at support@github.com</span><br><span class="line"> &lt;/div&gt;</span><br><span class="line"> &gt;&gt;&gt;&gt;&gt;&gt;&gt; iss53:index.html</span><br></pre></td></tr></table></figure>
+<p>这表示 HEAD 所指示的版本(也就是你的 master 分支所在的位置，因为你在运行 merge 命令的时候已经检出 到了这个分支)在这个区段的上半部分(======= 的上半部分)，而 iss53 分支所指示的版本在 ======= 的 下半部分。为了解决冲突，你必须选择使用由 ======= 分割的两部分中的一个，或者你也可以自行合并这些内 容。例如，你可以通过把这段内容换成下面的样子来解决冲突:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;div id=&quot;footer&quot;&gt;</span><br><span class="line">please contact us at email.support@github.com</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>上述的冲突解决方案仅保留了其中一个分支的修改，并且 &lt;&lt;&lt;&lt;&lt;&lt;&lt; , ======= , 和 &gt;&gt;&gt;&gt;&gt;&gt;&gt; 这些行被完全删除 了。在你解决了所有文件里的冲突之后，对每个文件使用git add命令来将其标记为冲突已解决。一旦暂存这 些原本有冲突的文件，Git 就会将它们标记为冲突已解决。</p>
+<h4 id="撤消合并"><a href="#撤消合并" class="headerlink" title="撤消合并"></a>撤消合并</h4><p>假设现在在一个特性分支上工作，不小心将其合并到 master 中，现在提交历史看起来是这样:</p>
+<p><img src="https://i.loli.net/2018/10/22/5bcd197196138.jpg" alt=""></p>
+<h5 id="修复引用"><a href="#修复引用" class="headerlink" title="修复引用"></a>修复引用</h5><p>如果这个不想要的合并提交只存在于你的本地仓库中，最简单且最好的解决方案是移动分支到你想要它指向的地 方。大多数情况下，如果你在错误的git merge后运行<code>git reset --hard HEAD~</code>，这会重置分支指向所 以它们看起来像这样:</p>
+<p><img src="https://i.loli.net/2018/10/22/5bcd192da89e5.jpg" alt=""></p>
+<p>reset –hard通常会经历三步:</p>
+<ol>
+<li>移动 HEAD 指向的分支。 在本例中，我们想要移动 master 到合并提交(C6)之前所在的位置。</li>
+<li>使索引看起来像 HEAD。</li>
+<li>使工作目录看起来像索引。</li>
+</ol>
+<p><strong>这个方法的缺点是它会重写历史</strong>，在一个共享的仓库中这会造成问题的。用简单的话说就是如果其他人已经有你将要重写的提交，你应当避免使用 reset。如果有任何其他提交在合并之后创建了，那么这个方法也会无效; 移动引用实际上会丢失那些改动。</p>
+<h5 id="还原提交"><a href="#还原提交" class="headerlink" title="还原提交"></a>还原提交</h5><p>如果移动分支指针并不适合你，Git 给你一个生成一个新提交的选项，提交将会撤消一个已存在提交的所有修 改。Git 称这个操作为 “还原”，在这个特定的场景下，你可以像这样调用它:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git revert -m 1 HEAD</span><br><span class="line"> [master b1d8379] Revert &quot;Merge branch &apos;topic&apos;&quot;</span><br></pre></td></tr></table></figure>
+<p><code>-m 1</code>标记指出“mainline”需要被保留下来的父结点。当你引入一个合并到HEAD(git merge topic)， 新提交有两个父结点:第一个是 HEAD(C6)，第二个是将要合并入分支的最新提交(C4)。在本例中，我们想 要撤消所有由父结点 #2(C4)合并引入的修改，同时保留从父结点 #1(C4)开始的所有内容。</p>
+<p><img src="https://i.loli.net/2018/10/22/5bcd19844766f.jpg" alt=""></p>
+<p>新的提交 ^M 与 C6 有完全一样的内容，所以从这儿开始就像合并从未发生过，除了“现在还没合并”的提交依<br>然在 HEAD 的历史中。</p>
+<h3 id="常见的分支命令"><a href="#常见的分支命令" class="headerlink" title="常见的分支命令"></a>常见的分支命令</h3><ol>
+<li>查看分支列表</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>新建分支</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch new_branch_name</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>切换到分支</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git checkout branch_name</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>合并支分支到<code>master</code>主分支</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git merge branch_name</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>删除分支</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch -d branch_name</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>查看远程分支</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch -r</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>查看所有分支</li>
+</ol>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git branch -a</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B" target="_blank" rel="noopener">3.1 Git 分支 - 分支简介</a></li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">FrizzleFur</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://frizzlefur.com/2018/03/01/Git 笔记系列（五）—— Git常用命令-Branch/">http://frizzlefur.com/2018/03/01/Git 笔记系列（五）—— Git常用命令-Branch/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://frizzlefur.com">FFur</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://pic-mike.oss-cn-hongkong.aliyuncs.com/Blog/avatar.png"><div class="post-qr-code__desc">我要吐槽下</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/03/02/Git 笔记系列（六）—— Git常用命令-Reset/"><i class="fa fa-chevron-left">  </i><span>Git 笔记系列（六）—— Git常用命令-Reset</span></a></div><div class="next-post pull-right"><a href="/2018/02/28/Git 笔记系列（四）—— Git常用命令-Checkout/"><span>Git 笔记系列（四）—— Git常用命令-Checkout</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="lv-container" data-id="city" data-uid="Mi8xLzM"><script>(function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+})(document, 'script');</script></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By FrizzleFur</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Hi, this is just a small place for reflect.</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
