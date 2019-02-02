@@ -1,99 +1,295 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
 
-block top_img
-  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
-  if (top_img && page.top_img !== false)
-    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
-    - var flag = top_img === true ? 'no-bg' : ''
-    div#top-container(style=bg_img class=flag)
-      include ./includes/header.pug
-      #post-info
-        #post-title= page.title || _p('no_title')
-        #post-meta
-          if (theme.post_meta.date_type)
-            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
-            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-          if (theme.post_meta.categories && page.categories.data.length > 0)
-            if (theme.post_meta.date_type)
-              span.post-meta__separator |
-            each item, index in page.categories.data
-              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
-              a(href=url_for(item.path)).post-meta__categories #[=item.name]
-              if (index < page.categories.data.length - 1)
-                 i.fa.fa-angle-right(aria-hidden="true")
-          if (theme.disqus.enable && theme.disqus.count)
-            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-              span.post-meta__separator |
-            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
-            a(href=url_for(page.path) + '#disqus_thread')
-              span.disqus-comment-count(data-disqus-identifier=page.path)
-          if (theme.wordcount && theme.wordcount.enable)
-            .post-meta-wordcount
-              span= _p('post.wordcount') + ': '
-              span.word-count= wordcount(page.content)
-              span.post-meta__separator |
-              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-  else
-    div#top-container.plain
-      include ./includes/header.pug
+  
+  <title>TableView系列--优化 | FFur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="优化UITabelView内建方法 首先是重用cell/header/footer的单个实例，即便是我们需要显示多个。这是优化UIScrollView(UITableView的父类)最明显的方式，UIScrollView是由苹果的工程师提供的。为了正确的使用它，你应该只有cell/header/footer类，一次性初始化它们，并返回给UITableView。  但重要的事情是：在UITableV">
+<meta name="keywords" content="Docs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TableView系列--优化">
+<meta property="og:url" content="http://frizzlefur.com/2017/04/18/TableView系列--优化/index.html">
+<meta property="og:site_name" content="FFur">
+<meta property="og:description" content="优化UITabelView内建方法 首先是重用cell/header/footer的单个实例，即便是我们需要显示多个。这是优化UIScrollView(UITableView的父类)最明显的方式，UIScrollView是由苹果的工程师提供的。为了正确的使用它，你应该只有cell/header/footer类，一次性初始化它们，并返回给UITableView。  但重要的事情是：在UITableV">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/southpeak/Blog-images/blob/master/Perfect%20smooth%20scrolling%20in%20UITableViews%203.jpg?raw=true">
+<meta property="og:image" content="https://github.com/southpeak/Blog-images/blob/master/Perfect%20smooth%20scrolling%20in%20UITableViews%204.jpg?raw=true">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-48147cf6c135dd10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-01-30T05:55:12.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TableView系列--优化">
+<meta name="twitter:description" content="优化UITabelView内建方法 首先是重用cell/header/footer的单个实例，即便是我们需要显示多个。这是优化UIScrollView(UITableView的父类)最明显的方式，UIScrollView是由苹果的工程师提供的。为了正确的使用它，你应该只有cell/header/footer类，一次性初始化它们，并返回给UITableView。  但重要的事情是：在UITableV">
+<meta name="twitter:image" content="https://github.com/southpeak/Blog-images/blob/master/Perfect%20smooth%20scrolling%20in%20UITableViews%203.jpg?raw=true">
+  
+    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FFur</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">刚刚在线</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-TableView系列--优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/18/TableView系列--优化/" class="article-date">
+  <time datetime="2017-04-18T09:31:35.000Z" itemprop="datePublished">2017-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TableView系列--优化
+    </h1>
+  
 
-block content
-  article#post(class="")
-    if (!top_img)
-      #post-title.plain= page.title || _p('no_title')
-      #post-meta
-        if (theme.post_meta.date_type)
-          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
-          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-        if (theme.post_meta.categories && page.categories.data.length > 0)
-          if (theme.post_meta.date_type)
-            span.post-meta__separator |
-          each item, index in page.categories.data
-            i.fa.fa-inbox(aria-hidden="true")
-            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
-            if (index < page.categories.data.length - 1)
-                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
-        if (theme.disqus.enable && theme.disqus.count)
-          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-            span.post-meta__separator |
-          i.fa.fa-comment-o(aria-hidden="true")
-          a(href=url_for(page.path) + '#disqus_thread')
-            span.disqus-comment-count(data-disqus-identifier=page.path)
-        if (theme.wordcount && theme.wordcount.enable)
-          span.post-meta__separator |
-          span.post-meta-wordcount
-            span= _p('post.wordcount') + ': '
-            span.word-count= wordcount(page.content)
-            span.post-meta__separator |
-            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-    #post-content.article-container!= page.content
-  if (theme.post_copyright && theme.post_copyright.enable)
-    .post-copyright
-      .post-copyright__author
-        span.post-copyright-meta= _p('post.copyright.author') + ": "
-        span.post-copyright-info
-          a(href=`mailto:${config.email}`) #[=config.author]
-      .post-copyright__type
-        span.post-copyright-meta= _p('post.copyright.link') + ": "
-        span.post-copyright-info
-          a(href=url_for(page.permalink)) #[=page.permalink]
-      .post-copyright__notice
-        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
-        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
-  if (theme.post_meta.tags)
-    .post-meta__tag-list
-      each item, index in page.tags.data
-        a(href=url_for(item.path)).post-meta__tags #[=item.name]
-  if (theme.QR_code)
-    if (theme.QR_code.length > 0)
-      .post-qr-code
-        each item in theme.QR_code
-          .post-qr-code-item
-            img.post-qr-code__img(src=(item.itemlist||item).img)
-            .post-qr-code__desc=(item.itemlist||item).text
-  include includes/share/index.pug
-  include includes/pagination.pug
-  if (theme.adv && theme.adv.enable)
-    .post-adv!= theme.adv.info
-  if page.comments !== false
-    include includes/comments/index.pug
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="优化UITabelView"><a href="#优化UITabelView" class="headerlink" title="优化UITabelView"></a><a href="http://southpeak.github.io/2015/12/20/perfect-smooth-scrolling-in-uitableviews/" target="_blank" rel="noopener">优化UITabelView</a></h2><h2 id="内建方法"><a href="#内建方法" class="headerlink" title="内建方法"></a>内建方法</h2><ol>
+<li>首先是重用cell/header/footer的单个实例，即便是我们需要显示多个。这是优化UIScrollView(UITableView的父类)最明显的方式，UIScrollView是由苹果的工程师提供的。为了正确的使用它，你应该只有cell/header/footer类，一次性初始化它们，并返回给UITableView。</li>
+</ol>
+<p><strong>但重要的事情是：在UITableView的dataSource中实现的tableView:cellForRowAtIndexPath:方法，需要为每个cell调用一次，它应该快速执行。所以你需要尽可能快地返回重用cell实例。</strong></p>
+<p>不要在这里去执行数据绑定，因为目前在屏幕上还没有cell。为了执行数据绑定，可以在UITableView的delegate方法tableView:willDisplayCell:forRowAtIndexPath:中进行。这个方法在显示cell之前会被调用。</p>
+<p>但是UITableView的问题在哪？正如所解释的一样，UITableView不会同时维护所有cell的实例。相反，它只需要维护显示给用户的那些cell。</p>
+<p>那么，UITableView是如何知道它的contentSize呢？它是通过计算所以cell的高度之和来计算contentSize的值。</p>
+<p>UITableView的delegate方法tableView:heightForRowAtIndexPath:会为每个cell调用一次，所以你应该非常快地返回高度值。</p>
+<p>很多人会犯一个错误，他们会在布局初始化cell实例并绑定数据后去获取它们的高度。如果你想优化滑动的性能，就不应该以这种方式来计算cell的高度，因为这事难以置信的低效，iOS设备标准的60 FPS将会降低到15-20 FPS，滑动会变得很慢。<br><a id="more"></a></p>
+<h3 id="AutoLayout"><a href="#AutoLayout" class="headerlink" title="AutoLayout"></a><strong>AutoLayout</strong></h3><p>但如果是AutoLayout呢？它真的跟我所说的一样慢么？你可能会很惊讶，但这是事实。如果你想让你的App在所有设备上都能平滑的滚动，你就会发现这种方法难以置信的慢。你使用的子视图越多，AutoLayout的效率越低。</p>
+<p>AutoLayout相对低效的原因是隐藏在底层的命名为”Cassowary“的约束求解系统。如果布局中子视图越多，那么需要求解的约束也越多，进而返回cell给UITableView所花的时间也越多。</p>
+<p>哪一个更快呢：使用少量的值来执行基本的数学计算，还是找一个求解大量线性等式或不等式的系统么？现在想像一下，用户想要快速地滑动，每个cell的自动布局也执行着疯狂的计算。</p>
+<p><strong>使用内建方法优化UITableView的正确方法是：</strong></p>
+<p>重用cell实例：对于特殊类型的cell，你应该只有一个实例，而没有更多。<br>不要在cellForRowAtIndexPath:方法中绑定数据，因为在此时cell还没有显示。可以使用UITableView的delegate中的tableView:willDisplayCell:forRowAtIndexPath:方法。</p>
+<p><strong>我们需要更深一步</strong></p>
+<p>当然，上面提到的这些点不足以实现真正的平滑滚动，特别是当你需要实现一些复杂的cell(如有大量的渐变、视图、交互元素、一些修饰元素等等)时，这变得尤其明显。问题就不在布局了，而在渲染了</p>
+<p>让我们把关注点放在UIView的opaque属性上。文档中说它用于辅助绘图系统定义UIView是否透明。如果不透明，则绘图系统在渲染视图时可以做一些优化，以提高性能。<br>他们可能没有最新的iPhone，所以cell必须快速地被渲染。比通常的视图更快。</p>
+<p>渲染最慢的操作之一是混合(blending)。混合操作由GPU来执行，因为这个硬件就是用来做混合操作的（当然不只是混合）提高性能的方法是减少混合操作的次数。</p>
+<p>在iOS模拟器上运行App，在模拟器的菜单中选择<code>Debug</code>，然后选中<code>Color Blended Layers</code>。然后iOS模拟器就会将全部区域显示为两种颜色：绿色和红色。<br>绿色区域没有混合，但红色区域表示有混合操作。</p>
+<p><a href="https://github.com/southpeak/Blog-images/blob/master/Perfect%20smooth%20scrolling%20in%20UITableViews%203.jpg?raw=true" target="_blank" rel="noopener"><img src="https://github.com/southpeak/Blog-images/blob/master/Perfect%20smooth%20scrolling%20in%20UITableViews%203.jpg?raw=true" alt="image"></a><br><a href="https://github.com/southpeak/Blog-images/blob/master/Perfect%20smooth%20scrolling%20in%20UITableViews%204.jpg?raw=true" target="_blank" rel="noopener"><img src="https://github.com/southpeak/Blog-images/blob/master/Perfect%20smooth%20scrolling%20in%20UITableViews%204.jpg?raw=true" alt="image"></a></p>
+<p>正如你所看到的一样，在cell中至少有两处执行了混合操作，但你可能看不出差别来（这个混合操作是不必要的）。</p>
+<h2 id="优化UITableView中绘制数据操作的要点"><a href="#优化UITableView中绘制数据操作的要点" class="headerlink" title="优化UITableView中绘制数据操作的要点"></a>优化UITableView中绘制数据操作的要点</h2><ol>
+<li>减少iOS执行无用混合的区域：<br>1.1 不要使用透明背景 (使用iOS模拟器或者Instruments来确认这一点；<br>1.2 如果可以，尽量使用没有混合的渐变。</li>
+<li>优化代码，以平衡CPU和GPU的负载。你需要清楚地知道哪部分渲染需要使用GPU，哪部分可以使用CPU，以此保持平衡。<br>为特殊的cell类型编写特殊的代码。</li>
+<li>减少子像素情况<br>3.1 对所有像素相关的数据做四舍五入处理，包括点坐标，UIView的高度和宽度。<br>3.2 跟踪你的图像资源：图片必须是像素完美的，否则在Retina屏幕上渲染时，它会做不必要的抗锯齿处理。</li>
+</ol>
+<h3 id="什么是子像素"><a href="#什么是子像素" class="headerlink" title="什么是子像素"></a><strong>什么是子像素</strong></h3><p>在完美的世界中(我们尝试构建的)，屏幕点总是被处理成物理像素的整型坐标。但在现实生活中它可能是浮点值，例如，线段可能起始于x为0.25的地方。这时候，iOS将执行<code>子像素渲染</code>。</p>
+<p>如果所有的平滑线段都使用子像素渲染技术来渲染，那你会让iOS执行一些不必要的任务，从而降低FPS。</p>
+<p>什么情况下会出现这种不必要的子像素抗锯齿操作呢？最常发生的情况是通过代码计算而变成浮点值的视图坐标，或者是一些不正确的图片资源，这些图片的大小不是对齐到屏幕的物理像素上的（例如，你有一张在Retina显示屏上的大小为60<em>61的图片，而不是60</em>60的）。</p>
+<p>在前面我们讲到，要解决问题，首先需要找到问题在哪。在iOS模拟器上运行程序，在”Debug<br>“菜单中选中”Color Misaligned Image<br>“。<br>这一次有两种高亮区域：品红色区域会执行子像素渲染，而黄色区域是图片大小没有对齐的情况。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/225323-48147cf6c135dd10.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<p>那如何在代码中找到对应的位置呢？我总是使用手动布局，并且部分会自定义绘制，所以通常找到这些地方没有任何问题。如果你使用Interface Builder，那我对此深表同情。</p>
+<p>通常，为了解决这个问题，你只要简单地使用ceilf, floorf和CGRectIntegral方法来对坐标做四舍五入处理。就是这样！</p>
+<h3 id="异步UI"><a href="#异步UI" class="headerlink" title="异步UI"></a>异步UI</h3><p>可能这看起来有点奇怪，但这是一种非常有效的方法。如果你知道如何做，那么可以让UITableView滑动得更平滑。</p>
+<p>现在我们来讨论一下<em>你应该做什么</em>，然后再讨论下<em>你是否可能这么做</em>。</p>
+<p>✻ ✻ ✻ ✻ ✻</p>
+<p>每个中等以上规模的应用都可能会使用带有媒体内容的cell：文本、图片、动画，甚至还有视频。</p>
+<p>而所有这些都可能带有装饰元素：圆角头像、还<code>#</code>号的文本、用户名等。</p>
+<p>我们已经多次提及尽可能快地返回cell的需求，而在这里有一些麻烦：clipsToBounds很慢，图片需要从网络加载，需要在字符串中定位#号，和许多其它的问题。</p>
+<p>优化的目标是很明确的：如果在主线程中执行这些操作，则会让你不能很快地返回cell。</p>
+<p>在后台加载图片，在相同的地方处理圆角，然后将处理后的图片指定给UIImageView。</p>
+<p>立刻显示文本，但在后台定位#号，然后使用属性字符串来刷新显示。</p>
+<p>在你的cell中，需要具体情况具体分析，但主要的思想是在后台执行大的操作。这可能不止是网络代码，你需要使用Instruments来找到它们。</p>
+<p>记住：需要尽快返回cell。</p>
+<p>✻ ✻ ✻ ✻ ✻</p>
+<p>有时候，上面的所有技术可能都帮不上忙。如GPU仍然不能使用(iPhone4+iOS7)时，cell中有很多内容时，需要CALayer的支持以实现动画时(因为在drawRect:中实现起来真的很麻烦)。</p>
+<p>在这种情况下，我们需要在后台渲染所有其它东西。此外它能在用户快速滑动UITableView时有效地提高FPS。</p>
+<p>我们来看看Facebook的应用。为了检测这些，你可能需要往下滑足够的高度，然后点击状态栏。列表会往上滑动，因此你可以清楚地看到此时没有渲染cell。如果想要更精确，则不能及时获得。</p>
+<p>这很简单，所以你可以自己试试。这时，你需要设置CALayer的drawsAsynchronously属性为YES。</p>
+<p>但是我们可以检查这些行为的必要性。在iOS模拟器上运行程序，然后选择“Debug”菜单中的”Color Offscreen-Rendered“。现在所有在后台渲染的区域都被高亮为黄色。</p>
+<p>优化的目标是很明确的：如果在主线程中执行这些操作，则会让你不能很快地返回cell。</p>
+<p>在后台加载图片，在相同的地方处理圆角，然后将处理后的图片指定给UIImageView。</p>
+<p>立刻显示文本，但在后台定位#号，然后使用属性字符串来刷新显示。</p>
+<p>在你的cell中，需要具体情况具体分析，但主要的思想是在后台执行大的操作。这可能不止是网络代码，你需要使用Instruments来找到它们。</p>
+<p>记住：需要尽快返回cell。</p>
+<p>✻ ✻ ✻ ✻ ✻</p>
+<p>这里是异步化UI的实现清单：<br>找到让你的cell<br>无法快速返回的瓶颈。<br>将操作移到后台线程，并在主线程刷新显示的内容。<br>最后一招是设置你的CALayer<br>为异步显示模式(即使只是简单的文本或图片)–这将帮你提高FPS。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我尝试解释了iOS绘图系统(没有使用OpenGL，因为它的情况更少)的主要思路。当然有些看起来很模糊，但事实上这只是一些方向，你应该朝着这些方向来检查你的代码以找出影响滚动性能的所有问题。</p>
+<p>具体情况具体分析，但原则是不变的。</p>
+<p>获取完美平滑滚动的关键是非常特殊的代码，它能让你竭尽iOS的能力来让你的应用更加平滑。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://frizzlefur.com/2017/04/18/TableView系列--优化/" data-id="cjrno7hws0019a7cc65fysta9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docs/">Docs</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/27/关注眼睛健康/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          关注眼睛健康——《养眼就是养精神》读书笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/11/HybridDeveloping/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hybrid Developing</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 FrizzleFur<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

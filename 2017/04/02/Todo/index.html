@@ -1,99 +1,287 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
 
-block top_img
-  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
-  if (top_img && page.top_img !== false)
-    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
-    - var flag = top_img === true ? 'no-bg' : ''
-    div#top-container(style=bg_img class=flag)
-      include ./includes/header.pug
-      #post-info
-        #post-title= page.title || _p('no_title')
-        #post-meta
-          if (theme.post_meta.date_type)
-            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
-            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-          if (theme.post_meta.categories && page.categories.data.length > 0)
-            if (theme.post_meta.date_type)
-              span.post-meta__separator |
-            each item, index in page.categories.data
-              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
-              a(href=url_for(item.path)).post-meta__categories #[=item.name]
-              if (index < page.categories.data.length - 1)
-                 i.fa.fa-angle-right(aria-hidden="true")
-          if (theme.disqus.enable && theme.disqus.count)
-            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-              span.post-meta__separator |
-            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
-            a(href=url_for(page.path) + '#disqus_thread')
-              span.disqus-comment-count(data-disqus-identifier=page.path)
-          if (theme.wordcount && theme.wordcount.enable)
-            .post-meta-wordcount
-              span= _p('post.wordcount') + ': '
-              span.word-count= wordcount(page.content)
-              span.post-meta__separator |
-              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-  else
-    div#top-container.plain
-      include ./includes/header.pug
+  
+  <title>ToDo | FFur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Plan制定详细的计划任务目标 工作计划  学习计划  健身计划  交友计划   数据——采集、整理、分析、总结、完善 采集数据（Working Time、BodyBuild Time、Body Data、）  整理记录，使用Excel表格，MindNode等整理，并分析跟踪。  根据报表，分析情况，解决完善问题。">
+<meta name="keywords" content="ToDo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ToDo">
+<meta property="og:url" content="http://frizzlefur.com/2017/04/02/Todo/index.html">
+<meta property="og:site_name" content="FFur">
+<meta property="og:description" content="Plan制定详细的计划任务目标 工作计划  学习计划  健身计划  交友计划   数据——采集、整理、分析、总结、完善 采集数据（Working Time、BodyBuild Time、Body Data、）  整理记录，使用Excel表格，MindNode等整理，并分析跟踪。  根据报表，分析情况，解决完善问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-30T05:55:12.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ToDo">
+<meta name="twitter:description" content="Plan制定详细的计划任务目标 工作计划  学习计划  健身计划  交友计划   数据——采集、整理、分析、总结、完善 采集数据（Working Time、BodyBuild Time、Body Data、）  整理记录，使用Excel表格，MindNode等整理，并分析跟踪。  根据报表，分析情况，解决完善问题。">
+  
+    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FFur</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">刚刚在线</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Todo" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/02/Todo/" class="article-date">
+  <time datetime="2017-04-01T21:50:01.000Z" itemprop="datePublished">2017-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ToDo
+    </h1>
+  
 
-block content
-  article#post(class="")
-    if (!top_img)
-      #post-title.plain= page.title || _p('no_title')
-      #post-meta
-        if (theme.post_meta.date_type)
-          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
-          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-        if (theme.post_meta.categories && page.categories.data.length > 0)
-          if (theme.post_meta.date_type)
-            span.post-meta__separator |
-          each item, index in page.categories.data
-            i.fa.fa-inbox(aria-hidden="true")
-            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
-            if (index < page.categories.data.length - 1)
-                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
-        if (theme.disqus.enable && theme.disqus.count)
-          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-            span.post-meta__separator |
-          i.fa.fa-comment-o(aria-hidden="true")
-          a(href=url_for(page.path) + '#disqus_thread')
-            span.disqus-comment-count(data-disqus-identifier=page.path)
-        if (theme.wordcount && theme.wordcount.enable)
-          span.post-meta__separator |
-          span.post-meta-wordcount
-            span= _p('post.wordcount') + ': '
-            span.word-count= wordcount(page.content)
-            span.post-meta__separator |
-            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-    #post-content.article-container!= page.content
-  if (theme.post_copyright && theme.post_copyright.enable)
-    .post-copyright
-      .post-copyright__author
-        span.post-copyright-meta= _p('post.copyright.author') + ": "
-        span.post-copyright-info
-          a(href=`mailto:${config.email}`) #[=config.author]
-      .post-copyright__type
-        span.post-copyright-meta= _p('post.copyright.link') + ": "
-        span.post-copyright-info
-          a(href=url_for(page.permalink)) #[=page.permalink]
-      .post-copyright__notice
-        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
-        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
-  if (theme.post_meta.tags)
-    .post-meta__tag-list
-      each item, index in page.tags.data
-        a(href=url_for(item.path)).post-meta__tags #[=item.name]
-  if (theme.QR_code)
-    if (theme.QR_code.length > 0)
-      .post-qr-code
-        each item in theme.QR_code
-          .post-qr-code-item
-            img.post-qr-code__img(src=(item.itemlist||item).img)
-            .post-qr-code__desc=(item.itemlist||item).text
-  include includes/share/index.pug
-  include includes/pagination.pug
-  if (theme.adv && theme.adv.enable)
-    .post-adv!= theme.adv.info
-  if page.comments !== false
-    include includes/comments/index.pug
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Plan"><a href="#Plan" class="headerlink" title="Plan"></a>Plan</h2><h3 id="制定详细的计划任务目标"><a href="#制定详细的计划任务目标" class="headerlink" title="制定详细的计划任务目标"></a>制定详细的计划任务目标</h3><ol>
+<li><p>工作计划</p>
+</li>
+<li><p>学习计划</p>
+</li>
+<li><p>健身计划</p>
+</li>
+<li><p>交友计划</p>
+</li>
+</ol>
+<h3 id="数据——采集、整理、分析、总结、完善"><a href="#数据——采集、整理、分析、总结、完善" class="headerlink" title="数据——采集、整理、分析、总结、完善"></a>数据——采集、整理、分析、总结、完善</h3><ol>
+<li><p>采集数据（Working Time、BodyBuild Time、Body Data、）</p>
+</li>
+<li><p>整理记录，使用Excel表格，MindNode等整理，并分析跟踪。</p>
+</li>
+<li><p>根据报表，分析情况，解决完善问题。</p>
+</li>
+</ol>
+<a id="more"></a>
+<h3 id="迭代Target"><a href="#迭代Target" class="headerlink" title="迭代Target"></a>迭代Target</h3><ol>
+<li><p>根据收集分析的数据资料，和总结的结论，修正目标</p>
+</li>
+<li><p>根据修正后的目标完善计划</p>
+</li>
+</ol>
+<h2 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h2><h3 id="XCTest-Work-Flow"><a href="#XCTest-Work-Flow" class="headerlink" title="XCTest Work Flow"></a>XCTest Work Flow</h3><ol>
+<li>阅读 <a href="http://www.cocoachina.com/ios/20170401/18995.html" target="_blank" rel="noopener">iOS自动化测试的那些干货</a></li>
+<li>阅读 <a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/testing_with_xcode/chapters/01-introduction.html#//apple_ref/doc/uid/TP40014132-CH1-SW1" target="_blank" rel="noopener">testing_with_xcode</a></li>
+<li>阅读 <a href="http://tmq.qq.com/2016/05/ios_automatic_tools/" target="_blank" rel="noopener">解放你的双手—iOS自动测试基础</a></li>
+</ol>
+<h3 id="Fastlane学习"><a href="#Fastlane学习" class="headerlink" title="Fastlane学习"></a>Fastlane学习</h3><h2 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h2><h3 id="Blog"><a href="#Blog" class="headerlink" title="Blog"></a>Blog</h3><p>1.<code>MVVM</code>实践 (2017-07-08, OK)</p>
+<h3 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h3><ol>
+<li><p><a href="https://juejin.im/entry/568a35ab60b2b60f65fb5d2e" target="_blank" rel="noopener">Code Review 最佳实践</a></p>
+</li>
+<li><p><a href="https://robots.thoughtbot.com/ios-code-review-guidlines" target="_blank" rel="noopener">iOS Code Review: Loose Guidelines</a><br>————- 2017-07-08 ————-<br>Review项目的Code,使用<code>MVVM</code>将项目的分享模块的部分代码逻辑迁移到<code>viewModel</code>中</p>
+</li>
+</ol>
+<h3 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h3><ol>
+<li><code>iTerm</code></li>
+<li><code>Oh My Zch</code> ZShell</li>
+<li>熟悉<code>Linux</code>命令<br>————- 2017-06-03 ————-<br>使用<code>iTerm</code>，并且换成<code>Oh My Zch</code>的ZShell，熟悉了一些简单的<code>Linux</code>命令</li>
+</ol>
+<h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><ol>
+<li><a href="https://git-scm.com/doc" target="_blank" rel="noopener">Git</a></li>
+<li>使用<code>Git</code>管理项目，为<code>CI</code>做准备</li>
+</ol>
+<p>————- 2017-05-03 ————-<br>学习完基本的Git常用命令</p>
+<h3 id="Animation"><a href="#Animation" class="headerlink" title="Animation"></a>Animation</h3><p>学习<a href="https://store.raywenderlich.com/products/ios-animations-by-tutorials" target="_blank" rel="noopener">iOS_Animations_by_Tutorials</a></p>
+<h3 id="iOS-Debugging"><a href="#iOS-Debugging" class="headerlink" title="iOS Debugging"></a>iOS Debugging</h3><p><a href="https://www.raywenderlich.com/161106/introducing-advanced-apple-debugging-reverse-engineering" target="_blank" rel="noopener">Advanced_Apple_Debugging_&amp;_Reverse_Engineering</a></p>
+<p>————- 2017-07-03 ————-<br>学习完基本的一些调试技巧，并收入到博客中</p>
+<h3 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h3><ol>
+<li><a href="http://www.swiftguide.cn/" target="_blank" rel="noopener">Swiftguide.</a></li>
+<li><a href="https://www.hackingwithswift.com/" target="_blank" rel="noopener">Hackingwithswift</a></li>
+<li><a href="https://github.com/allenwong/30DaysofSwift" target="_blank" rel="noopener">30DaysofSwift</a></li>
+<li><a href="https://boxueio.com/skill/swift" target="_blank" rel="noopener">Boxueio Swift</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://frizzlefur.com/2017/04/02/Todo/" data-id="cjrno7hvu0003a7ccdxoqkxvq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ToDo/">ToDo</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/10/习惯伴随终生/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          习惯伴随终生
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/31/Xcode帮助文档/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Xcode帮助文档</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 FrizzleFur<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

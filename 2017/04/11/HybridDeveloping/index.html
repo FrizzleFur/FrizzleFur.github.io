@@ -1,99 +1,277 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
 
-block top_img
-  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
-  if (top_img && page.top_img !== false)
-    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
-    - var flag = top_img === true ? 'no-bg' : ''
-    div#top-container(style=bg_img class=flag)
-      include ./includes/header.pug
-      #post-info
-        #post-title= page.title || _p('no_title')
-        #post-meta
-          if (theme.post_meta.date_type)
-            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
-            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-          if (theme.post_meta.categories && page.categories.data.length > 0)
-            if (theme.post_meta.date_type)
-              span.post-meta__separator |
-            each item, index in page.categories.data
-              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
-              a(href=url_for(item.path)).post-meta__categories #[=item.name]
-              if (index < page.categories.data.length - 1)
-                 i.fa.fa-angle-right(aria-hidden="true")
-          if (theme.disqus.enable && theme.disqus.count)
-            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-              span.post-meta__separator |
-            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
-            a(href=url_for(page.path) + '#disqus_thread')
-              span.disqus-comment-count(data-disqus-identifier=page.path)
-          if (theme.wordcount && theme.wordcount.enable)
-            .post-meta-wordcount
-              span= _p('post.wordcount') + ': '
-              span.word-count= wordcount(page.content)
-              span.post-meta__separator |
-              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-  else
-    div#top-container.plain
-      include ./includes/header.pug
+  
+  <title>Hybrid Developing | FFur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在Hybrid开发模式中，是将Native和Html5的优势混合起来，然而在同一环境中可以顺畅无缝的跑起来，还待解决。  Hybrid App讲述 Hybrid App ，要先了解 Native App 和 Web App 的定义。 Native App 是指针对不同的手机操作系统要采用不同的语言和框架进行开发，例如Java(Android), Objective-C(iOS)等； Web Ap">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hybrid Developing">
+<meta property="og:url" content="http://frizzlefur.com/2017/04/11/HybridDeveloping/index.html">
+<meta property="og:site_name" content="FFur">
+<meta property="og:description" content="在Hybrid开发模式中，是将Native和Html5的优势混合起来，然而在同一环境中可以顺畅无缝的跑起来，还待解决。  Hybrid App讲述 Hybrid App ，要先了解 Native App 和 Web App 的定义。 Native App 是指针对不同的手机操作系统要采用不同的语言和框架进行开发，例如Java(Android), Objective-C(iOS)等； Web Ap">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.imgur.com/G1V9nOQ.png">
+<meta property="og:image" content="http://i.imgur.com/tlLP3fZ.png">
+<meta property="og:image" content="http://i.imgur.com/9ZIplY6.png">
+<meta property="og:image" content="http://i.imgur.com/pIY2Uy1.png">
+<meta property="og:image" content="http://i.imgur.com/GV2O6Hr.png">
+<meta property="og:image" content="http://i.imgur.com/1Zob0Tt.png">
+<meta property="og:image" content="http://i.imgur.com/YyxE130.png">
+<meta property="og:image" content="http://i.imgur.com/1tgWojx.png">
+<meta property="og:image" content="http://i.imgur.com/d15zFWD.png">
+<meta property="og:image" content="http://i.imgur.com/m1Oxf5w.png">
+<meta property="og:updated_time" content="2019-01-30T05:55:12.436Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hybrid Developing">
+<meta name="twitter:description" content="在Hybrid开发模式中，是将Native和Html5的优势混合起来，然而在同一环境中可以顺畅无缝的跑起来，还待解决。  Hybrid App讲述 Hybrid App ，要先了解 Native App 和 Web App 的定义。 Native App 是指针对不同的手机操作系统要采用不同的语言和框架进行开发，例如Java(Android), Objective-C(iOS)等； Web Ap">
+<meta name="twitter:image" content="http://i.imgur.com/G1V9nOQ.png">
+  
+    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FFur</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">刚刚在线</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HybridDeveloping" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/11/HybridDeveloping/" class="article-date">
+  <time datetime="2017-04-11T06:13:01.000Z" itemprop="datePublished">2017-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hybrid Developing
+    </h1>
+  
 
-block content
-  article#post(class="")
-    if (!top_img)
-      #post-title.plain= page.title || _p('no_title')
-      #post-meta
-        if (theme.post_meta.date_type)
-          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
-          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-        if (theme.post_meta.categories && page.categories.data.length > 0)
-          if (theme.post_meta.date_type)
-            span.post-meta__separator |
-          each item, index in page.categories.data
-            i.fa.fa-inbox(aria-hidden="true")
-            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
-            if (index < page.categories.data.length - 1)
-                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
-        if (theme.disqus.enable && theme.disqus.count)
-          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-            span.post-meta__separator |
-          i.fa.fa-comment-o(aria-hidden="true")
-          a(href=url_for(page.path) + '#disqus_thread')
-            span.disqus-comment-count(data-disqus-identifier=page.path)
-        if (theme.wordcount && theme.wordcount.enable)
-          span.post-meta__separator |
-          span.post-meta-wordcount
-            span= _p('post.wordcount') + ': '
-            span.word-count= wordcount(page.content)
-            span.post-meta__separator |
-            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-    #post-content.article-container!= page.content
-  if (theme.post_copyright && theme.post_copyright.enable)
-    .post-copyright
-      .post-copyright__author
-        span.post-copyright-meta= _p('post.copyright.author') + ": "
-        span.post-copyright-info
-          a(href=`mailto:${config.email}`) #[=config.author]
-      .post-copyright__type
-        span.post-copyright-meta= _p('post.copyright.link') + ": "
-        span.post-copyright-info
-          a(href=url_for(page.permalink)) #[=page.permalink]
-      .post-copyright__notice
-        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
-        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
-  if (theme.post_meta.tags)
-    .post-meta__tag-list
-      each item, index in page.tags.data
-        a(href=url_for(item.path)).post-meta__tags #[=item.name]
-  if (theme.QR_code)
-    if (theme.QR_code.length > 0)
-      .post-qr-code
-        each item in theme.QR_code
-          .post-qr-code-item
-            img.post-qr-code__img(src=(item.itemlist||item).img)
-            .post-qr-code__desc=(item.itemlist||item).text
-  include includes/share/index.pug
-  include includes/pagination.pug
-  if (theme.adv && theme.adv.enable)
-    .post-adv!= theme.adv.info
-  if page.comments !== false
-    include includes/comments/index.pug
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>在Hybrid开发模式中，是将Native和Html5的优势混合起来，然而在同一环境中可以顺畅无缝的跑起来，还待解决。</p>
+</blockquote>
+<h2 id="Hybrid-App"><a href="#Hybrid-App" class="headerlink" title="Hybrid App"></a>Hybrid App</h2><p>讲述 <code>Hybrid App</code> ，要先了解 <code>Native App</code> 和 <code>Web App</code> 的定义。 <code>Native App</code> 是指针对不同的手机操作系统要采用不同的语言和框架进行开发，例如Java(Android), Objective-C(iOS)等； <code>Web App</code> 即是 <code>HTML5 APP</code> 框架开发模式，使用HTML5,CSS3以及JavaScript以及服务器端语言来完成开发， <code>Web App</code> 具有跨平台的优势。根据定义显而易见得出两种开发模式的优劣势， <code>Native App</code> 可以利用系统的所有特性，因此做出杰出的性能，然而每次功能升级都必须重新打包、审核再上架，平均浪费近两周的时间。而反观 <code>Web App</code> 就没有这样的问题，其缺点在于Web语言无法访问很多系统特性，性能不高。</p>
+<p><img src="http://i.imgur.com/G1V9nOQ.png" alt="Native App"><br><a id="more"></a></p>
+<p>鉴于二者各有的优劣势，顺理成章的衍生出了介于中间的开发模式 <code>Hybrid</code> 。其特点是在原生应用中嵌入一个浏览器组件，然后通过某种方式，让原生代码和网页能够双向通讯，结果就是可以在需要原生功能的时候使用原生功能，而适合放在网页端的部分就放在服务器上。某种程度上利用到了两者的优势。另一个优势就是，由于网页技术在 <code>iOS</code> 和 <code>Android</code> 上是一样的，所以网页的这部分也就天然可以跨平台了。</p>
+<p>目前中国70%以上的 <code>Native APP</code> 都已经混合了Web技术，例如淘宝、大众点评、58同城、去哪儿等超级App都嵌入了大量的HTML5页面，尤其是内容页面中体现。让部分功能在WebView技术基础上缩短开发周期、实现灵活业务调整。然而很多中小技术团队嵌入的Html5部分，用户体验还是比较差、功能比较弱。让 <code>Native App</code> 开发团队开发出体验好和功能强的HTML5页面并不是简单的事情。</p>
+<h3 id="Web-App开发的缺点"><a href="#Web-App开发的缺点" class="headerlink" title="Web App开发的缺点"></a>Web App开发的缺点</h3><ol>
+<li>无法获取系统级别的通知、提醒、动效等等</li>
+<li>浏览的体验短期内还无法超越Native App</li>
+<li>提供的是临时性的入口</li>
+</ol>
+<p>究其原因， <code>Hybrid App</code> 的学习成本较高，需要同时掌握Native技术和Web技术，因此专业做 <code>Hybrid</code> 开发的程序猿并不多，学习资料自然也少，大家都是摸着石头过河，一点一点的摸索屏幕适配、UI响应速度以及如何使Native语言与Web语言在同一产品中得到很好的协调和配合。开发一款高性能的 <code>Hybrid App</code> ，最终还是要将两种语言化为一体，；</p>
+<p>移动端发展到现在，此时无论是 <code>Native App</code> 还是 <code>Web App</code> 都将不能满足人们对于移动应用的需求，对于企业来说是开发快、成本低；对于用户来说则是性能好、体验佳。<code>Hybrid App</code>的需求猛增，所以， <code>React Native</code> 和 <code>Ionic</code> 等框架的出现，使得桥接映射进行 <code>JS</code> 扩展的引擎拥有更强大的功能，更优化的性能，更规范化的独立分工，更流程化的团队协作，更灵活的动态生成机制。幅缩短迭代周期，支持功能的动态增加。由 <code>Web</code> 技术实现部分的功能更新无需再反复提交 <code>AppStore</code> 审核。用户也无需重新下载安装。</p>
+<h3 id="Hybrid-App开发的优点"><a href="#Hybrid-App开发的优点" class="headerlink" title="Hybrid App开发的优点"></a>Hybrid App开发的优点</h3><p><img src="http://i.imgur.com/tlLP3fZ.png" alt="HybridDeveloping_HybridApp"></p>
+<h3 id="Hybrid-App开发的缺点"><a href="#Hybrid-App开发的缺点" class="headerlink" title="Hybrid App开发的缺点"></a>Hybrid App开发的缺点</h3><ol>
+<li>用户体验不如本地应用</li>
+<li>深度定制的难度大</li>
+</ol>
+<p><img src="http://i.imgur.com/9ZIplY6.png" alt="HybridDeveloping_移动开发的分类"></p>
+<h2 id="React-Native"><a href="#React-Native" class="headerlink" title="React Native"></a>React Native</h2><p><code>React Native</code> 使你能够使用基于 <code>JavaScript</code> 和 <code>React</code> 一直的开发体验，在本地平台上构建世界一流的应用程序体验。</p>
+<h3 id="React-Native开发的优点"><a href="#React-Native开发的优点" class="headerlink" title="React Native开发的优点"></a>React Native开发的优点</h3><h4 id="相对于-Hybird-应用："><a href="#相对于-Hybird-应用：" class="headerlink" title="相对于 Hybird 应用："></a>相对于 <code>Hybird</code> 应用：</h4><ol>
+<li>提供了原生的控件支持</li>
+<li>拥有原生的用户体验</li>
+</ol>
+<h4 id="相对于-Native-应用："><a href="#相对于-Native-应用：" class="headerlink" title="相对于 Native 应用："></a>相对于 <code>Native</code> 应用：</h4><ol>
+<li>拥有Web的开发效率</li>
+<li>可以通过更新远端JS代码，直接更新App.</li>
+</ol>
+<h3 id="React-Native-开发的缺点"><a href="#React-Native-开发的缺点" class="headerlink" title="React Native 开发的缺点"></a><code>React Native</code> 开发的缺点</h3><p>1、 对开发人员要求较高，当官方的提供的API等无法满足需求时，需要Native开发人员开发和扩展。</p>
+<h3 id="React-Native-和-Ionic-的对比"><a href="#React-Native-和-Ionic-的对比" class="headerlink" title="React Native 和 Ionic 的对比"></a><code>React Native</code> 和 <code>Ionic</code> 的对比</h3><p><img src="http://i.imgur.com/pIY2Uy1.png" alt="对比"><br>目前 <code>Github</code> 上 <code>React Native</code> 是46784颗star<br>，<code>Ionic</code> 是28940颗star<br><code>React Native</code> 人气要高一些<br><img src="http://i.imgur.com/GV2O6Hr.png" alt="HybridDeveloping_开发环境"><br><img src="http://i.imgur.com/1Zob0Tt.png" alt="开发思维"></p>
+<h4 id="Ionic"><a href="#Ionic" class="headerlink" title="Ionic"></a>Ionic</h4><p><img src="http://i.imgur.com/YyxE130.png" alt="Ionic"></p>
+<h4 id="React-Native-1"><a href="#React-Native-1" class="headerlink" title="React Native"></a>React Native</h4><p><img src="http://i.imgur.com/1tgWojx.png" alt="React Native基本实现思路"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="http://i.imgur.com/d15zFWD.png" alt="HybridDeveloping_AppType"></p>
+<p><img src="http://i.imgur.com/m1Oxf5w.png" alt="HybridDeveloping_总结"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://frizzlefur.com/2017/04/11/HybridDeveloping/" data-id="cjrno7hvr0001a7ccqx1z7m2p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/18/TableView系列--优化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          TableView系列--优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/10/习惯伴随终生/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">习惯伴随终生</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 FrizzleFur<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

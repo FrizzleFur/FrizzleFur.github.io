@@ -1,99 +1,291 @@
-extends includes/layout.pug
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
 
-block top_img
-  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
-  if (top_img && page.top_img !== false)
-    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
-    - var flag = top_img === true ? 'no-bg' : ''
-    div#top-container(style=bg_img class=flag)
-      include ./includes/header.pug
-      #post-info
-        #post-title= page.title || _p('no_title')
-        #post-meta
-          if (theme.post_meta.date_type)
-            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
-            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-          if (theme.post_meta.categories && page.categories.data.length > 0)
-            if (theme.post_meta.date_type)
-              span.post-meta__separator |
-            each item, index in page.categories.data
-              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
-              a(href=url_for(item.path)).post-meta__categories #[=item.name]
-              if (index < page.categories.data.length - 1)
-                 i.fa.fa-angle-right(aria-hidden="true")
-          if (theme.disqus.enable && theme.disqus.count)
-            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-              span.post-meta__separator |
-            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
-            a(href=url_for(page.path) + '#disqus_thread')
-              span.disqus-comment-count(data-disqus-identifier=page.path)
-          if (theme.wordcount && theme.wordcount.enable)
-            .post-meta-wordcount
-              span= _p('post.wordcount') + ': '
-              span.word-count= wordcount(page.content)
-              span.post-meta__separator |
-              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-  else
-    div#top-container.plain
-      include ./includes/header.pug
+  
+  <title>习惯伴随终生 | FFur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="fair enough，这世界上本来就只有那一小部分人才能享受世界上最精彩的人生，如果你做不到，无可厚非，并没有什么关系。当然你在选择享受最精彩的人生同时也要承受本应有的孤独与坚持～ 一些让生活变得简洁高效的 ^ ^  直接干货（小习惯+小冷门）：习惯一旦养成，受益终生 今天不想跑，所以才去跑，这才是长距离跑者的思维方式。">
+<meta name="keywords" content="Life">
+<meta property="og:type" content="article">
+<meta property="og:title" content="习惯伴随终生">
+<meta property="og:url" content="http://frizzlefur.com/2017/04/10/习惯伴随终生/index.html">
+<meta property="og:site_name" content="FFur">
+<meta property="og:description" content="fair enough，这世界上本来就只有那一小部分人才能享受世界上最精彩的人生，如果你做不到，无可厚非，并没有什么关系。当然你在选择享受最精彩的人生同时也要承受本应有的孤独与坚持～ 一些让生活变得简洁高效的 ^ ^  直接干货（小习惯+小冷门）：习惯一旦养成，受益终生 今天不想跑，所以才去跑，这才是长距离跑者的思维方式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-30T05:55:12.443Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="习惯伴随终生">
+<meta name="twitter:description" content="fair enough，这世界上本来就只有那一小部分人才能享受世界上最精彩的人生，如果你做不到，无可厚非，并没有什么关系。当然你在选择享受最精彩的人生同时也要承受本应有的孤独与坚持～ 一些让生活变得简洁高效的 ^ ^  直接干货（小习惯+小冷门）：习惯一旦养成，受益终生 今天不想跑，所以才去跑，这才是长距离跑者的思维方式。">
+  
+    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FFur</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">刚刚在线</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-习惯伴随终生" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/10/习惯伴随终生/" class="article-date">
+  <time datetime="2017-04-10T02:16:01.000Z" itemprop="datePublished">2017-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      习惯伴随终生
+    </h1>
+  
 
-block content
-  article#post(class="")
-    if (!top_img)
-      #post-title.plain= page.title || _p('no_title')
-      #post-meta
-        if (theme.post_meta.date_type)
-          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
-          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
-        if (theme.post_meta.categories && page.categories.data.length > 0)
-          if (theme.post_meta.date_type)
-            span.post-meta__separator |
-          each item, index in page.categories.data
-            i.fa.fa-inbox(aria-hidden="true")
-            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
-            if (index < page.categories.data.length - 1)
-                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
-        if (theme.disqus.enable && theme.disqus.count)
-          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
-            span.post-meta__separator |
-          i.fa.fa-comment-o(aria-hidden="true")
-          a(href=url_for(page.path) + '#disqus_thread')
-            span.disqus-comment-count(data-disqus-identifier=page.path)
-        if (theme.wordcount && theme.wordcount.enable)
-          span.post-meta__separator |
-          span.post-meta-wordcount
-            span= _p('post.wordcount') + ': '
-            span.word-count= wordcount(page.content)
-            span.post-meta__separator |
-            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
-    #post-content.article-container!= page.content
-  if (theme.post_copyright && theme.post_copyright.enable)
-    .post-copyright
-      .post-copyright__author
-        span.post-copyright-meta= _p('post.copyright.author') + ": "
-        span.post-copyright-info
-          a(href=`mailto:${config.email}`) #[=config.author]
-      .post-copyright__type
-        span.post-copyright-meta= _p('post.copyright.link') + ": "
-        span.post-copyright-info
-          a(href=url_for(page.permalink)) #[=page.permalink]
-      .post-copyright__notice
-        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
-        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
-  if (theme.post_meta.tags)
-    .post-meta__tag-list
-      each item, index in page.tags.data
-        a(href=url_for(item.path)).post-meta__tags #[=item.name]
-  if (theme.QR_code)
-    if (theme.QR_code.length > 0)
-      .post-qr-code
-        each item in theme.QR_code
-          .post-qr-code-item
-            img.post-qr-code__img(src=(item.itemlist||item).img)
-            .post-qr-code__desc=(item.itemlist||item).text
-  include includes/share/index.pug
-  include includes/pagination.pug
-  if (theme.adv && theme.adv.enable)
-    .post-adv!= theme.adv.info
-  if page.comments !== false
-    include includes/comments/index.pug
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>fair enough，这世界上本来就只有那一小部分人才能享受世界上最精彩的人生，如果你做不到，无可厚非，并没有什么关系。当然你在选择享受最精彩的人生同时也要承受本应有的孤独与坚持～</p>
+<p>一些让生活变得简洁高效的 ^ ^</p>
+</blockquote>
+<p>直接干货（小习惯+小冷门）：习惯一旦养成，受益终生</p>
+<p>今天不想跑，所以才去跑，这才是长距离跑者的思维方式。</p>
+<a id="more"></a>
+<p>1，凡是坐式马桶，入厕时为了防止迸溅在身上，可以在入厕之前往马桶里平铺一张卫生纸，干净方便，尤其入住宾馆蹲大号的时候屡试不爽。(尤其女生不仅可以防止迸溅还可以消除蹲小号的声音，避免尴尬。。)</p>
+<p>2， 每天坚持早起晨便。起床后喝一大杯柠檬水或蜂蜜水，洗漱完按时入厕。每天早上按时入厕，养成规律，这个习惯很小，但一旦养成受益终身。无论早起有没有 feel都要按时去入厕蹲大号，时间一长，就会自然养成生物钟，这样每天至少clean colon is one less thing to worry about 。。–&lt;生活大爆炸&gt;</p>
+<p>3，<strong>每天都跑步</strong>，最好晚上跑，下小雨也去跑步。<strong><a href="http://www.mifengtd.cn/articles/beginners-guide-to-running.html" target="_blank" rel="noopener">写给想要开始跑步的人</a></strong>,跑步的好处不必多说。跑步是会上瘾的，是最能显著改变你身体素质的首选：<a href="">体质极差的人如何从头开始恢复身体素质？</a> - 健康，手机软件可以用 悦动圈 ，比较精确。正常情况下慢跑至少每天5KM。当然因人而异。购买一双合适的跑鞋。关于跑步几条最重要的建议有：<a href="https://link.zhihu.com/?target=http%3A//health.sohu.com/20150623/n415551587.shtml" target="_blank" rel="noopener">从2000条中精选出来的11条最重要跑步建议</a></p>
+<p>4，<strong>每周至少4/5次健身房。毋庸置疑，它是值得你用一生的时间去坚持的东西</strong>。关于健身，分享一下我喜欢的话： </p>
+<p><code>每次我走进一座漂亮的房子见到一脸自豪，满身赘肉的主人时，我都非常惊讶。他们没有搞清楚本末始终，我们真正的家不是房子、城市甚至国家，而是我们的身体。只要你还在这世上，他就是你的灵魂和精神唯一一刻都不离的栖息之所。他是世上你能照料的有形之物中最最重要的。</code>  —-<a href="http://www.zhihu.com/question/23507127/answer/25469810" target="_blank" rel="noopener">&lt;&lt;无器械健身&gt;&gt;</a> 。</p>
+<p>我也不必多说，健身还可以改变容貌。。 长时间坚持健身可以一定程度上改变容貌吗？ - 调查类问题。想找健身方法，知乎上搜索全都是。推荐一个健身网站：<a href="http://www.fitnes.cn/#" target="_blank" rel="noopener">我爱健身-可能是最受欢迎健身网站,要健身上我爱健身网</a>，推荐一个索尼运动式mp3，防水，无论健身还是跑步，有了它，并不孤单【索尼NWZ-W273S】索尼（SONY） NWZ-W273S 防滴溅运动式MP3 游泳时可佩戴的Walkman 4G 黑色【行情 报价 价格 评测】</p>
+<p>5，电动牙刷。不是懒，而是电动牙刷真的刷的较手动牙刷干净的多。关于电动牙刷也比较过。这个牌子的声波震动电动牙刷很不错。【飞利浦HX6730/02】飞利浦（Philips） HX6730/02 充电式声波震动牙刷（雾白）【行情 报价 价格 评测】</p>
+<p>6，<strong>将每天要做的事情分轻缓紧急，每天上午11点之前，做完今天最重要或者最难的工作。先啃最难啃的骨头原则。。每天养成这一习惯后，你会发现每一天很多事情都慢慢变得轻松有序。</strong></p>
+<p>7，酒，能少则少。喝酒真没什么太多好处，任何时刻保持清醒的大脑比什么都重要。喝醉了还是要面对这个惨不忍睹的世界。男人饮酒过度的八大危害_39健康网之前还想过少喝点，但你若是一沾酒，别人就会劝酒不停。索性说喝酒过敏，滴酒不沾，这样朋友之间就不会有人再劝酒。（若是工作需要非得陪客户喝酒，那也只能呵(喝)呵(喝)了。。)。</p>
+<p> 8，每天晚上写日记或工作记录(尽量简明扼要)，<strong>回顾整体所学所做</strong>。软件用 印象笔记。超好用。网页客户端和手机端都会同步，方便至极。重要的是刷手机知乎时，可以直接同步到印象笔记上。印象笔记下载-你的工作空间</p>
+<p>9，<strong>每天饭后15分钟内一定不要坐着或躺着，避免腹部肥肉堆积。饭后百步走，活到。。。</strong></p>
+<p>10，<strong>睡前两个小时就不要喝水了，避免眼袋浮肿，增加了肾脏的负担.。-也或许会尿床, 白天多喝点水，一天一个水果，少吃油腻食品，多吃蔬菜。</strong>健身人士推荐燕麦片和各种谷类粥，牛奶及牛肉。</p>
+<p>11<strong>，每晚睡觉之前进行轻揉腹部</strong>，听说对身体很有益哦。知乎上还有说经常提肛动作，对男性“很有益处”。有什么能随时锻炼身体的方法？ - 养生</p>
+<p>12，<strong>养成自律的习惯，因为他是通往成功的唯一钥匙途径。自律者方可自由，优秀源于彻底的自我管理。</strong>可参考这篇文章，很好。高度自律是一种怎样的体验？ - 学习</p>
+<p>13，良好的作息习惯。千万不要熬夜，千万不要熬夜，千万不要熬夜，千万不要熬夜。（四遍）<a href="https://link.zhihu.com/?target=http%3A//2010.163.com/special/00863O15/jlbbqarc24.html" target="_blank" rel="noopener">人生最好的作息时间表</a></p>
+<p>14，<strong>走路跑步都要抬头挺胸，加快脚步。</strong>无论什么时候，无论多么挫败，走路跑步都要昂首挺胸，男人尤其应该如此。</p>
+<p>15，养成中午午休习惯。时间点在12点30到1点30之间。保持精力充沛。可折叠在办公室或公司内使用。关于午睡午休 - 热门问答</p>
+<p>16，<strong>每天空留几十分钟的时间进行冥想。</strong>益处多多。请参考冥想入门：怎样开始冥想（上）如何冥想？2500年的智慧——荒岛十日记（1/3）</p>
+<p>17，<strong>建议每天至少用牙线清洁牙齿一次</strong>。口腔中有些地方是牙刷无法轻易刷到的。请注意，不要硬拉牙线。从一颗牙移到另一颗牙时要用牙线的干净部分。请继续使用牙线直到清洁完所有牙齿为止。然后用漱口水或水冲洗。<a href="http://www.zhihu.com/question/20842469" target="_blank" rel="noopener">使用牙线有必要性吗？ - 牙齿</a></p>
+<p>18，<strong>The less is More.极简主义，通过砍掉生活中一些东西，来减少这些明显弊大于利的事情，从而改善你的生活。不要在一些琐事上浪费时间，在一些琐事上努力把选择变少</strong>。极简主义生活方式是什么？ - 极简主义（Minimalism）<br>奥 巴马不是穿蓝的就是灰色的西装。有一期“Vanity Fair”杂志上，Michael Lewis采访了这位美国总统，总统解释了他这样做的逻辑：“你们会看到我只穿灰色或蓝色的西装。我努力把选择变少。我不想在吃什么或穿什么上面做决定。 因为我需要做太多其他的决定。”奥巴马还说，“有研究证明仅仅是做决定这个行为，就影响一个人做其他决定的能力。”</p>
+<p>19，**要养成有吸引力的习惯。<a href="https://link.zhihu.com/?target=http%3A//www.neonan.com/articles/21507" target="_blank" rel="noopener">10种好习惯改善你的外表,让你变得更帅更有魅力吸引力</a>,习惯包括有：(1)基本皮肤护理对改善你的外表绝对是必须的。用温和的洗面奶，最好用2%浓度的水杨酸帮助你防止青春痘，一周两到三次去角质去除皮肤 粘液和让死细胞脱落。(2)更换床上用品：首先就要从肮脏的枕头开始，每星期更换一次你床上用品将较少于皮肤的接触堵塞毛孔的污垢。(3)洗澡后刮胡子. (4)周期更换床单。。</p>
+<p>20，<strong>任何事情凡事一定要拼尽全力，尽量做到极致，做到最好</strong>。推荐一下喜欢的男神 钟汉良。钟汉良的人气高吗？他的粉丝从哪来？ - 钟汉良真正开始了解他性格特点是看他真人秀《极速前进》节目。做事很拼，有毅力不墨迹。不愧这么多人喜欢小哇。</p>
+<p>21，很多时候，沉默是金。宁愿保持沉默让人看起来像个傻子，也不要一开口就证明确实是个傻子。沉默的多种意义。尤其当别人诘难你的时候，如果想不到其他可以幽默漂亮的反击的花语时，那最好的方法就是保持沉默。沉默中，至少不会让别人看到你的底牌。</p>
+<p>22， 说了这么多，我先写到这吧。。很多人都会说，懂得这么多道理，还是没有过好这一生。。其实真不想再多说什么，那些通过自己努力获得成功的人真的没有什么好 羡慕的，这句话大家不要理解错了，我想说的是那些通过自己努力获得成功的人他们真的舍弃了很多你用来享受安逸的时间，fair enough，这世界上本来就只有那一小部分人才能享受世界上最精彩的人生，当然你在选择享受最精彩的人生同时也要承受本应有的孤独与坚持,<code>winner本来就是孤独的</code>。在我看来，自律是一个人摆脱痛苦的唯一根源，优秀源于彻底的自我管理，彻底的自律，彻底的自我管理，严格的作息锻炼习惯，参考12条，只有这样，你才能体会到最美味的花蕾最精彩的人生巅峰~~严格自律;</p>
+<h2 id="没货源没资金，90后青年怎么靠一台电脑做网店月赚过万，经验分享！"><a href="#没货源没资金，90后青年怎么靠一台电脑做网店月赚过万，经验分享！" class="headerlink" title="没货源没资金，90后青年怎么靠一台电脑做网店月赚过万，经验分享！"></a><a href="http://www.cangshanbbs.com/t3576011/" target="_blank" rel="noopener">没货源没资金，90后青年怎么靠一台电脑做网店月赚过万，经验分享！</a></h2><ol>
+<li><p>30岁之前你要疯狂的学习，不然你会后悔，这是导致人与人之间差距最大的因素</p>
+</li>
+<li><p>尝试创业，因为你打工学到的毕竟有限。</p>
+</li>
+<li><p>在淘宝开店，现在不需要货源都可以。您可以开一个虚拟店或者实物店。或者实物和虚拟都放在一个店子销售也是可以的。</p>
+</li>
+<li><p>在淘宝开店根本就不需要自己去批发市场找货源，图片，物流都需要你自己负责，你根本做不起来</p>
+</li>
+<li><p>找一个好的老师教你，减少时间成本，因为你的青春是一去不复返的。等您成为富翁，你花钱也买不回摸索的时间，不要在钱上面纠结，在钱上面纠结的人，事业做不大，甚至做不起来。<strong>花钱买经验是最快成长的方法</strong>。</p>
+</li>
+<li><p>用最好的电脑，最快的网速，最好的手机，年轻，尽自己能力，把装备弄好，提高效率。不然你会后悔，年轻，金子般的年华，你穿的不好，吃的不好，用的手机电脑都慢的要死，你这是在浪费时间。</p>
+</li>
+<li><p>一个人越是能明白时间的重要性，创造的事业越大。但是很多人都不会明白，因为你还没有到那个点，所以你要不断反省自己。</p>
+</li>
+<li><p>获取低成本高流量，免费推广，刚刚开始不要做付费的，但是低成本流量也是很巨大的。</p>
+</li>
+</ol>
+<h2 id="30-岁做什么，可以在-5-年后受益匪浅？"><a href="#30-岁做什么，可以在-5-年后受益匪浅？" class="headerlink" title="30 岁做什么，可以在 5 年后受益匪浅？"></a><a href="https://www.zhihu.com/question/28569572" target="_blank" rel="noopener">30 岁做什么，可以在 5 年后受益匪浅？</a></h2><p>1、坚持每天打DOTA、LOL，5年后积分可以达到平台前列，写入个人简历。</p>
+<p>2、坚持晚睡早起，5年后可以拥有比别人更差的精神状态和更多的白头发。</p>
+<p>3、坚持喝酒打通关，5年后可以拥有胃穿孔和酒精肝。</p>
+<p>4、坚持每天做股票和期货，5年后可以拥有更多的失败教训和更少的银行存款。</p>
+<p>5、坚持每年读不多于一本书，5年后知识可以和5年前一样贫乏。</p>
+<p>6、坚持每天抓紧时间和同事聊八卦，5年后可以和广场舞大妈无障碍交流。</p>
+<p>7、坚持吃垃圾食品，5年后可以拥有比别人更大的啤酒肚。</p>
+<p>8、坚持不锻炼，5年后可以拥有更病弱的体质。</p>
+<p>9、坚持从不体检，5年后给医生一个意外惊喜。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>哈哈，优秀是一种习惯吧，改变在于平时的积累，建议每周来review该文两次~ Enjoy Become Better~</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.zhihu.com/question/28255870" target="_blank" rel="noopener">哪些习惯让生活更简洁高效？</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://frizzlefur.com/2017/04/10/习惯伴随终生/" data-id="cjrno7hwv001fa7cce5ts7fmq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/11/HybridDeveloping/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hybrid Developing
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/04/02/Todo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ToDo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 FrizzleFur<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
