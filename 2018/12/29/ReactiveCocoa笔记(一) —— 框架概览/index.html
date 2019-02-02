@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>ReactiveCocoa笔记(一）—— 框架概览 | FFur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="对于一个应用来说，绝大部分的时间都是在等待某些事件的发生或响应某些状态的变化，比如用户的触摸事件、应用进入后台、网络请求成功刷新界面等等，而维护这些状态的变化，常常会使代码变得非常复杂，难以扩展。而 ReactiveCocoa 给出了一种非常好的解决方案，它使用信号来代表这些异步事件，提供了一种统一的方式来处理所有异步的行为，包括代理方法、block 回调、target-action 机制、通知">
+<meta name="keywords" content="ReactiveCocoa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactiveCocoa笔记(一）—— 框架概览">
+<meta property="og:url" content="http://frizzlefur.com/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/index.html">
+<meta property="og:site_name" content="FFur">
+<meta property="og:description" content="对于一个应用来说，绝大部分的时间都是在等待某些事件的发生或响应某些状态的变化，比如用户的触摸事件、应用进入后台、网络请求成功刷新界面等等，而维护这些状态的变化，常常会使代码变得非常复杂，难以扩展。而 ReactiveCocoa 给出了一种非常好的解决方案，它使用信号来代表这些异步事件，提供了一种统一的方式来处理所有异步的行为，包括代理方法、block 回调、target-action 机制、通知">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1de0224cd79.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1e0e05d4e87.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/29/5c27451072bcb.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1df9e8aed17.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1e02111f968.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1e063be039c.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1e119f0720d.jpg">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1e104d85f5d.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/22/5c1e145311a2d.jpg">
+<meta property="og:updated_time" content="2019-01-30T07:38:33.150Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ReactiveCocoa笔记(一）—— 框架概览">
+<meta name="twitter:description" content="对于一个应用来说，绝大部分的时间都是在等待某些事件的发生或响应某些状态的变化，比如用户的触摸事件、应用进入后台、网络请求成功刷新界面等等，而维护这些状态的变化，常常会使代码变得非常复杂，难以扩展。而 ReactiveCocoa 给出了一种非常好的解决方案，它使用信号来代表这些异步事件，提供了一种统一的方式来处理所有异步的行为，包括代理方法、block 回调、target-action 机制、通知">
+<meta name="twitter:image" content="https://i.loli.net/2018/12/22/5c1de0224cd79.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FFur</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">刚刚在线</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ReactiveCocoa笔记(一) —— 框架概览" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/" class="article-date">
+  <time datetime="2018-12-29T10:01:10.000Z" itemprop="datePublished">2018-12-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ReactiveCocoa笔记(一）—— 框架概览
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>对于一个应用来说，绝大部分的时间都是在等待某些事件的发生或响应某些状态的变化，比如用户的触摸事件、应用进入后台、网络请求成功刷新界面等等，而维护这些状态的变化，常常会使代码变得非常复杂，难以扩展。而 ReactiveCocoa 给出了一种非常好的解决方案，它使用信号来代表这些异步事件，提供了一种统一的方式来处理所有异步的行为，包括代理方法、block 回调、target-action 机制、通知、KVO 等：<br>然而，这些还只是 ReactiveCocoa 的冰山一角，它真正强大的地方在于我们可以对这些不同的信号进行任意地组合和链式操作，从最原始的输入 input 开始直至得到最终的输出 output为止</p>
+</blockquote>
+<h2 id="ReactiveCocoa解决的问题"><a href="#ReactiveCocoa解决的问题" class="headerlink" title="ReactiveCocoa解决的问题:"></a>ReactiveCocoa解决的问题:</h2><ol>
+<li>传统iOS开发过程中,<strong>状态以及状态之间依赖过多的问题</strong></li>
+<li>传统MVC架构的问题:Controller比较复杂,可测试性差</li>
+<li><strong>提供统一的消息传递机制</strong></li>
+</ol>
+<a id="more"></a>
+<h2 id="ReactiveCocoa-的问题"><a href="#ReactiveCocoa-的问题" class="headerlink" title="ReactiveCocoa 的问题"></a>ReactiveCocoa 的问题</h2><p><code>RAC</code> 在应用中大量使用了 <code>block</code>，由于 <code>Objective-C</code> 语言的内存管理是基于引用计数 的，为了避免循环引用问题，在 <code>block</code> 中如果要引用 <code>self</code>，需要使用@weakify(self)和@strongify(self)来避免强引用。另外，在使用时应该注意 <code>block</code> 的嵌套层数，不恰当的滥用多层嵌套 <code>block</code> 可能给程序的可维护性带来灾难。</p>
+<p>有些地方很容易被忽略，比如<strong>RACObserve</strong>(thing, keypath)，看上去并没有引用self，所以在subscribeNext时就忘记了weakify/strongify。但事实上RACObserve总是会引用self，即使target不是self，所以只要有RACObserve的地方都要使用weakify/strongify。</p>
+<h2 id="ReactiveCocoa-的理解"><a href="#ReactiveCocoa-的理解" class="headerlink" title="ReactiveCocoa 的理解"></a>ReactiveCocoa 的理解</h2><p><a href="http://limboy.me/ios/2013/06/19/frp-reactivecocoa.html" target="_blank" rel="noopener">leezhong博客</a></p>
+<p>　 可以把信号想象成水龙头，只不过里面不是水，而是玻璃球(value)，直径跟水管的内径一样，这样就能保证玻璃球是依次排列，不会出现并排的情况(数据都是线性处理的，不会出现并发情况)。水龙头的开关默认是关的，除非有了接收方(subscriber)，才会打开。这样只要有新的玻璃球进来，就会自动传送给接收方。可以在水龙头上加一个过滤嘴(filter)，不符合的不让通过，也可以加一个改动装置，把球改变成符合自己的需求(map)。也可以把多个水龙头合并成一个新的水龙头(combineLatest:reduce:)，这样只要其中的一个水龙头有玻璃球出来，这个新合并的水龙头就会得到这个球。　</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代理方法</span></span><br><span class="line">[[<span class="keyword">self</span></span><br><span class="line">    rac_signalForSelector:<span class="keyword">@selector</span>(webViewDidStartLoad:)</span><br><span class="line">    fromProtocol:<span class="class"><span class="keyword">@protocol</span>(<span class="title">UIWebViewDelegate</span>)]</span></span><br><span class="line">    subscribeNext:^(<span class="keyword">id</span> x) &#123;</span><br><span class="line">        <span class="comment">// 实现 webViewDidStartLoad: 代理方法</span></span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// target-action</span></span><br><span class="line">[[<span class="keyword">self</span>.avatarButton</span><br><span class="line">    rac_signalForControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>]</span><br><span class="line">    subscribeNext:^(<span class="built_in">UIButton</span> *avatarButton) &#123;</span><br><span class="line">        <span class="comment">// avatarButton 被点击了</span></span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通知</span></span><br><span class="line">[[[<span class="built_in">NSNotificationCenter</span> defaultCenter]</span><br><span class="line">    rac_addObserverForName:kReachabilityChangedNotification object:<span class="literal">nil</span>]</span><br><span class="line">    subscribeNext:^(<span class="built_in">NSNotification</span> *notification) &#123;</span><br><span class="line">        <span class="comment">// 收到 kReachabilityChangedNotification 通知</span></span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// KVO</span></span><br><span class="line">[RACObserve(<span class="keyword">self</span>, username) subscribeNext:^(<span class="built_in">NSString</span> *username) &#123;</span><br><span class="line">    <span class="comment">// 用户名发生了变化</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://www.youtube.com/embed/fWV7xyN5CR8?rel=0" target="_blank" rel="noopener">April 2014 Tech Talk: Reactive Cocoa - YouTube</a></li>
+<li><a href="https://halfrost.com/reactivecocoa_racsignal/" target="_blank" rel="noopener">ReactiveCocoa 中 RACSignal 是如何发送信号的</a></li>
+<li><a href="https://juejin.im/post/578f49fa5bbb50005b95fb80" target="_blank" rel="noopener">iOS ReactiveCocoa 最全常用API整理（可做为手册查询） - 掘金</a></li>
+</ul>
+<h2 id="总结图示"><a href="#总结图示" class="headerlink" title="总结图示"></a>总结图示</h2><p><img src="https://i.loli.net/2018/12/22/5c1de0224cd79.jpg" alt=""></p>
+<ul>
+<li>信号源：RACStream 及其子类；</li>
+<li>订阅者：RACSubscriber 的实现类及其子类；</li>
+<li>调度器：RACScheduler 及其子类；</li>
+<li>清洁工：RACDisposable 及其子类。</li>
+</ul>
+<p><img src="https://i.loli.net/2018/12/22/5c1e0e05d4e87.png" alt=""></p>
+<p><a href="http://blog.leichunfeng.com/blog/2015/12/25/reactivecocoa-v2-dot-5-yuan-ma-jie-xi-zhi-jia-gou-zong-lan/" target="_blank" rel="noopener">ReactiveCocoa v2.5 源码解析之架构总览 - 雷纯锋的技术博客</a></p>
+<h3 id="什么是ReactiveCocoa？"><a href="#什么是ReactiveCocoa？" class="headerlink" title="什么是ReactiveCocoa？"></a>什么是ReactiveCocoa？</h3><p><a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="noopener">ReactiveCocoa</a>（其简称为RAC）是由<a href="https://github.com/blog/1107-reactivecocoa-for-a-better-world" target="_blank" rel="noopener">Github</a> 开源的一个应用于iOS和OS X开发的新框架。RAC具有函数式编程(FP)和响应式编程(RP)的特性。它主要吸取了.Net的 <a href="http://msdn.microsoft.com/en-us/data/gg577609" target="_blank" rel="noopener">Reactive Extensions</a>的设计和实现。</p>
+<p>ReactiveCocoa 的宗旨是Streams of values over time ，随着时间变化而不断流动的数据流。</p>
+<p>ReactiveCocoa 主要解决了以下这些问题：</p>
+<ul>
+<li>UI数据绑定</li>
+</ul>
+<p>UI控件通常需要绑定一个事件，RAC可以很方便的绑定任何数据流到控件上。</p>
+<ul>
+<li>用户交互事件绑定</li>
+</ul>
+<p>RAC为可交互的UI控件提供了一系列能发送Signal信号的方法。这些数据流会在用户交互中相互传递。</p>
+<ul>
+<li>解决状态以及状态之间依赖过多的问题</li>
+</ul>
+<p>有了RAC的绑定之后，可以不用在关心各种复杂的状态，isSelect，isFinish……也解决了这些状态在后期很难维护的问题。</p>
+<ul>
+<li>消息传递机制的大统一</li>
+</ul>
+<h2 id="ReactiveCocoa-源码解析"><a href="#ReactiveCocoa-源码解析" class="headerlink" title="ReactiveCocoa 源码解析"></a>ReactiveCocoa 源码解析</h2><blockquote>
+<p>对于一个应用来说，绝大部分的时间都是在等待某些事件的发生或响应某些状态的变化，比如用户的触摸事件、应用进入后台、网络请求成功刷新界面等等，而维护这些状态的变化，常常会使代码变得非常复杂，难以扩展。而 <code>ReactiveCocoa</code> 给出了一种非常好的解决方案，它使用信号来代表这些异步事件，提供了一种统一的方式来处理所有异步的行为，包括代理方法、<code>block</code> 回调、<code>target-action</code> 机制、通知、<code>KVO</code> 等：</p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/12/29/5c27451072bcb.png" alt="WechatIMG414"></p>
+<h3 id="例子代码"><a href="#例子代码" class="headerlink" title="例子代码"></a>例子代码</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代理方法</span></span><br><span class="line">[[<span class="keyword">self</span></span><br><span class="line">    rac_signalForSelector:<span class="keyword">@selector</span>(webViewDidStartLoad:)</span><br><span class="line">    fromProtocol:<span class="class"><span class="keyword">@protocol</span>(<span class="title">UIWebViewDelegate</span>)]</span></span><br><span class="line">    subscribeNext:^(<span class="keyword">id</span> x) &#123;</span><br><span class="line">        <span class="comment">// 实现 webViewDidStartLoad: 代理方法</span></span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// target-action</span></span><br><span class="line">[[<span class="keyword">self</span>.avatarButton</span><br><span class="line">    rac_signalForControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>]</span><br><span class="line">    subscribeNext:^(<span class="built_in">UIButton</span> *avatarButton) &#123;</span><br><span class="line">        <span class="comment">// avatarButton 被点击了</span></span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通知</span></span><br><span class="line">[[[<span class="built_in">NSNotificationCenter</span> defaultCenter]</span><br><span class="line">    rac_addObserverForName:kReachabilityChangedNotification object:<span class="literal">nil</span>]</span><br><span class="line">    subscribeNext:^(<span class="built_in">NSNotification</span> *notification) &#123;</span><br><span class="line">        <span class="comment">// 收到 kReachabilityChangedNotification 通知</span></span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">// KVO</span></span><br><span class="line">[RACObserve(<span class="keyword">self</span>, username) subscribeNext:^(<span class="built_in">NSString</span> *username) &#123;</span><br><span class="line">    <span class="comment">// 用户名发生了变化</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h2 id="RACSignal"><a href="#RACSignal" class="headerlink" title="RACSignal"></a>RACSignal</h2><blockquote>
+<p>RACSignal 代表的是未来将会被传送的值，它是一种 push-driven 的流。RACSignal 可以向订阅者发送三种不同类型的事件：</p>
+</blockquote>
+<ul>
+<li>next ：RACSignal 通过 next 事件向订阅者传送新的值，并且这个值可以为 nil ；</li>
+<li>error ：RACSignal 通过 error 事件向订阅者表明信号在正常结束前发生了错误；</li>
+<li><p>completed ：RACSignal 通过 completed 事件向订阅者表明信号已经正常结束，不会再有后续的值传送给订阅者。</p>
+</li>
+<li><p>ReactiveCocoa allows you to perform operations on</p>
+</li>
+<li><p>signals</p>
+</li>
+<li><p>map, filter, skip, take, throttle…</p>
+</li>
+<li><p>Operations return RACSignal, allowing method chaining</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2018/12/22/5c1df9e8aed17.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2018/12/22/5c1e02111f968.jpg" alt=""></p>
+<p><img src="https://i.loli.net/2018/12/22/5c1e063be039c.jpg" alt=""></p>
+<h2 id="RACSubject"><a href="#RACSubject" class="headerlink" title="RACSubject"></a>RACSubject</h2><blockquote>
+<p>RACSubject 代表的是可以手动控制的信号，我们可以把它看作是 RACSignal 的可变版本，就好比 NSMutableArray 是 NSArray 的可变版本一样。RACSubject 继承自 RACSignal ，所以它可以作为信号源被订阅者订阅，同时，它又实现了 RACSubscriber 协议，所以它也可以作为订阅者订阅其他信号源，这个就是 RACSubject 为什么可以手动控制的原因：</p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/12/22/5c1e119f0720d.jpg" alt=""></p>
+<p>根据官方的 Design Guidelines 中的说法，我们应该尽可能少地使用它。因为它太过灵活，我们可以在任何时候任何地方操作它，所以一旦过度使用，就会使代码变得非常复杂，难以理解。</p>
+<h2 id="RACSequence"><a href="#RACSequence" class="headerlink" title="RACSequence"></a>RACSequence</h2><p>RACSequence 代表的是一个不可变的值的序列，与 RACSignal 不同，它是 pull-driven 类型的流。从严格意义上讲，RACSequence 并不能算作是信号源，因为它并不能像 RACSignal 那样，可以被订阅者订阅，但是它与 RACSignal 之间可以非常方便地进行转换。</p>
+<p>从理论上说，一个 RACSequence 由两部分组成：</p>
+<p>head ：指的是序列中的第一个对象，如果序列为空，则为 nil ；<br>tail ：指的是序列中除第一个对象外的其它所有对象，同样的，如果序列为空，则为 nil 。</p>
+<h2 id="RACStream"><a href="#RACStream" class="headerlink" title="RACStream"></a>RACStream</h2><blockquote>
+<p><code>RACStream</code> 信号源,是 <code>ReactiveCocoa</code> 中最核心的类，代表的是任意的值流，它是整个 <code>ReactiveCocoa</code> 得以建立的基石，下面是它的继承结构图：</p>
+</blockquote>
+<blockquote>
+<p>你可以把它想象成水龙头中的水，当你打开水龙头时，水源源不断地流出来；你也可以把它想象成电，当你插上插头时，电静静地充到你的手机上；你还可以把它想象成运送玻璃珠的管道，当你打开阀门时，珠子一个接一个地到达。这里的水、电、玻璃珠就是我们所需要的值，而打开水龙头、插上插头、打开阀门就是订阅它们的过程。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/12/22/5c1e104d85f5d.png" alt=""></p>
+<h2 id="RACSubject的使用"><a href="#RACSubject的使用" class="headerlink" title="RACSubject的使用"></a>RACSubject的使用</h2><p>一般不推荐使用RACSubject，因为它过于灵活，滥用的话容易导致复杂度的增加。但有一些场景用一下还是比较方便的，比如ViewModel的errors。</p>
+<ul>
+<li><p>一、UI 操作，连续的动作与动画部分，例如某些控件跟随滚动。</p>
+</li>
+<li><p>二、网络库，因为数据是在一定时间后才返回回来，不是立刻就返回的。</p>
+</li>
+<li><p>三、刷新的业务逻辑，当触发点是多种的时候，业务往往会变得很复杂，用 delegate、notification、observe 混用，难以统一。这时用 RAC 可以保证上层的高度一致性，从而简化逻辑上分层。</p>
+</li>
+<li><p>基本上异步的事件能用 RAC 的都用的 RAC。</p>
+</li>
+<li><p>不过代理方法用 RAC 的比较少，比如 UITableView 的代理方法一般都是直接写了。</p>
+</li>
+<li><p>用 RACSubject + RACComand 来简化和统一应用的错误处理逻辑，这个算比较经典的吧。</p>
+</li>
+</ul>
+<p><a href="https://blog.devtang.com/2016/01/03/reactive-cocoa-discussion/" target="_blank" rel="noopener">ReactiveCocoa 讨论会 | 唐巧的博客</a></p>
+<h3 id="RAC调试"><a href="#RAC调试" class="headerlink" title="RAC调试"></a>RAC调试</h3><ul>
+<li>的确很痛苦，跟断点有的时候计算堆栈都要等几分钟。</li>
+<li>关于调试，RAC 源码下有 instruments 的两个插件，方便大家使用。<br><img src="https://i.loli.net/2018/12/22/5c1e145311a2d.jpg" alt=""></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，我们介绍完了 <code>ReactiveCocoa</code> 的四大核心组件，对它的架构有了宏观上的认识。它建立于 Monad 的概念之上，然后围绕其搭建了一系列完整的配套组件，它们共同支撑了 <code>ReactiveCocoa</code> 的强大功能。尽管，<code>ReactiveCocoa</code> 是一个重型的函数式响应式框架，但是它并不会对我们现有的代码构成侵略性，我们完全可以在一个单独的类中使用它，哪怕只是简单的一行代码，也是没有问题的。所以，如果你对 ReactiveCocoa 感兴趣的话，不妨就从现在开始尝试吧，Let’s go ！</p>
+<h3 id="信号总结"><a href="#信号总结" class="headerlink" title="信号总结"></a>信号总结</h3><ul>
+<li>首先在创建信号的时候，带进去一个已经订阅的Block（didSubscribe），把它保存在信号中，并没有执行；</li>
+<li>在订阅信号的时候，带进去一个发送信号的Block（nextBlock），然后创建一个订阅者（RACSubscriber对象），订阅者会把nextBlock进行保存，</li>
+<li>接着执行之前信号保存的didSubscribe这个Block，并将订阅者传递过去；</li>
+<li>然后在didSubscribe回调里面，由订阅者发送信号，也就是执行之前保存的nextBlock；<br>最后在nextBlock（订阅回调）里面监听到发送的内容。</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/3331588c16ca" target="_blank" rel="noopener">iOS RAC学习之路（一） - 简书</a></p>
+<p>RACSignal的2个方法</p>
+<ul>
+<li><ol>
+<li>创建信号: createSignal, 创建一个signal对象<ul>
+<li>并且把createSignal方法的<code>didSubscribe</code>Block赋值给所创建的signal的<code>didSubscribe</code>属性，这个<code>didSubscribe</code>的入参是subscriber，返回RACDisposable。</li>
+<li>RACSignal使用<code>didSubscribe</code>属性，封装了订阅者对这个信号的处理</li>
+<li>RACSignal的类方法</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>订阅信号: subscribeNext, 创建了一个RACSubscriber订阅者<ul>
+<li>订阅者会把nextBlock赋值给自己的next的属性，</li>
+<li>然后，执行订阅操作［self subscribe：o］</li>
+<li>didSubscribe是信号的invoke每个订阅者的Block属性, 订阅方法subscribe的实现：上面的代码很清晰，直接是self.didSubscribe(subscriber),</li>
+<li>我们可以知道，刚刚创建的subscriber对象，直接传递给上文中我们提到的signal的didSubscribe属性。这样，我们可以解释上面的第二个和第三个问题，subscriber就是didSubscribe的形参，block对象是在subscribeNext的时候执行的，刚刚的订阅者对象作为参数传入，就是subscriber对象。</li>
+<li>RACSignal的实例方法</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="RAC的作用"><a href="#RAC的作用" class="headerlink" title="RAC的作用"></a>RAC的作用</h3><p>而RAC为MVVM带来很大的便利，比如RACCommand, UIKit的RAC Extension等等。<strong>使用MVVM不一定能减少代码量，但能降低代码的复杂度。</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://tech.meituan.com/tag/ReactiveCocoa" target="_blank" rel="noopener">标签归档 | ReactiveCocoa - 美团点评技术团队</a></li>
+<li><a href="https://draveness.me/racsignal" target="_blank" rel="noopener">『状态』驱动的世界：ReactiveCocoa</a></li>
+<li><a href="https://www.jianshu.com/p/4fee21fb05b3" target="_blank" rel="noopener">RAC基础学习一:信号和订阅者模式 - 简书</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://frizzlefur.com/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/" data-id="cjrnngn0r001e55cc0t20f6yp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ReactiveCocoa笔记(二）—— 源码探究
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/05/读《程序是如何跑起来的》/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">读《程序是如何跑起来的》</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 FrizzleFur<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

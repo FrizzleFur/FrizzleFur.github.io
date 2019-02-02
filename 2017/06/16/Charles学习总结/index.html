@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Charles学习总结 | FFur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Charles是一个代理服务器，这意味着它位于你的应用程序和计算机的网络连接之间。当查尔斯自动配置您的网络设置时，它改变了您的网络配置以路由所有通过它的流量。这允许查尔斯检查计算机上的所有网络事件。代理服务器处于强大的地位，但这也意味着滥用的可能性。这就是为什么SSL如此重要：数据加密防止代理服务器和其他中间件窃听敏感信息。Charles还可以生成自己的自签名证书，您可以在Mac和iOS设备上安">
+<meta name="keywords" content="Tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Charles学习总结">
+<meta property="og:url" content="http://frizzlefur.com/2017/06/16/Charles学习总结/index.html">
+<meta property="og:site_name" content="FFur">
+<meta property="og:description" content="Charles是一个代理服务器，这意味着它位于你的应用程序和计算机的网络连接之间。当查尔斯自动配置您的网络设置时，它改变了您的网络配置以路由所有通过它的流量。这允许查尔斯检查计算机上的所有网络事件。代理服务器处于强大的地位，但这也意味着滥用的可能性。这就是为什么SSL如此重要：数据加密防止代理服务器和其他中间件窃听敏感信息。Charles还可以生成自己的自签名证书，您可以在Mac和iOS设备上安">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-7a91242f018bec1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-665eded9be1c8d59.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-7f1a0730d7e4a603.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-8a6a2fc64a8e317a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/225323-77f7b7557087c523.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975811405296.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975811567801.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975814097323.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975818540454.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975830449452.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274446735157.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274447179251.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274447915315.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274447540047.jpg">
+<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274446343146.jpg">
+<meta property="og:updated_time" content="2019-01-30T05:55:12.431Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Charles学习总结">
+<meta name="twitter:description" content="Charles是一个代理服务器，这意味着它位于你的应用程序和计算机的网络连接之间。当查尔斯自动配置您的网络设置时，它改变了您的网络配置以路由所有通过它的流量。这允许查尔斯检查计算机上的所有网络事件。代理服务器处于强大的地位，但这也意味着滥用的可能性。这就是为什么SSL如此重要：数据加密防止代理服务器和其他中间件窃听敏感信息。Charles还可以生成自己的自签名证书，您可以在Mac和iOS设备上安">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/225323-7a91242f018bec1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">FFur</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">刚刚在线</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Charles学习总结" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/16/Charles学习总结/" class="article-date">
+  <time datetime="2017-06-16T03:23:35.000Z" itemprop="datePublished">2017-06-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Charles学习总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><code>Charles</code>是一个代理服务器，这意味着它位于你的应用程序和计算机的网络连接之间。当查尔斯自动配置您的网络设置时，它改变了您的网络配置以路由所有通过它的流量。这允许查尔斯检查计算机上的所有网络事件。<br>代理服务器处于强大的地位，但这也意味着滥用的可能性。这就是为什么SSL如此重要：数据加密防止代理服务器和其他中间件窃听敏感信息。<br><code>Charles</code>还可以生成自己的自签名证书，您可以在<code>Mac</code>和<code>iOS</code>设备上安装<code>SSL / TLS</code>加密。由于此证书不是由受信任的证书颁发者颁发的，所以您需要告诉您的设备显式地信任它。一旦安装并受信任，查尔斯将能够解密SSL事件！</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/225323-7a91242f018bec1e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Charles代理截取网络请求"></p>
+<h3 id="安装Charles的Profile证书文件"><a href="#安装Charles的Profile证书文件" class="headerlink" title="安装Charles的Profile证书文件"></a>安装<code>Charles</code>的<code>Profile</code>证书文件</h3><h4 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h4><h3 id="安装Charles的Profile证书文件-1"><a href="#安装Charles的Profile证书文件-1" class="headerlink" title="安装Charles的Profile证书文件"></a>安装<code>Charles</code>的<code>Profile</code>证书文件</h3><h4 id="iOS-1"><a href="#iOS-1" class="headerlink" title="iOS"></a>iOS</h4><ul>
+<li><ol>
+<li>打开<code>Safari</code>，输入 <code>https://chls.pro/ssl</code>. Safari 将促进你安装 <code>SSL</code>证书.</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>安装 <code>SSL Profile</code></li>
+</ol>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/225323-665eded9be1c8d59.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SSL Profile"></p>
+<p>这样就可以抓<code>SSL</code>请求了，I guess~</p>
+<p><code>SSL</code>(Secure Sockets Layer 安全套接层)</p>
+<p><code>SSL</code>加密敏感请求和响应信息。你可能认为这会让查尔斯对所有<code>HTTPS</code>事件都毫无意义，对吧？不!查尔斯有一个偷偷摸摸的绕过加密的方法，你很快就会知道的</p>
+<h4 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h4><p>在<code>Charles</code>中，到Help菜单中，选择SSL代理安装<code>Charles Root</code>证书，钥匙链访问将打开。找到<code>Charles</code>代理…输入，双击获取信息。展开信任部分，在使用此证书时，请将其更改为始终信任的使用系统默认值。然后关闭证书信息窗口，您将会提示您的管理员密码来更新系统信任设置。</p>
+<p>您可能需要退出并重新打开Safari来查看更改。</p>
+<h3 id="过滤抓取请求"><a href="#过滤抓取请求" class="headerlink" title="过滤抓取请求"></a>过滤抓取请求</h3><p>开始抓包后，随着时间的推移，抓取到的网络包越来越多，这是我们可以使用过滤功能，来过滤出我们想要的网络请求。</p>
+<p>在<code>Proxy -&gt; Recording Settings</code> 中可以设置网络包的过滤选项。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/225323-7f1a0730d7e4a603.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Proxy -&gt; Recording Settings"></p>
+<p>过滤选项中有<code>Include</code> 和 <code>Exclude</code> 两种选项。只有当 <code>Include</code> 为空时，<code>Exclude</code> 中的设置才会生效。过滤条件支持通配符。</p>
+<h3 id="模拟慢速网络"><a href="#模拟慢速网络" class="headerlink" title="模拟慢速网络"></a>模拟慢速网络</h3><p>在做iPhone开发的时候，我们常常需要模拟慢速网络或者高延迟的网络，以测试在移动网络下，应用的表现是否正常。Charles对此需求提供了很好的支持。</p>
+<p>在<code>Charles</code>的菜单上，选择”Proxy”-&gt;”Throttle Setting”项，在之后弹出的对话框中，我们可以勾选上“Enable Throttling”，并且可以设置<code>Throttle Preset</code>的类型。如下图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/225323-8a6a2fc64a8e317a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Charles模拟慢速网络"></p>
+<h3 id="修改网络包"><a href="#修改网络包" class="headerlink" title="修改网络包"></a>修改网络包</h3><h4 id="修改历史请求"><a href="#修改历史请求" class="headerlink" title="修改历史请求"></a>修改历史请求</h4><p>可以将历史的请求修改后，再次发送。</p>
+<p>只需选中某个请求，点击上方工具栏中的蓝色钢笔按钮（第四个），就可以进行修改。完成修改后，点击下方的<code>Execute</code>执行请求。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/225323-77f7b7557087c523.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改历史请求"></p>
+<h3 id="添加断点"><a href="#添加断点" class="headerlink" title="添加断点"></a>添加断点</h3><p>窗口上方的工具栏中，第四个按钮就是<code>Enable BreakPoints</code>，用来启用或禁用断点。也可以在 <code>Proxy -&gt; BreakPoints Setting</code>中设置更多具体内容。</p>
+<p>在<code>Charles</code>中可以像调试程序一样添加断点。方法是右键点击左侧窗口的某个请求，选择<code>BreakPoints</code>添加断点。这样当这个请求发出或者收到<code>response</code>的时候，就会先被<code>Charles</code>拦截下来，并触发断点。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975811405296.jpg" alt=""></p>
+<p>触发断点后，可以对断点的网络包进行各种编辑，然后再继续。点击<code>Execute</code>就可以继续。</p>
+<p>同时，也可以在<code>Proxy -&gt; BreakPoints Setting</code>设置断点的各种规则。例如，是在<code>request</code>的时候触发还是 <code>response</code>的时候。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975811567801.jpg" alt=""></p>
+<p>由于设置断点时，<code>Charles</code>是先拦截下整个网络包，再触发断点，当网络包比较大的时候，常常会导致应用超时，触发网络错误的警告，因此，自动地根据规则修改网络包有时显得尤为重要。这就是下面要说的篡改。</p>
+<p>拦截后可以修改<code>post</code>参数</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975814097323.jpg" alt=""></p>
+<p>然后可以修改<code>Response</code>，不用去麻烦测试修改数据，很爽有木有~</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975818540454.jpg" alt=""></p>
+<p>下面要介绍的就是直接<code>Rewrite</code>了啦~</p>
+<h3 id="篡改（Rewrite）"><a href="#篡改（Rewrite）" class="headerlink" title="篡改（Rewrite）"></a>篡改（Rewrite）</h3><p><code>Rewrite</code> 是按照一组事先设置的规则，篡改特定的网络包中的数据。</p>
+<p>在 <code>Tools -&gt; Rewrite</code> 中，选中<code>Enable Rewrite</code> 来开启 <code>Rewrite</code>。</p>
+<h4 id="Rewrite"><a href="#Rewrite" class="headerlink" title="Rewrite"></a>Rewrite</h4><p>勾选 <code>Debug in Error Log</code> 选项，就能在 <code>Charles</code> 控制台中看到 <code>Rewrite</code> 的记录。</p>
+<p>首先要在右侧的规则列表中添加一个新规则。在新规则中添加要<code>Rewrite</code>的<code>Location</code>，然后再下方添加具体的篡改规则。规则中可以使用通配符。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-06-16-14975830449452.jpg" alt=""></p>
+<p>这样稍后匹配条件的网络包到达的时候，<code>Charles</code>就会自动将其中的内容按规则篡改。</p>
+<h3 id="映射Map"><a href="#映射Map" class="headerlink" title="映射Map"></a>映射Map</h3><p><code>Charles</code>提供的映射功能可以将本地文件或者远程的服务器作为某个请求的<code>Response</code>。可以方便地进行一些特殊的测试。</p>
+<ol>
+<li>Map Local</li>
+</ol>
+<p>本地映射，在 <code>Tools -&gt; Map Local</code>。可以选择一个本地文件作为某个请求的<code>Response</code>，并且 <code>Charles</code>会帮你封装好<code>Response</code>。</p>
+<ol start="2">
+<li>Remote Remote</li>
+</ol>
+<p>远程映射和本地映射的功能类似，只是将数据源换成了远程服务器。相当于将请求交给另一个服务器处理</p>
+<p>网络环境模拟</p>
+<p><code>Charles</code> 还可以模拟不同网速环境，可以很方便地测试应用在网络差的情况下的bug。</p>
+<p>在 <code>Proxy -&gt; Throttle Settings</code> 中勾选 <code>Enable Throttling</code>，或者直接点击窗口上方的工具栏中的乌龟🐢按钮就可以启用，这个按钮十分形象。</p>
+<p>在<code>Proxy -&gt; Throttle Settings</code> 中，添加要针对的<code>Locations</code>，如果选中<code>Only for selected hosts</code>，并且<code>Locations</code>中有数据，则只有 <code>Locations</code>列表中的请求会被限速，否则会对全局限速。在<code>Throttle Configuration</code>中可以对网络环境进行十分详细的配置，包括网络的稳定程度、网速、环境等。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274446735157.jpg" alt="Throttle Setting.jpg"></p>
+<h3 id="SSL-代理"><a href="#SSL-代理" class="headerlink" title="SSL 代理"></a>SSL 代理</h3><p>在使用 <code>Charles</code> 的过程中，我们会发现，只有未加密的 <code>Http</code> 请求才能被<code>Charles</code> 正确的解析出数据，其余的<code>Https</code> 请求都处于加锁的状态，但我们不可避免的需要抓取 <code>Https</code> 的包。<code>SSL</code>代理就可以完美解决这个问题。</p>
+<p>要启用 <code>SSL</code> 代理，先要在 <code>Proxy -&gt; SSL Proxying Settings</code> 中勾选 <code>Enable SSL Proxying</code>，然后配置要代理的 <code>Location</code>，一般可以直接填星号，以匹配所有请求。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274447179251.jpg" alt="SSL 代理设置.jpg"></p>
+<p>接下来还要安装 Charles 的证书。</p>
+<p><code>Charles</code>中的<code>HTTPS</code>代理的原理是，<code>Charles</code> 充当一个中间人，针对目标服务器动态地生成一个使用<code>Charles</code>根证书（Charles CA Certificate）签名的证书；请求发生的时候， <code>Charles</code>会接收web 服务器的证书，而把自己生成的证书给客户端看。</p>
+<p>因此在在使用<code>Charles</code>作为<code>HTTPS</code>代理时，客户端在请求<code>HTTPS</code>接口的时候会弹出安全警告，提示<code>Charles</code>根证书不被信任。我们需要添加<code>Charles</code>根证书为信任证书中。</p>
+<p>方法如下：</p>
+<p>1、点击<code>Help -&gt; SSL Proxying</code>，根据被抓包设备的类型，来选择对应的安装选项（如果是 <code>OSX</code> 就直接选择<code>Install Charles Root Certificate</code>）；</p>
+<p>2、如果是<code>iOS</code>真机，则会弹出下面的提示，此时不用按上面的提示来配置代理，只要按照上文的步骤配置过代理了就可以了。然后在<code>Safari</code>中打开<code>chls.pro/ssl</code>安装<code>Charles</code>的证书，就 OK 了。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274447915315.jpg" alt="提示.jpg"></p>
+<p>设置好 <code>SSL</code> 代理后，<code>HTTPS</code> 请求就统统解锁啦！</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274447540047.jpg" alt="SSL 代理设置完成后.jpg">注意：iOS9以上系统要使用 Charles 作为 SSL 代理的话要关闭 APP Transport Security ，关闭方法为在APP的info.plist文件添加以下key：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSAppTransportSecurity<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">key</span>&gt;</span>NSAllowsArbitraryLoads<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Charles 是一个强大的抓包调试工具，它的功能远不止这些，但本篇作为一篇入门的博客，就先介绍这么多啦，更多功能等待大家探索~<br>套餐</p>
+<p><strong>注意</strong> 对于一些抓取请求的处理，关闭<code>Charles</code>后可能不会保存，所以可以到处文件哦~</p>
+<h3 id="配合Postman"><a href="#配合Postman" class="headerlink" title="配合Postman"></a>配合Postman</h3><p><code>Postman</code>是一个测试<code>API</code>的利器。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15274446343146.jpg" alt="Postman.png"></p>
+<p><code>Charles</code>搭配<code>Postman</code>更好用噢~<br><code>Postman</code>是<code>Chrome</code>浏览器中的一个小应用，可以在<code>Chrome</code>应用商城中找到。是居家旅行测试<code>Web API</code>的好帮手！</p>
+<h2 id="分享"><a href="#分享" class="headerlink" title="分享"></a>分享</h2><p>分享一个激活账号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Registered Name: https://zhile.io</span><br><span class="line">License Key: 48891cf209c6d32bf4</span><br></pre></td></tr></table></figure>
+<h2 id="Todo"><a href="#Todo" class="headerlink" title="Todo"></a>Todo</h2><p>学习<a href="https://www.getpostman.com/" target="_blank" rel="noopener">Postman</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><p><a href="http://space.bilibili.com/96624811?from=search&amp;seid=4588586201256310704#!/" target="_blank" rel="noopener">老司机活动中心的个人空间 - 哔哩哔哩 ( ゜- ゜)つロ 乾杯~ Bilibili</a></p>
+</li>
+<li><p><a href="http://www.jianshu.com/p/dbcf1ef87a63" target="_blank" rel="noopener">OSX/iOS 抓包工具 Charles 入门 - 简书</a></p>
+</li>
+<li><p><a href="https://www.raywenderlich.com/154244/charles-proxy-tutorial-ios" target="_blank" rel="noopener">Charles Proxy Tutorial for iOS</a></p>
+</li>
+<li><p><a href="https://videos.raywenderlich.com/screencasts/836-charles-proxy-getting-started" target="_blank" rel="noopener">Charles Proxy: Getting Started</a> </p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://frizzlefur.com/2017/06/16/Charles学习总结/" data-id="cjrnngn0p001a55cc3w3gdi2v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/19/八段锦,可以这么萌 【转】/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          八段锦,可以这么萌 【转】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/14/iOS_循环引用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">iOS 避免循环引用【译】</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 FrizzleFur<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
