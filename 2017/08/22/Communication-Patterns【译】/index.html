@@ -1,298 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>Communication-Patterns【译】 | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文：Communication PatternsIssue 7: Foundation · December 2013By Florian Kugler  每个应用程序由包含多个或多个松散耦合的对象，这些对象常常需要相互通信才能完成应用的任务。在本文中，我们将介绍所有可用的选项，看看它们在苹果框架中如何使用的示例，最后总结何时使用哪种机制的的最佳实践建议。 虽然这个问题是关于Foundatio">
-<meta name="keywords" content="文档翻译">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Communication-Patterns【译】">
-<meta property="og:url" content="http://frizzlefur.com/2017/08/22/Communication-Patterns【译】/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="原文：Communication PatternsIssue 7: Foundation · December 2013By Florian Kugler  每个应用程序由包含多个或多个松散耦合的对象，这些对象常常需要相互通信才能完成应用的任务。在本文中，我们将介绍所有可用的选项，看看它们在苹果框架中如何使用的示例，最后总结何时使用哪种机制的的最佳实践建议。 虽然这个问题是关于Foundatio">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029354257592.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029354800480.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029358561062.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029358866130.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029359464595.png">
-<meta property="og:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029359755163.png">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.431Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Communication-Patterns【译】">
-<meta name="twitter:description" content="原文：Communication PatternsIssue 7: Foundation · December 2013By Florian Kugler  每个应用程序由包含多个或多个松散耦合的对象，这些对象常常需要相互通信才能完成应用的任务。在本文中，我们将介绍所有可用的选项，看看它们在苹果框架中如何使用的示例，最后总结何时使用哪种机制的的最佳实践建议。 虽然这个问题是关于Foundatio">
-<meta name="twitter:image" content="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029354257592.png">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Communication-Patterns【译】" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/22/Communication-Patterns【译】/" class="article-date">
-  <time datetime="2017-08-22T01:44:38.000Z" itemprop="datePublished">2017-08-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Communication-Patterns【译】
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>原文：<a href="https://www.objc.io/issues/7-foundation/communication-patterns/" target="_blank" rel="noopener">Communication Patterns</a><br>Issue 7: Foundation · December 2013<br>By Florian Kugler</p>
-</blockquote>
-<p>每个应用程序由包含多个或多个松散耦合的对象，这些对象常常需要相互通信才能完成应用的任务。在本文中，我们将介绍所有可用的选项，看看它们在苹果框架中如何使用的示例，最后总结何时使用哪种机制的的最佳实践建议。</p>
-<p>虽然这个问题是关于<code>Foundation</code>框架，我们将超出<code>Foundation</code>框架中的部分通信机制–<code>KVO</code>和<code>Notifications</code>，还准备谈谈<code>delegation</code>, <code>blocks</code>, 还有 <code>target-action</code>。</p>
-<p>当然，在有些情况下，没有明确的答案说应该使用什么样的模式，而将选择归结为个人偏好问题，但也有很多情况（模式使用）是非常清晰明确的。</p>
-<p>在本文中，我们经常使用“收件人”和“发件人”这两个术语，我们指的是在通信模式上下文中的意思，最好用几个例子来解释：表视图是发件人，而它的代理是收件人。一个核心数据管理对象上下文是它发布的通知的发件人，而不管它们是如何接收的。滑块是动作消息的发送者，实现这个动作的应答者是接收者。一个含有遵循<code>KVO</code>属性的对象，在变化的是发件人，而对应的观察者是收件人。明白窍门了吗？</p>
-<a id="more"></a>
-<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>首先，我们将了解每个可用通信模式的特定特性。基于此，我们将在下一节中构建一个流程图，帮助您选择合适的工具。最后，我们将讨论苹果框架中的一些例子，以及他们决定在特定用例中使用特定模式的原因。</p>
-<h3 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h3><p><code>KVO</code>是一种通知对象属性改变的机制。它是在<code>Foundation</code>框架上实现的，而且建立在<code>Foundation</code>框架之上的许多框架都依赖于它。如果需要阅读更多关于最佳实践的例子说明了如何使用<code>KVO</code>，请阅读丹尼尔的<a href="https://www.objc.io/issues/7-foundation/key-value-coding-and-observing/" target="_blank" rel="noopener">KVO和KVC文章</a>。</p>
-<p>如果你只关心改变另一个对象的值,<code>KVO</code>是一种可行的通信模式。不过还有一些要求。首先，收件人(将接收变化消息的对象)——需要知道发件人（包含值变化的对象）。此外，收件人也需要知道发件人的寿命，因为它需要在发件人被释放者之前注销对其的观察。如果这些要求都满足，则这种通信可以是一对多，因为多个观察者可以注册来自己关心对象的更新。</p>
-<p>如果你计划在<code>Core Data</code>对象上使用<code>KVO</code>，你需要知道，事情会有点不同。这与<code>Core Data</code>的<code>fault</code>机制。一旦所观察对象变成了<code>fault</code>，它将在其属性上触发观察者，尽管它们的值没有改变。</p>
-<h3 id="通知"><a href="#通知" class="headerlink" title="通知"></a>通知</h3><p>通知是一种很好的工具，可以在代码中相对无关的部分之间广播消息，即是是消息内容比较丰富的时候，而且您不必考虑还需要其他人参与。</p>
-<p>通知可以发送任意消息，他们甚至可以通过<code>UserInfo</code>词典或子类<code>NSNotification</code>中包含一个payload（消息载体）。使通知具有唯一性的是发件人和收件人不必互相了解。它们可以用来在非常松散耦合的模块之间发送信息。因此，通信是单向的——您无法对通知作出回复。</p>
-<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>在苹果的框架中，代理是一种普遍的模式。它允许我们定制对象的行为，并对某些事件进行通知。对于代理模式，消息发件人需要知道收件人（代理），而不是反过来。耦合进一步松了，因为发件人只知道它的代理符合某个协议。</p>
-<p>由于代理协议可以定义任意的方法，所以可以精确地将消息通信建模在您的需求里。您可以以方法参数的形式传递payload，代理甚至可以根据代理方法的返回值作出响应。代理是一种非常灵活和直接的通信模式，如果您只需要在两个特定对象之间进行通信，它们在应用程序体系结构中的位置上彼此相对接近。</p>
-<p>但也有过度使用的授权模式的危险。如果两个对象紧密耦合在一起，而没有另一个对象，那么就不需要定义代理协议了。在这些情况下，对象可以知道对方的类型并直接进行通信。；两个新例子是<code>uicollectionviewlayout</code>和<code>nsurlsessionconfiguration</code>。</p>
-<h3 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h3><p><code>Block</code>是相对最近才添加到<code>Objective-C</code>，最早在<code>OSX 10.6</code>和<code>iOS 4</code>可用。<code>Blocks</code>通常可以作为之前使用代理模式实现的角色。然而，这两种模式都有一些优势和特别要求。</p>
-<p>一个非常明确的标准：不要使用<code>Block</code>创建<a href="https://developer.apple.com/library/mac/documentation/cocoa/conceptual/memorymgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-1000810" target="_blank" rel="noopener">保留环</a>。如果发件人需要保留这个<code>Block</code>，然而并不能保证对这个<code>Block</code>的引用将会置<code>nil</code>，那么每个从这个<code>Block</code>到<code>self</code>的引用，将成为一个潜在的保留环。</p>
-<p>假设我们想实现一个表视图，但我们想用<code>Block</code>回调，而非它的代理方法来实现表视图的选择，比如这样：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.myTableView.selectionHandler = ^<span class="keyword">void</span>(<span class="built_in">NSIndexPath</span> *selectedIndexPath) &#123;</span><br><span class="line">    <span class="comment">// handle selection ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这里的问题是<code>Self</code>保留了表视图，而表视图必须保留<code>Block</code>，用以稍后使用它。表视图不能把这个引用置<code>nil</code>，因为它不能告诉它什么时候不再需要它了。如果不能保证这个保留环将被打破，那么将会一直保留发件人，那么在这里使用<code>Block</code>不是一个好的选择。</p>
-<p>这并不会成为一个问题，<code>NSOperation</code>是一个很好的例子，因为它在某个时刻打破了保持环：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.queue = [[<span class="built_in">NSOperationQueue</span> alloc] init];</span><br><span class="line">MyOperation *operation = [[MyOperation alloc] init];</span><br><span class="line">operation.completionBlock = ^&#123;</span><br><span class="line">    [<span class="keyword">self</span> finishedOperation];</span><br><span class="line">&#125;;</span><br><span class="line">[<span class="keyword">self</span>.queue addOperation:operation];</span><br></pre></td></tr></table></figure>
-<p>乍一看，这似乎是一个保留循环：<code>Self</code>保留队列，队列保留操作，操作保留完成块，<code>completion block</code>保留<code>Self</code>。但是，将操作添加到队列将导致在某个时间点上执行该操作，然后将它从队列中删除。（如果它不被执行，我们就有一个更大的问题。）一旦队列删除操作，保留循环就被破坏了。</p>
-<p>另一个例子：假设我们实现视频编码器类，在我们称之为一个<code>encodewithcompletionhandler</code>方法中。为让这不出问题，我们必须保证编码器对象在某一刻对于这个<code>block</code>的引用置空。在内部，这应该是这个样子：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Encoder</span> ()</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="keyword">void</span> (^completionHandler)();</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Encoder</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCompletionHandler:(<span class="keyword">void</span> (^)())handler</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.completionHandler = handler;</span><br><span class="line">    <span class="comment">// do the asynchronous processing...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This one will be called once the job is done</span></span><br><span class="line">- (<span class="keyword">void</span>)finishedEncoding</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.completionHandler();</span><br><span class="line">    <span class="keyword">self</span>.completionHandler = <span class="literal">nil</span>; <span class="comment">// &lt;- Don't forget this!</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>一旦我们的工作完成了，会调用<code>completion block</code>，然后将其置空。</p>
-<p><strong>如果我们所调用的消息必须返回该方法调用的一次性响应</strong>，那么<code>Block</code>是非常合适的，因为这样我们可以打破潜在的保留循环。此外，如果有助于可读性，使处理消息与消息调用的代码写在一起，就不去使用<code>Block</code>。沿着这些线路，很常用的<code>Block</code>的情况下是（方法的）<code>completion handlers</code>，错误处理等等。</p>
-<h3 id="Target-Action"><a href="#Target-Action" class="headerlink" title="Target-Action"></a>Target-Action</h3><p><code>Target-Action</code>用于响应用户界面事件发送消息的典型模式。两<code>UIControl</code>在<code>iOS</code>和<code>NSControl/NSCell</code> 在Mac上都支持这种模式。<code>Target-Action</code>建立了消息在发件人和收件人之间的松散耦合关系。该消息的收件人不知道发件人，甚至不需要知道将会接受什么消息。如果<code>Target</code>是<code>nil</code>空的，<code>Action</code>将顺着<a href="https://developer.apple.com/library/ios/documentation/general/conceptual/devpedia-cocoaapp/responder.html" target="_blank" rel="noopener">响应链</a>往上，直到找到响应它的对象。在<code>iOS</code>上，每个控件甚至可以与多个<code>Target</code>的<code>Action</code>对相关。</p>
-<p>基于<code>target-action</code>的通信有一个限制，发送的消息不能携带任何自定义的payloads。在<code>Mac</code>上的操作方法总是发件者作为第一个参数接收。在<code>iOS</code>上，可以将发件者和触发动作的事件作为一种参数来接收。但除此之外，还没有办法让一个控件用<code>action</code>将消息发送给其他对象。</p>
-<h3 id="做出正确的抉择"><a href="#做出正确的抉择" class="headerlink" title="做出正确的抉择"></a>做出正确的抉择</h3><p>根据上面所描述的不同模式的特点，我们构建了一个流程图，帮助您在某种情况下对使用哪种模式，做出良好的决策。作为提醒：这个图表不一定是最终的答案；可能还有其他同样有效的选择。但在大多数情况下，它应该指导你为这个场景选择合适的模式。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029354257592.png" alt="Decision flow chart for communication patterns in Cocoa"></p>
-<p>本图值得进一步解释一些其他的细节：</p>
-<p>（图中）其中的一个方块表示：发件人是支持<code>KVO</code>。这并不只是意味着当问题中的值发生变化时，发件人将发送<code>KVO</code>通知，而且观察者要知道发件人的生命周期。如果发件人存放的属性是<code>weak</code>，它可以在任意时间置空（nil）,而观察者会发生内存泄漏。</p>
-<p>在底排另一方块表示，消息是直接响应方法调用的。这意味着，方法调用的接受者需要回应该方法的调用者，作为对这个方法调用的一个直接响应。这也意味着，当这个方法调用时，代码在同一个地方处理此消息是有意义的。</p>
-<p>最后，在右下角有一个决策问题：发件人可以保证对<code>Block</code>的引用将会置空（nil）吗？这个联系到了<a href="https://www.objc.io/issues/7-foundation/communication-patterns/#blocks" target="_blank" rel="noopener">上面</a>的基于<code>block</code>的API和潜在的保留环的讨论。如果发件人无法保证这些<code>block</code>所持有的引用将在某个时刻置空（nil），那么你将会遇到保留环的麻烦。</p>
-<h2 id="框架示例"><a href="#框架示例" class="headerlink" title="框架示例"></a>框架示例</h2><p>在本节中，我们将从苹果的框架中看一些例子，看看前面所说的决策流程是否有效，以及为什么苹果选择这些模式。</p>
-<h3 id="KVO-1"><a href="#KVO-1" class="headerlink" title="KVO"></a>KVO</h3><p><code>NSOperationQueue</code>使用<code>KVO</code>来观察它的操作状态（是否完成、是否在执行、是否取消）。当这个状态变化时，这个队列的得到一个<code>KVO</code>的通知，为什么操作队列对此用<code>KVO</code>呢？</p>
-<p>收件人的消息（操作队列）清楚地知道发件人（该操作）和通过保留来控制其生命周期。此外，这种情况下，只需要一个单向的通信机制。说到如果操作队列中的操作值的变化只感兴趣，这个答案是不很清晰。但我们至少可以说，有什么要传递的（比如状态改变）可以封装成值的改变。由于状态属性已超出操作队列及时了解操作的状态的需求，在这种情况下使用<code>KVO</code>是一个合乎逻辑的方案。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029354800480.png" alt="Decision flow chart for communication patterns in Cocoa"></p>
-<p><code>KVO</code>是不是唯一有效的选择。我们还可以设想，操作队列成为操作的代理，然后操作将调用如<code>operationDidFinish</code> 或<code>operationDidBeginExecuting</code>的方法，将它状态信号的变化通知到队列。虽然这将不那么方便，因为操作除了调用这些方法之外还要保持其状态属性的更新。此外，队列必须跟踪所有操作的状态，因为它不能再请求它们了。</p>
-<h3 id="通知-1"><a href="#通知-1" class="headerlink" title="通知"></a>通知</h3><p><code>Core Data</code>使用<code>notifications</code>来通知对象内容的变化事件（<code>NSManagedObjectContextObjectsDidChangeNotification</code>）。</p>
-<p>通知的变化是由托管对象的内容发送的，因此我们不能假定消息的收件人一定知道发件人。由于消息的起源显然不是UI事件，所以可能有多个收件人对它感兴趣，而它所需要的只是单向通信通道，这种场景中<code>notifications</code>是唯一可行的选择。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029358561062.png" alt="Decision flow chart for communication patterns in Cocoa"></p>
-<h3 id="代理-1"><a href="#代理-1" class="headerlink" title="代理"></a>代理</h3><p>表视图的代理完成很多功能，从管理附属视图到编辑和跟踪屏幕上的单元格。在这个例子中，我们将看看<code>TableView：didselectrowatindexpath：</code>方法。为什么这个要作为代理方法来调用？为什么不适用<code>target-action</code>模式呢？</p>
-<p>正如我们在上面的流程图中所概述的那样，<code>target-action</code>只有在不需要传输任何自定义有效载荷时才有效。在选择的情况下，<code>collection</code>视图告诉我们点击一个<code>cell</code>时不仅选择了一个<code>cell</code>，而且还通过传递索引路径选择了哪个<code>cell</code>。如果我们保持这个要求发送索引路径，我们的流程图指导我们直接进入代理模式。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029358866130.png" alt="Decision flow chart for communication patterns in Cocoa"></p>
-<p>在选择<code>cell</code>的消息中，假如不发送索引路径，而是一旦我们收到的消息，通过询问表视图找回选定的<code>cell</code>呢？这将是非常不方便的，因为我们将不得不做记录目前选择的<code>cell</code>，在多个选择中以确定哪个<code>cell</code>是新选择。</p>
-<p>类似地，我们可以通过观察选定的索引路径属性的更改，当表视图中点击的改变时, 得到相关的通知。然而，我们也遇到了同样的问题，正如上面提到的，如果我们自己的不做记录，将无法区分哪些<code>cell</code>是最近选择/取消选择的。</p>
-<h3 id="Blocks-1"><a href="#Blocks-1" class="headerlink" title="Blocks"></a>Blocks</h3><p>一个基于<code>block</code>的API，比如以<code>- [ NSURLSession dataTaskWithURL:completionHandler：]</code>为例。从调用者到URL加载系统间的通信是什么样的？首先，作为这个<code>API</code>调用者，我们熟悉消息的发送者，但我们不保留它。此外，它是一个单向的通信，直接连接到<code>dataTaskWithURL：</code>方法的调用。如果我们将这些因素纳入流程图中，那么将直接结束这个基于<code>block</code>的通信模式。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029359464595.png" alt="Decision flow chart for communication patterns in Cocoa"></p>
-<p>还有其他选择吗？当然，苹果自己的<code>NSURLConnection</code>就是最好的例子。<code>NSURLConnection</code>在<code>Objective-C</code>有<code>block</code>之前就创建了，所以他们时需要采取不同的路线，并且使用代理模式实施通信。一旦<code>block</code>是可用的，在<code>OS X 10.7</code>和<code>iOS 5</code>中，苹果将方法<code>sendAsynchronousRequest:queue:completionHandler：</code>到<code>NSURLConnection</code>方法中，所以你不需要再为简单的任务设置代理了。</p>
-<p>因为<code>NSURLSession</code>是刚刚在<code>OS X 10.9</code>和<code>iOS 7</code>上添加的一个非常新的<code>API</code>，而<code>block</code>现在是作为这种通信模式的选择（<code>NSURLSession</code>也有一个代理，但是是作为其他用途的）。</p>
-<h3 id="Target-Action-1"><a href="#Target-Action-1" class="headerlink" title="Target-Action"></a>Target-Action</h3><p>对于<code>target-action</code>模式的一个明显的用例就是按钮。按钮不需要发送任何信息，除非他们已经点击（或轻拍）。从这个意义来说，<code>target-action</code>是UI事件通知App中非常灵活。</p>
-<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/2017-08-17-15029359755163.png" alt="Decision flow chart for communication patterns in Cocoa"></p>
-<p>如果目标是指定的，行动的消息将被直接发送到该对象。然而，如果目标是<code>nil</code>，行动消息会顺着事件链往上中寻找可以处理它的对象。在这种情况下，我们有一个完全解耦的通信机制，发件人不必知道收件人，而不是反过来。</p>
-<p><code>target-action</code>模式对UI事件来说是完美的。没有其他的通信方式可以提供这样的功能。<code>Notifications</code>是对发件人和收件人解耦方面最接近的，但使<code>target-action</code>特别的是对响应者链的使用。只有一个对象对得到的<code>action</code>作出反应，而且<code>action</code>顺着响应链通过定义好的路径，直到它被某个对象获取到。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一开始，对象之间的通信模式看起来似乎很多，在选择哪种模式时经常感到模棱两可。但是一旦我们对每种模式进一步了解，它们都有非常独特的要求和功能。</p>
-<p>决策流程图是一个很好的开始，你可以在选择特定模式时非常清晰，但当然不是所有问题的结束。如果它符合你使用这些模式的方式，或者你认为有什么遗漏或误导的话，我们将很高兴收到你的来信。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2017/08/22/Communication-Patterns【译】/" data-id="cjrnngn15001x55ccvny3lue8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2017/10/05/iOS_UIScrollView嵌套的尝试/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          UIScrollView嵌套的尝试
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/08/02/我的读书笔记/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">我的读书笔记</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug

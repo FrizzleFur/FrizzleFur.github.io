@@ -1,291 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
+extends includes/layout.pug
 
-  
-  <title>Git 笔记系列（八）—— Git常用命令-Stash | FFur</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="时间 更新备注     2018-03-10 新建文章   2018-06-08 整理补充    引言暂存未跟踪或忽略的文件默认情况下，git stash会缓存下列文件：  添加到暂存区的修改（staged changes） Git跟踪的但并未添加到暂存区的修改（unstaged changes）   stash就是存储的意思，比如你在做一件事情的同时，突然又有了别的工作。就把现在的工作存储">
-<meta name="keywords" content="Git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Git 笔记系列（八）—— Git常用命令-Stash">
-<meta property="og:url" content="http://frizzlefur.com/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/index.html">
-<meta property="og:site_name" content="FFur">
-<meta property="og:description" content="时间 更新备注     2018-03-10 新建文章   2018-06-08 整理补充    引言暂存未跟踪或忽略的文件默认情况下，git stash会缓存下列文件：  添加到暂存区的修改（staged changes） Git跟踪的但并未添加到暂存区的修改（unstaged changes）   stash就是存储的意思，比如你在做一件事情的同时，突然又有了别的工作。就把现在的工作存储">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://pic1.zhimg.com/50/757d21dade4221afdf8bf241db61f4c9_hd.jpg">
-<meta property="og:updated_time" content="2019-01-30T05:55:12.434Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git 笔记系列（八）—— Git常用命令-Stash">
-<meta name="twitter:description" content="时间 更新备注     2018-03-10 新建文章   2018-06-08 整理补充    引言暂存未跟踪或忽略的文件默认情况下，git stash会缓存下列文件：  添加到暂存区的修改（staged changes） Git跟踪的但并未添加到暂存区的修改（unstaged changes）   stash就是存储的意思，比如你在做一件事情的同时，突然又有了别的工作。就把现在的工作存储">
-<meta name="twitter:image" content="https://pic1.zhimg.com/50/757d21dade4221afdf8bf241db61f4c9_hd.jpg">
-  
-    <link rel="alternate" href="/atom.xml" title="FFur" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">FFur</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">刚刚在线</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://frizzlefur.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Git 笔记系列（八）—— Git常用命令-Stash" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/" class="article-date">
-  <time datetime="2018-03-10T12:11:00.000Z" itemprop="datePublished">2018-03-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Git 笔记系列（八）—— Git常用命令-Stash
-    </h1>
-  
+block top_img
+  - var top_img = page.top_img || theme.post_meta.top_img || theme.top_img || config.top_img
+  if (top_img && page.top_img !== false)
+    - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+    - var flag = top_img === true ? 'no-bg' : ''
+    div#top-container(style=bg_img class=flag)
+      include ./includes/header.pug
+      #post-info
+        #post-title= page.title || _p('no_title')
+        #post-meta
+          if (theme.post_meta.date_type)
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+          if (theme.post_meta.categories && page.categories.data.length > 0)
+            if (theme.post_meta.date_type)
+              span.post-meta__separator |
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                 i.fa.fa-angle-right(aria-hidden="true")
+          if (theme.disqus.enable && theme.disqus.count)
+            if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+              span.post-meta__separator |
+            i.fa.fa-comment-o.post-meta__icon(aria-hidden="true")
+            a(href=url_for(page.path) + '#disqus_thread')
+              span.disqus-comment-count(data-disqus-identifier=page.path)
+          if (theme.wordcount && theme.wordcount.enable)
+            .post-meta-wordcount
+              span= _p('post.wordcount') + ': '
+              span.word-count= wordcount(page.content)
+              span.post-meta__separator |
+              span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+  else
+    div#top-container.plain
+      include ./includes/header.pug
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th>时间</th>
-<th>更新备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2018-03-10</td>
-<td>新建文章</td>
-</tr>
-<tr>
-<td>2018-06-08</td>
-<td>整理补充</td>
-</tr>
-</tbody>
-</table>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>暂存未跟踪或忽略的文件<br>默认情况下，git stash会缓存下列文件：</p>
-<ul>
-<li>添加到暂存区的修改（staged changes）</li>
-<li>Git跟踪的但并未添加到暂存区的修改（unstaged changes）</li>
-</ul>
-<p><img src="https://pic1.zhimg.com/50/757d21dade4221afdf8bf241db61f4c9_hd.jpg" alt=""></p>
-<p>stash就是存储的意思，比如你在做一件事情的同时，突然又有了别的工作。就把现在的工作存储下来。并不提交到主线任务。而且可以顺利恢复上次的进度。</p>
-<a id="more"></a>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20Git%E7%AE%80%E4%BB%8B.html">Git 笔记系列（一）—— Git简介</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.html">Git 笔记系列（二）—— Git工作流程</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E4%B8%80%E8%A7%88.html">Git 笔记系列（三）—— Git常用命令-一览</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Checkout.html">Git 笔记系列（四）—— Git常用命令-Checkout</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Branch.html">Git 笔记系列（五）—— Git常用命令-Branch</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Reset.html">Git 笔记系列（六）—— Git常用命令-Reset</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Rebase.html">Git 笔记系列（七）—— Git常用命令-Rebase</a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Stash.html"><strong>Git 笔记系列（八）—— Git常用命令-Stash等</strong></a></li>
-<li><a href="http://frizzlefur.com/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89%E2%80%94%E2%80%94%20Git%E8%BF%9B%E9%98%B6.html">Git 笔记系列（九）—— Git进阶</a></li>
-</ul>
-<h2 id="Git-Stash"><a href="#Git-Stash" class="headerlink" title="Git-Stash"></a>Git-Stash</h2><p>暂存未跟踪或忽略的文件<br>默认情况下，git stash会缓存下列文件：</p>
-<ul>
-<li>添加到暂存区的修改（staged changes）</li>
-<li>Git跟踪的但并未添加到暂存区的修改（unstaged changes）</li>
-</ul>
-<p>但不会缓存以下文件：</p>
-<ul>
-<li>在工作目录中新的文件（untracked files）</li>
-<li>被忽略的文件（ignored files）</li>
-</ul>
-<p><code>git stash</code>（git储藏）可用于以下情形：</p>
-<ul>
-<li><p>使用git的时候，我们往往使用分支（branch）解决任务切换问题，例如，我们往往会建一个自己的分支去修改和调试代码, 如果别人或者自己发现原有的分支上有个不得不修改的bug，我们往往会把完成一半的代码commit提交到本地仓库，然后切换分支去修改bug，改好之后再切换回来。这样的话往往log上会有大量不必要的记录。其实如果我们不想提交完成一半或者不完善的代码，但是却不得不去修改一个紧急Bug，那么使用git stash就可以将你当前未提交到本地（和服务器）的代码推入到Git的栈中，这时候你的工作区间和上一次提交的内容是完全一样的，所以你可以放心的修Bug，等到修完Bug，提交到服务器上后，再使用<code>git stash apply</code>将以前一半的工作应用回来。</p>
-</li>
-<li><p>经常有这样的事情发生，当你正在进行项目中某一部分的工作，里面的东西处于一个比较杂乱的状态，而你想转到其他分支上进行一些工作。问题是，你不想提交进行了一半的工作，否则以后你无法回到这个工作点。解决这个问题的办法就是git stash命令。储藏(stash)可以获取你工作目录的中间状态——也就是你修改过的被追踪的文件和暂存的变更——并将它保存到一个未完结变更的堆栈中，随时可以重新应用。</p>
-</li>
-</ul>
-<p><code>git stash</code>可以暂存本地的改动到<code>stash stack</code>中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#show the stash stack list</span><br><span class="line">git stash show list</span><br><span class="line"></span><br><span class="line">#show the second one in the stashes stash stack</span><br><span class="line">git stash show stash@&#123;1&#125;</span><br><span class="line"></span><br><span class="line">#show the diff of stash</span><br><span class="line">git stash show -p</span><br><span class="line"></span><br><span class="line">#可以通过git stash apply命令恢复之前缓存的工作目录，不会将其从堆栈中移走</span><br><span class="line">git stash apply</span><br><span class="line"></span><br><span class="line">#recover the stashed diff delete the top stash for stash stack</span><br><span class="line">#git stash pop命令恢复之前缓存的工作目录，同时立刻将其从堆栈中移走</span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
-<p>实际应用中推荐给每个stash加一个message，用于记录版本，使用git stash save取代git stash命令。示例如下：</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> git stash save "test-cmd-stash"</span><br><span class="line">Saved working directory and index state On autoswitch: test-cmd-stash</span><br><span class="line">HEAD 现在位于 296e8d4 remove unnecessary postion reset in onResume function</span><br><span class="line"><span class="meta">$</span> git stash list</span><br><span class="line">stash@&#123;0&#125;: On autoswitch: test-cmd-stash</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://frizzlefur.com/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/" data-id="cjrnngmzn000255cc7xun8omo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Git 笔记系列（九）—— Git进阶
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/03/08/Git 笔记系列（七）—— Git常用命令-Rebase/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Git 笔记系列（七）—— Git常用命令-Rebase</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CodeReview/">CodeReview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Continuous-Integration/">Continuous Integration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docs/">Docs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Health/">Health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Learn/">Learn</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ToDo/">ToDo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS101/">iOS101</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文档翻译/">文档翻译</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CodeReview/" style="font-size: 12px;">CodeReview</a> <a href="/tags/Continuous-Integration/" style="font-size: 10px;">Continuous Integration</a> <a href="/tags/Docs/" style="font-size: 14px;">Docs</a> <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Health/" style="font-size: 12px;">Health</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Learn/" style="font-size: 10px;">Learn</a> <a href="/tags/Life/" style="font-size: 14px;">Life</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12px;">ReactiveCocoa</a> <a href="/tags/ToDo/" style="font-size: 10px;">ToDo</a> <a href="/tags/Tool/" style="font-size: 16px;">Tool</a> <a href="/tags/iOS101/" style="font-size: 18px;">iOS101</a> <a href="/tags/文档翻译/" style="font-size: 12px;">文档翻译</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(二) —— 源码探究/">ReactiveCocoa笔记(二）—— 源码探究</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/29/ReactiveCocoa笔记(一) —— 框架概览/">ReactiveCocoa笔记(一）—— 框架概览</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/05/读《程序是如何跑起来的》/">读《程序是如何跑起来的》</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/26/Git 笔记系列（九）—— Git进阶/">Git 笔记系列（九）—— Git进阶</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/">Git 笔记系列（八）—— Git常用命令-Stash</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 FrizzleFur<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
-
-  </div>
-</body>
-</html>
+block content
+  article#post(class="")
+    if (!top_img)
+      #post-title.plain= page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          - var date_type = theme.post_meta.date_type === 'updated' ? '' : 'date'
+          time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator |
+          each item, index in page.categories.data
+            i.fa.fa-inbox(aria-hidden="true")
+            a(href=url_for(item.path)).post-meta__categories  #[=item.name]
+            if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right.post-meta__separator(aria-hidden="true")
+        if (theme.disqus.enable && theme.disqus.count)
+          if (theme.post_meta.date_type || theme.post_meta.categories && page.categories.data.length > 0)
+            span.post-meta__separator |
+          i.fa.fa-comment-o(aria-hidden="true")
+          a(href=url_for(page.path) + '#disqus_thread')
+            span.disqus-comment-count(data-disqus-identifier=page.path)
+        if (theme.wordcount && theme.wordcount.enable)
+          span.post-meta__separator |
+          span.post-meta-wordcount
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  if (theme.post_meta.tags)
+    .post-meta__tag-list
+      each item, index in page.tags.data
+        a(href=url_for(item.path)).post-meta__tags #[=item.name]
+  if (theme.QR_code)
+    if (theme.QR_code.length > 0)
+      .post-qr-code
+        each item in theme.QR_code
+          .post-qr-code-item
+            img.post-qr-code__img(src=(item.itemlist||item).img)
+            .post-qr-code__desc=(item.itemlist||item).text
+  include includes/share/index.pug
+  include includes/pagination.pug
+  if (theme.adv && theme.adv.enable)
+    .post-adv!= theme.adv.info
+  if page.comments !== false
+    include includes/comments/index.pug
