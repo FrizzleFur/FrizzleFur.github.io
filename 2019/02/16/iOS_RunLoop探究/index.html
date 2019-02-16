@@ -30,8 +30,11 @@
 <li>dispatch_get_main_queue()；</li>
 <li>NSURLConnection；</li>
 </ol>
-<h3 id="从调用堆栈来看Runloop"><a href="#从调用堆栈来看Runloop" class="headerlink" title="从调用堆栈来看Runloop"></a>从调用堆栈来看Runloop</h3><p><img src="https://pic-mike.oss-cn-hongkong.aliyuncs.com/Blog/20190216133915.png" alt=""></p>
+<h3 id="从调用堆栈来看Runloop"><a href="#从调用堆栈来看Runloop" class="headerlink" title="从调用堆栈来看Runloop"></a>从调用堆栈来看Runloop</h3><p><img src="https://pic-mike.oss-cn-hongkong.aliyuncs.com/Blog/20190216153840.png" alt=""></p>
 <p>从下往上一层层的看，最开始的start是dyld干的，然后是main函数，main函数接着调用UIApplicationMain，然后的GSEventRunModal是Graphics Services是处理硬件输入，比如点击，所有的UI事件都是它发出来的。紧接着的就是Runloop了，从图中的可以看到从13到10的4调用都是Runloop相关的。再上面的就是事件队列处理，以及UI层的事件分发了。</p>
+<ul>
+<li>dyld（the dynamic link editor）是苹果的动态链接器，是苹果操作系统一个重要组成部分，在系统内核做好程序准备工作之后，交由dyld负责余下的工作。而且它是开源的，任何人可以通过苹果官网下载它的源码来阅读理解它的运作方式，了解系统加载动态库的细节。</li>
+</ul>
 <p>几乎所有线程的所有函数都是从下面六个函数之一调起：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__();  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __CFRUNLOOP_IS_CALLING_OUT_TO_A_BLOCK__();  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __CFRUNLOOP_IS_SERVICING_THE_MAIN_DISPATCH_QUEUE__();  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __CFRUNLOOP_IS_CALLING_OUT_TO_A_TIMER_CALLBACK_FUNCTION__();  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__();  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__();</span><br></pre></td></tr></table></figure>
 <h2 id="Runloop的构成"><a href="#Runloop的构成" class="headerlink" title="Runloop的构成"></a>Runloop的构成</h2><ul>
