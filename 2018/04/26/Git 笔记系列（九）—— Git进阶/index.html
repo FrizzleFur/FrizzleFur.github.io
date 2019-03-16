@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Git 笔记系列（九）—— Git进阶"><meta name="keywords" content="Git"><meta name="author" content="FrizzleFur"><meta name="copyright" content="FrizzleFur"><title>Git 笔记系列（九）—— Git进阶 | FFur</title><link rel="shortcut icon" href="/images/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="manifest" href="/manifest.json"><link rel="manifest" href="/manifest.json"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-飞行规则"><span class="toc-number">1.</span> <span class="toc-text">Git 飞行规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git-tips-Git的奇技淫巧"><span class="toc-number">2.</span> <span class="toc-text">git-tips: Git的奇技淫巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">3.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-fetch"><span class="toc-number">4.</span> <span class="toc-text">Git fetch</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FETCH-HEAD"><span class="toc-number">4.1.</span> <span class="toc-text">FETCH_HEAD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的git-fetch-使用方式"><span class="toc-number">4.2.</span> <span class="toc-text">常见的git fetch 使用方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与git-pull的区别"><span class="toc-number">4.3.</span> <span class="toc-text">与git pull的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-比较差异"><span class="toc-number">5.</span> <span class="toc-text">Git 比较差异</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-difftol"><span class="toc-number">5.1.</span> <span class="toc-text">git difftol</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用log来打印diff"><span class="toc-number">5.2.</span> <span class="toc-text">使用log来打印diff</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支跟踪"><span class="toc-number">6.</span> <span class="toc-text">分支跟踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并多个commits"><span class="toc-number">7.</span> <span class="toc-text">合并多个commits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git的撤销、回退"><span class="toc-number">8.</span> <span class="toc-text">Git的撤销、回退</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reset"><span class="toc-number">8.1.</span> <span class="toc-text">Reset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Checkout"><span class="toc-number">8.2.</span> <span class="toc-text">Checkout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Revert"><span class="toc-number">8.3.</span> <span class="toc-text">Revert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#這三个指令差別"><span class="toc-number">8.4.</span> <span class="toc-text">這三个指令差別</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#忽略文件"><span class="toc-number">9.</span> <span class="toc-text">忽略文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#gitignore规则不生效的解决办法"><span class="toc-number">9.1.</span> <span class="toc-text">.gitignore规则不生效的解决办法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Diff-tool-in-Git-GUI"><span class="toc-number">10.</span> <span class="toc-text">Diff tool in Git GUI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-Key"><span class="toc-number">11.</span> <span class="toc-text">SSH Key</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Flow"><span class="toc-number">12.</span> <span class="toc-text">Git Flow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">13.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支类型和流程"><span class="toc-number">14.</span> <span class="toc-text">分支类型和流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分支详解"><span class="toc-number">15.</span> <span class="toc-text">分支详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主分支-（Historical-Branches）"><span class="toc-number">15.1.</span> <span class="toc-text">主分支 （Historical Branches）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#master-分支"><span class="toc-number">15.1.0.1.</span> <span class="toc-text">master 分支</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#develop分支"><span class="toc-number">15.1.0.2.</span> <span class="toc-text">develop分支</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#辅助分支"><span class="toc-number">15.2.</span> <span class="toc-text">辅助分支</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#feature-分支"><span class="toc-number">15.2.1.</span> <span class="toc-text">feature 分支</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#release分支（preparing）"><span class="toc-number">15.3.</span> <span class="toc-text">release分支（preparing）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hotfix分支（maintaining）"><span class="toc-number">15.4.</span> <span class="toc-text">hotfix分支（maintaining）</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">16.</span> <span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#管理冲突"><span class="toc-number">16.0.1.</span> <span class="toc-text">管理冲突</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更进一步"><span class="toc-number">17.</span> <span class="toc-text">更进一步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展：Forking-Workflow"><span class="toc-number">18.</span> <span class="toc-text">扩展：Forking Workflow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文章来源"><span class="toc-number">18.1.</span> <span class="toc-text">文章来源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-CI集成"><span class="toc-number">19.</span> <span class="toc-text">Git CI集成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码Review-—-Reviewable"><span class="toc-number">20.</span> <span class="toc-text">代码Review — Reviewable</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pull-Request的code-review"><span class="toc-number">20.1.</span> <span class="toc-text">Pull Request的code review</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#保持你的-Git-提交记录的整洁"><span class="toc-number"></span> <span class="toc-text">保持你的 Git 提交记录的整洁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-提交记录很容易变得混乱不堪，现在教你怎么保持整洁！"><span class="toc-number">1.</span> <span class="toc-text">Git 提交记录很容易变得混乱不堪，现在教你怎么保持整洁！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么有意义的提交记录非常重要？"><span class="toc-number">2.</span> <span class="toc-text">为什么有意义的提交记录非常重要？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生活中的某天"><span class="toc-number">3.</span> <span class="toc-text">生活中的某天</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景-1：我需要修改最近一次的提交"><span class="toc-number">4.</span> <span class="toc-text">场景 1：我需要修改最近一次的提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景-2：我需要修改一次特定的提交"><span class="toc-number">5.</span> <span class="toc-text">场景 2：我需要修改一次特定的提交</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景-3：我需要添加、移除或者合并提交"><span class="toc-number">6.</span> <span class="toc-text">场景 3：我需要添加、移除或者合并提交</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#避免冲突"><span class="toc-number">6.1.</span> <span class="toc-text">避免冲突</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附加提示：快速-fixup"><span class="toc-number">6.2.</span> <span class="toc-text">附加提示：快速 fixup</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景-4：我的提交记录没啥有用的内容，我需要重新开始！"><span class="toc-number">7.</span> <span class="toc-text">场景 4：我的提交记录没啥有用的内容，我需要重新开始！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-number">8.</span> <span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">9.</span> <span class="toc-text">参考</span></a></li></ol></li></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://pic-mike.oss-cn-hongkong.aliyuncs.com/Blog/avatar.png"></div><div class="author-info__name text-center">FrizzleFur</div><div class="author-info__description text-center">stay on your way</div><div class="follow-button"><a href="https://github.com/FrizzleFur">Follow me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">40</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">14</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="https://juejin.im/user/57f8ffda2e958a005581e3c0/posts">J_Knight</a><a class="author-info-links__name text-center" href="https://halfrost.com/">Halfrost</a><a class="author-info-links__name text-center" href="https://github.com/draveness/analyze">draveness</a><a class="author-info-links__name text-center" href="https://juejin.im/user/5a52075e6fb9a01c9d31b107/posts">老司机周报</a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">FFur</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/ideas">思所</a><a class="site-page" href="/booknotes">读书</a><a class="site-page" href="/gallery">相册</a><a class="site-page" href="/about">关于</a></span></div><div id="post-info"><div id="post-title">Git 笔记系列（九）—— Git进阶</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-04-26</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>更新备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-04-26</td>
+<td>新建文章</td>
+</tr>
+<tr>
+<td>2018-09-09</td>
+<td>添加git账号切换</td>
+</tr>
+<tr>
+<td>2019-01-18</td>
+<td>更新链接</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Git-飞行规则"><a href="#Git-飞行规则" class="headerlink" title="Git 飞行规则"></a>Git 飞行规则</h2><p><a href="https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md" target="_blank" rel="noopener">git-flight-rules/README_zh-CN.md at master · k88hudson/git-flight-rules</a></p>
+<h2 id="git-tips-Git的奇技淫巧"><a href="#git-tips-Git的奇技淫巧" class="headerlink" title="git-tips: Git的奇技淫巧"></a>git-tips: Git的奇技淫巧</h2><p><a href="https://github.com/521xueweihan/git-tips#%E5%B1%95%E7%A4%BA%E6%89%80%E6%9C%89%E5%BF%BD%E7%95%A5%E7%9A%84%E6%96%87%E4%BB%B6" target="_blank" rel="noopener">521xueweihan/git-tips: Git的奇技淫巧</a></p>
+<a id="more"></a>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a href="https://michaelmao.co/2018/02/27/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20Git%E7%AE%80%E4%BB%8B/" target="_blank" rel="noopener">Git 笔记系列（一）—— Git简介</a></li>
+<li><a href="https://michaelmao.co/2018/02/28/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B/" target="_blank" rel="noopener">Git 笔记系列（二）—— Git工作流程</a></li>
+<li><a href="https://michaelmao.co/2018/02/28/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%89%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E4%B8%80%E8%A7%88/" target="_blank" rel="noopener">Git 笔记系列（三）—— Git常用命令-一览</a></li>
+<li><a href="https://michaelmao.co/2018/02/28/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%9B%9B%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Checkout/" target="_blank" rel="noopener">Git 笔记系列（四）—— Git常用命令-Checkout</a></li>
+<li><a href="https://michaelmao.co/2018/03/01/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%BA%94%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Branch/" target="_blank" rel="noopener">Git 笔记系列（五）—— Git常用命令-Branch</a></li>
+<li><a href="https://michaelmao.co/2018/03/02/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AD%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Reset/" target="_blank" rel="noopener">Git 笔记系列（六）—— Git常用命令-Reset</a></li>
+<li><a href="https://michaelmao.co/2018/03/08/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B8%83%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Rebase/" target="_blank" rel="noopener">Git 笔记系列（七）—— Git常用命令-Rebase</a></li>
+<li><a href="https://michaelmao.co/2018/03/10/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E5%85%AB%EF%BC%89%E2%80%94%E2%80%94%20Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-Stash/" target="_blank" rel="noopener">Git 笔记系列（八）—— Git常用命令-Stash等</a></li>
+<li><a href="https://michaelmao.co/2018/04/26/Git%20%E7%AC%94%E8%AE%B0%E7%B3%BB%E5%88%97%EF%BC%88%E4%B9%9D%EF%BC%89%E2%80%94%E2%80%94%20Git%E8%BF%9B%E9%98%B6/" target="_blank" rel="noopener"><strong>Git 笔记系列（九）—— Git进阶</strong></a></li>
+</ul>
+<h2 id="Git-fetch"><a href="#Git-fetch" class="headerlink" title="Git fetch"></a>Git fetch</h2><p>fetch从远程存储库下载更改，但不会将它们集成到工作副本中。因此，Fetch是用来了解远程上发生的事情的概况.</p>
+<p>一般如果不确定是否想要合并代码，可以先使用<code>git fetch</code>查看远端的和本地的diff改动.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin master</span><br><span class="line">git difftool origin</span><br></pre></td></tr></table></figure>
+<p>之后可以进入图形化的 对比界面</p>
+<p><a href="https://stackoverflow.com/questions/10678495/where-to-find-changes-due-to-git-fetch" target="_blank" rel="noopener">Where to find changes due to <code>git fetch</code> - Stack Overflow</a></p>
+<h3 id="FETCH-HEAD"><a href="#FETCH-HEAD" class="headerlink" title="FETCH_HEAD"></a>FETCH_HEAD</h3><p>理解 fetch 的关键, 是理解 FETCH_HEAD.<br>FETCH_HEAD： 是一个版本链接，记录在本地的一个文件中，指向着目前已经从远程仓库取下来的分支的末端版本。</p>
+<h3 id="常见的git-fetch-使用方式"><a href="#常见的git-fetch-使用方式" class="headerlink" title="常见的git fetch 使用方式"></a>常见的git fetch 使用方式</h3><ol>
+<li>git fetch</li>
+</ol>
+<ul>
+<li>创建并更新所有远程分支的本地远程分支.</li>
+<li>设定当前分支的FETCH_HEAD为远程服务器的master分支 (上面说的第一种情况)</li>
+</ul>
+<p>需要注意的是: <strong>和push不同, fetch会自动获取远程`新加入’的分支.</strong></p>
+<ol start="2">
+<li>git fetch origin</li>
+</ol>
+<ul>
+<li>同上, 只不过手动指定了remote.</li>
+</ul>
+<ol start="3">
+<li>git fetch origin branch1</li>
+</ol>
+<ul>
+<li>设定当前分支的 FETCH_HEAD’ 为远程服务器的branch1分支`.</li>
+<li>注意: 在这种情况下, 不会在本地创建本地远程分支, 这是因为:</li>
+<li>这个操作是git pull origin branch1的第一步, 而对应的pull操作,并不会在本地创建新的branch.</li>
+</ul>
+<h3 id="与git-pull的区别"><a href="#与git-pull的区别" class="headerlink" title="与git pull的区别"></a>与git pull的区别</h3><p>git pull 会获取所有远程索引，并把它们的数据都合并到本地分支中来。</p>
+<h2 id="Git-比较差异"><a href="#Git-比较差异" class="headerlink" title="Git 比较差异"></a>Git 比较差异</h2><h3 id="git-difftol"><a href="#git-difftol" class="headerlink" title="git difftol"></a>git difftol</h3><p>最方便的使用kaleidoscope进行节点的查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git difftool &lt;local commit&gt;  &lt;another commit&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="使用log来打印diff"><a href="#使用log来打印diff" class="headerlink" title="使用log来打印diff"></a>使用log来打印diff</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log -p &lt;branch&gt;  a&lt;another-branch&gt; -&lt;log number&gt;</span><br><span class="line"></span><br><span class="line">git log origin/master ^master</span><br></pre></td></tr></table></figure>
+<h2 id="分支跟踪"><a href="#分支跟踪" class="headerlink" title="分支跟踪"></a>分支跟踪</h2><p>从远程分支 checkout 出来的本地分支，称为 跟踪分支 (tracking branch)。跟踪分支是一种和某个远程分支有直接联系的本地分支。在跟踪分支里输入 git push，Git 会自行推断应该向哪个服务器的哪个分支推送数据。同样，在这些分支里运行 git pull 会获取所有远程索引，并把它们的数据都合并到本地分支中来。</p>
+<p>在克隆仓库时，Git 通常会自动创建一个名为 master 的分支来跟踪 origin/master。这正是 git push 和 git pull 一开始就能正常工作的原因。当然，你可以随心所欲地设定为其它跟踪分支，比如 origin 上除了 master 之外的其它分支。刚才我们已经看到了这样的一个例子：git checkout -b [分支名] [远程名]/[分支名]。如果你有 1.6.2 以上版本的 Git，还可以用 –track 选项简化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout --track origin/serverfix</span><br><span class="line">    Branch serverfix set up to track remote branch refs/remotes/origin/serverfix.</span><br><span class="line">    Switched to a new branch &quot;serverfix&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="合并多个commits"><a href="#合并多个commits" class="headerlink" title="合并多个commits"></a>合并多个commits</h2><p>使用squash</p>
+<p>squash = use commit, but meld into previous commit</p>
+<h2 id="Git的撤销、回退"><a href="#Git的撤销、回退" class="headerlink" title="Git的撤销、回退"></a>Git的撤销、回退</h2><p>Reset、Checkout、Revert-的选择</p>
+<h3 id="Reset"><a href="#Reset" class="headerlink" title="Reset"></a>Reset</h3><p>在提交层面上，reset 将一个分支的末端指向另一个提交。这可以用来移除当前分支的一些提交。比如，下面这两条命令让 hotfix 分支向后回退了两个提交。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout hotfix</span><br><span class="line">git reset HEAD~2</span><br></pre></td></tr></table></figure>
+<p>hotfix 分支末端的两个提交现在变成了悬挂提交。也就是说，下次 Git 执行垃圾回收的时候，这两个提交会被删除。换句话说，如果你想扔掉这两个提交，你可以这么做。reset 操作如下图所示：</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385843848954.jpg" alt=""></p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385844107552.jpg" alt=""><br><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385898811827.jpg" alt=""></p>
+<h3 id="Checkout"><a href="#Checkout" class="headerlink" title="Checkout"></a>Checkout</h3><p>你应该已经非常熟悉提交层面的 git checkout。当传入分支名时，可以切换到那个分支。</p>
+<p>git checkout hotfix<br>上面这个命令做的不过是将HEAD移到一个新的分支，然后更新工作目录。因为这可能会覆盖本地的修改，Git 强制你提交或者缓存工作目录中的所有更改，不然在 checkout 的时候这些更改都会丢失。和 git reset 不一样的是，git checkout 没有移动这些分支。</p>
+<p>将 HEAD 从 master 移到 hotfix</p>
+<p>除了分支之外，你还可以传入提交的引用来 checkout 到任意的提交。这和 checkout 到另一个分支是完全一样的：把 HEAD 移动到特定的提交。比如，下面这个命令会 checkout 到当前提交的祖父提交。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout HEAD~2</span><br></pre></td></tr></table></figure>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385845455044.jpg" alt=""></p>
+<p>这对于快速查看项目旧版本来说非常有用。但如果你当前的 HEAD 没有任何分支引用，那么这会造成 HEAD 分离。这是非常危险的，如果你接着添加新的提交，然后切换到别的分支之后就没办法回到之前添加的这些提交。因此，在为分离的 HEAD 添加新的提交的时候你应该创建一个新的分支。</p>
+<h3 id="Revert"><a href="#Revert" class="headerlink" title="Revert"></a>Revert</h3><p>Revert 撤销一个提交的同时会创建一个新的提交。这是一个安全的方法，因为它不会重写提交历史。比如，下面的命令会找出倒数第二个提交，然后创建一个新的提交来撤销这些更改，然后把这个提交加入项目中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout hotfix</span><br><span class="line">git revert HEAD~2</span><br></pre></td></tr></table></figure>
+<p>如下图所示：</p>
+<p>revert到倒数第二个commit</p>
+<p>相比 git reset，它不会改变现在的提交历史。<strong>因此，git revert 可以用在公共分支上，git reset 应该用在私有分支上。你也可以把 git revert 当作撤销已经提交的更改，而 git reset HEAD 用来撤销没有提交的更改。</strong></p>
+<p>就像 git checkout 一样，git revert 也有可能会重写文件。所以，Git 会在你执行 revert 之前要求你提交或者缓存你工作目录中的更改。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15385897204324.jpg" alt=""></p>
+<p><a href="https://juejin.im/post/5b5ab8136fb9a04f834659ba#heading-6" target="_blank" rel="noopener">Git如何回滚一次错误的合并 - 掘金</a></p>
+<p><a href="https://gitbook.tw/chapters/rewrite-history/reset-revert-and-rebase.html" target="_blank" rel="noopener">Reset、Revert 跟 Rebase 指令有什麼差別？ - 為你自己學 Git | 高見龍</a></p>
+<h3 id="這三个指令差別"><a href="#這三个指令差別" class="headerlink" title="這三个指令差別"></a>這三个指令差別</h3><p>表格归纳一下：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>改变历史记录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reset</td>
+<td>是</td>
+<td>把目前的狀態設定成某個指定的 Commit 的狀態，通常適用於尚未推出去的 Commit。</td>
+</tr>
+<tr>
+<td>Rebase</td>
+<td>是</td>
+<td>不管是新增、修改、刪除 Commit 都相當方便，用來整理、編輯還沒有推出去的 Commit 相當方便，但通常也只適用於尚未推出去的 Commit。</td>
+</tr>
+<tr>
+<td>Revert</td>
+<td>否</td>
+<td>新增一個 Commit 來反轉（或說取消）另一個 Commit 的內容，原本的 Commit 依舊還是會保留在歷史紀錄中。雖然會因此而增加 Commit 數，但通常比較適用於已經推出去的 Commit，或是不允許使用 Reset 或 Rebase 之修改歷史紀錄的指令的場合。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h2><p>在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中 .gitignore 文件的方法（如果没有这个文件，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 此为注释 – 将被 Git 忽略</span><br><span class="line"></span><br><span class="line">*.sample 　　 # 忽略所有 .sample 结尾的文件</span><br><span class="line">!lib.sample 　　 # 但 lib.sample 除外</span><br><span class="line">/TODO 　　 # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">build/ 　　 # 忽略 build/ 目录下的所有文件</span><br><span class="line">doc/*.txt 　　# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br></pre></td></tr></table></figure>
+<h3 id="gitignore规则不生效的解决办法"><a href="#gitignore规则不生效的解决办法" class="headerlink" title=".gitignore规则不生效的解决办法"></a>.gitignore规则不生效的解决办法</h3><p>把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是.gitignore只能忽略那些原来没有被追踪的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未被追踪状态），然后再提交：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached .</span><br><span class="line">git add .</span><br><span class="line">git commit -m &apos;update .gitignore&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="Diff-tool-in-Git-GUI"><a href="#Diff-tool-in-Git-GUI" class="headerlink" title="Diff tool in Git GUI"></a>Diff tool in Git GUI</h2><ul>
+<li>设置合并工具<br><code>Kaleidoscope</code>是一款很不错的diff工具<br>如果您在使用tower，请查看</li>
+</ul>
+<p><a href="https://www.git-tower.com/help/mac/integration/custom-diff-tools" target="_blank" rel="noopener">Diff &amp; Merge Tools - Tower Help</a></p>
+<p>create a file named “CompareTools.plist” and put it into “~/Library/Application Support/com.fournova.Tower3/CompareTools/“.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; </span><br><span class="line">    &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;array&gt;</span><br><span class="line">    &lt;dict&gt;</span><br><span class="line">        &lt;key&gt;ApplicationIdentifier&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;com.madebysofa.Kaleidoscope&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;ApplicationName&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;Kaleidoscope&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;DisplayName&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;Kaleidoscope&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;LaunchScript&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;kaleidoscope.sh&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;Identifier&lt;/key&gt;</span><br><span class="line">        &lt;string&gt;kaleidoscope&lt;/string&gt;</span><br><span class="line">        &lt;key&gt;SupportsMergeTool&lt;/key&gt;</span><br><span class="line">        &lt;false/&gt;</span><br><span class="line">        &lt;key&gt;SupportsDiffChangeset&lt;/key&gt;</span><br><span class="line">        &lt;true/&gt;</span><br><span class="line">    &lt;/dict&gt;</span><br><span class="line">&lt;/array&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="SSH-Key"><a href="#SSH-Key" class="headerlink" title="SSH Key"></a>SSH Key</h2><p>使用远程服务进行身份验证通常是使用 SSH 密钥完成的。虽然是一个非常安全和专业的方法, 但它可能是一个有点繁琐的设置和管理。通过允许您从应用程序内部管理您的帐户的 SSH 密钥, </p>
+<p><a href="https://www.git-tower.com/help/mac/manage-hosting-services/manage-ssh-keys" target="_blank" rel="noopener">Using and Managing SSH Keys - Tower Help</a></p>
+<h2 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h2><blockquote>
+<p>我说的以下流程，sourceTree等工具已经完美的支持了，鼠标点两下就完成了。简直是完美。</p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Feature Branch Workflow是一种非常灵活的开发方式。对于一些规模比较大的团队，最好就是给特定的分支赋予不同的角色。除了<strong>功能分支(feature branch)</strong>，Gitflow Workflow还使用独立的分支来<strong>准备发布(preparing)</strong>，<strong>维护(maintaining)</strong>, 和<strong>记录版本(recording releases)</strong>。</p>
+<h2 id="分支类型和流程"><a href="#分支类型和流程" class="headerlink" title="分支类型和流程"></a>分支类型和流程</h2><p>下图能说明整个流程，只要你看得懂的话。该模式来自 <a href="https://link.jianshu.com/?t=http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">Nvie</a></p>
+<p><img src="http://nvie.com/img/git-model@2x.png" alt=""></p>
+<ul>
+<li>feature（多个、玫红）。主要是自己玩了，差不多的时候要合并回develop去。从不与master交互。</li>
+<li>develop（1个、黄色）。主要是和feature以及release交互。</li>
+<li>release（同一时间1个、绿色）。总是基于develop，最后又合并回develop。当然对应的tag跑到master这边去了。生命周期很短，只是为了发布</li>
+<li>hotfix（同一时间1个、红色）。总是基于master，并最后合并到master和develop。生命周期较短，用了修复bug或小粒度修改发布。</li>
+<li>master（1个蓝色）。没有什么东西，仅是一些关联的tag，因从不在master上开发。</li>
+</ul>
+<p>在这个模型中，master和develop都具有象征意义。master分支上的代码总是稳定的（stable build），随时可以发布出去。develop上的代码总是从feature上合并过来的，可以进行Nightly Builds，但不直接在develop上进行开发。当develop上的feature足够多以至于可以进行新版本的发布时，可以创建release分支。</p>
+<p>release分支基于develop，进行很简单的修改后就被合并到master，并打上tag，表示可以发布了。紧接着release将被合并到develop；此时develop可能往前跑了一段，出现合并冲突，需要手工解决冲突后再次合并。这步完成后就删除release分支。</p>
+<p>当从已发布版本中发现bug要修复时，就应用到hotfix分支了。hotfix基于master分支，完成bug修复或紧急修改后，要merge回master，打上一个新的tag，并merge回develop，删除hotfix分支。</p>
+<p>由此可见release和hotfix的生命周期都较短，master/develop虽然总是存在但却不常使用。</p>
+<h2 id="分支详解"><a href="#分支详解" class="headerlink" title="分支详解"></a>分支详解</h2><h3 id="主分支-（Historical-Branches）"><a href="#主分支-（Historical-Branches）" class="headerlink" title="主分支 （Historical Branches）"></a>主分支 （Historical Branches）</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/110201.jpg" alt=""></p>
+<p>主分支是所有开发活动的核心分支。所有的开发活动产生的输出物最终都会反映到主分支的代码中。主分支分为<strong>master</strong>分支和<strong>development</strong>分支。</p>
+<h5 id="master-分支"><a href="#master-分支" class="headerlink" title="master 分支"></a>master 分支</h5><p>master分支上存放的应该是随时可供在生产环境中部署的代码（Production Ready state）。当开发活动告一段落，产生了一份新的可供部署的代码时，master分支上的代码会被更新。同时，每一次更新，最好添加对应的版本号标签（TAG）。</p>
+<h5 id="develop分支"><a href="#develop分支" class="headerlink" title="develop分支"></a>develop分支</h5><p>develop分支是保存当前最新开发成果的分支。通常这个分支上的代码也是可进行每日夜间发布的代码（Nightly build）。因此这个分支有时也可以被称作整合分支（integration branch）。</p>
+<h3 id="辅助分支"><a href="#辅助分支" class="headerlink" title="辅助分支"></a>辅助分支</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/110249.jpg" alt=""></p>
+<p>辅助分支是用于组织解决特定问题的各种软件开发活动的分支。辅助分支主要用于组织软件新功能的并行开发、简化新功能开发代码的跟踪、辅助完成版本发布工作以及对生产代码的缺陷进行紧急修复工作。这些分支与主分支不同，通常只会在有限的时间范围内存在。</p>
+<p>辅助分支包括：</p>
+<ol>
+<li>用于开发新功能时所使用的feature分支；</li>
+<li>用于辅助版本发布的release分支；</li>
+<li>用于修正生产代码中的缺陷的hotfix分支。</li>
+</ol>
+<p>以上这些分支都有固定的使用目的和分支操作限制。从单纯技术的角度说，这些分支与Git其他分支并没有什么区别，但通过命名，我们定义了使用这些分支的方法。</p>
+<h4 id="feature-分支"><a href="#feature-分支" class="headerlink" title="feature 分支"></a>feature 分支</h4><p>使用规范：</p>
+<ol>
+<li>可以从develop分支发起feature分支</li>
+<li>代码必须合并回develop分支</li>
+<li>feature分支的命名可以使用除<code>master</code>，<code>develop</code>，<code>release-*</code>，<code>hotfix-*</code>之外的任何名称</li>
+</ol>
+<p>feature分支（有时也可以被叫做“topic分支”）通常是在开发一项新的软件功能的时候使用，这个分支上的代码变更最终合并回develop分支或者干脆被抛弃掉（例如实验性且效果不好的代码变更）。</p>
+<h3 id="release分支（preparing）"><a href="#release分支（preparing）" class="headerlink" title="release分支（preparing）"></a>release分支（preparing）</h3><p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/110328.jpg" alt=""></p>
+<p>使用规范：</p>
+<ul>
+<li>可以从develop分支派生</li>
+<li>必须合并回develop分支和master分支</li>
+<li>分支命名惯例：<code>release-*</code></li>
+</ul>
+<p>release分支是为发布新的产品版本而设计的。在这个分支上的代码允许做小的缺陷修正、准备发布版本所需的各项说明信息（版本号、发布时间、编译时间等等）。通过在release分支上进行这些工作可以让develop分支空闲出来以接受新的feature分支上的代码提交，进入新的软件开发迭代周期。</p>
+<p>当develop分支上的代码已经包含了所有即将发布的版本中所计划包含的软件功能，并且已通过所有测试时，我们就可以考虑准备创建release分支了。而所有在当前即将发布的版本之外的业务需求一定要确保不能混到release分支之内（避免由此引入一些不可控的系统缺陷）。</p>
+<p>成功的派生了release分支，并被赋予版本号之后，develop分支就可以为“下一个版本”服务了。所谓的“下一个版本”是在当前即将发布的版本之后发布的版本。版本号的命名可以依据项目定义的版本号命名规则进行。</p>
+<h3 id="hotfix分支（maintaining）"><a href="#hotfix分支（maintaining）" class="headerlink" title="hotfix分支（maintaining）"></a>hotfix分支（maintaining）</h3><p>使用规范：</p>
+<ul>
+<li>可以从master分支派生</li>
+<li>必须合并回master分支和develop分支</li>
+<li>分支命名惯例：<code>hotfix-*</code></li>
+</ul>
+<p>除了是计划外创建的以外，hotfix分支与release分支十分相似：都可以产生一个新的可供在生产环境部署的软件版本。</p>
+<p>当生产环境中的软件遇到了异常情况或者发现了严重到必须立即修复的软件缺陷的时候，就需要从master分支上指定的TAG版本派生hotfix分支来组织代码的紧急修复工作。</p>
+<p>这样做的显而易见的好处是不会打断正在进行的develop分支的开发工作，能够让团队中负责新功能开发的人与负责代码紧急修复的人并行的开展工作。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h4 id="管理冲突"><a href="#管理冲突" class="headerlink" title="管理冲突"></a>管理冲突</h4><ol>
+<li>多个Feature 分支开发完成，提交到develop 分支时，修改了共同的模块。</li>
+<li>release 分支或者hotfix 分支修改了bug合并回develop时，发现develop分支已经往前面走了一截。</li>
+</ol>
+<p>在执行可能有冲突的操作前，先查看一下 暂存区 和 工作目录，保证其中没有修改。</p>
+<p>比如使用<code>git stash</code>就可以把暂存区 和 工作目录的修改保存起来，让暂存区 和 工作目录处于干净的状态。</p>
+<h2 id="更进一步"><a href="#更进一步" class="headerlink" title="更进一步"></a>更进一步</h2><p>Gitflow workflow 和pull request 组合起来使用，代码审查机制的加入，会让这个模式大放异彩。下一篇文章中， 我会详细介绍 代码审查😘😘😘😘。</p>
+<h2 id="扩展：Forking-Workflow"><a href="#扩展：Forking-Workflow" class="headerlink" title="扩展：Forking Workflow"></a>扩展：Forking Workflow</h2><p>Forking Workflow与以上讨论的工作流很不同，一个很重要的<strong>区别</strong>就是它不只是多个开发共享一个远程仓库(central repository)，而是每个开发者都拥有一个独立的服务端仓库。也就是说每个contributor都有两个仓库：本地私有的仓库和远程共享的仓库。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/110353.jpg" alt=""></p>
+<p>Forking Workflow这种工作流主要好处就是每个开发者都拥有自己的远程仓库，可以将提交的commits推送到自己的远程仓库，但只有工程维护者才有权限push提交的commits到官方的仓库，其他开发者在没有授权的情况下不能push。Github很多<strong>开源项目</strong>都是采用Forking Workflow工作流。</p>
+<h3 id="文章来源"><a href="#文章来源" class="headerlink" title="文章来源"></a>文章来源</h3><p><a href="https://link.jianshu.com/?t=http://www.techug.com/git-2" target="_blank" rel="noopener">Git版本控制与工作流</a></p>
+<p>[基于git的源代码管理模型——git flow](<a href="https://link.jianshu.com/?t=http://www.ituring.com.cn/article/56870" target="_blank" rel="noopener">https://link.jianshu.com/?t=http://www.ituring.com.cn/article/56870</a></p>
+<h2 id="Git-CI集成"><a href="#Git-CI集成" class="headerlink" title="Git CI集成"></a>Git CI集成</h2><p>自动化的单元测试<br><a href="https://circleci.com/" target="_blank" rel="noopener">Continuous Integration and Delivery - CircleCI</a></p>
+<h2 id="代码Review-—-Reviewable"><a href="#代码Review-—-Reviewable" class="headerlink" title="代码Review — Reviewable"></a>代码Review — Reviewable</h2><p><a href="https://reviewable.io/" target="_blank" rel="noopener">Reviewable - GitHub Code Reviews Done Right</a></p>
+<h3 id="Pull-Request的code-review"><a href="#Pull-Request的code-review" class="headerlink" title="Pull Request的code review"></a>Pull Request的code review</h3><p><a href="http://blog.jobbole.com/76854/" target="_blank" rel="noopener">Git工作流指南：Pull Request工作流 - 文章 - 伯乐在线</a></p>
+<h1 id="保持你的-Git-提交记录的整洁"><a href="#保持你的-Git-提交记录的整洁" class="headerlink" title="保持你的 Git 提交记录的整洁"></a>保持你的 Git 提交记录的整洁</h1><h2 id="Git-提交记录很容易变得混乱不堪，现在教你怎么保持整洁！"><a href="#Git-提交记录很容易变得混乱不堪，现在教你怎么保持整洁！" class="headerlink" title="Git 提交记录很容易变得混乱不堪，现在教你怎么保持整洁！"></a>Git 提交记录很容易变得混乱不堪，现在教你怎么保持整洁！</h2><p>提交功能是 Git 仓库的关键部分之一，不仅如此，<strong>提交信息</strong>也是仓库的生命日志。项目或者仓库在随着时间的推移不断演变（新功能不断加入，Bug 被不断修复，体系架构也被重构），提交信息成为了人们查看仓库所发生的变化或者怎么发生变化的地方。因此使用简短精确的提交信息反映出内部的变化是非常重要的。</p>
+<h2 id="为什么有意义的提交记录非常重要？"><a href="#为什么有意义的提交记录非常重要？" class="headerlink" title="为什么有意义的提交记录非常重要？"></a>为什么有意义的提交记录非常重要？</h2><p>Git 提交信息是你在你所写的代码上所留下的指纹。不管你今天提交了什么代码，一年之后你再看到这个变化；你会非常感谢你所写的有意义的、干净整洁的提交信息，这也会使得你的同事工作更轻松。当根据上下文分开提交时，可以更快地找到 Bug 是在哪一次提交中被引入的，将首先引起 Bug 的这次提交进行回退可以非常简便的修复 Bug。</p>
+<p>当开发大型项目时，我们经常处理一大堆部件变动，包括更新、添加和移除。在这种场景中确保好好维护提交信息是很艰难的，尤其是当开发周期是数天、数周、甚至数月时。因此为了简化维护提交记录的工作，这篇文章会使用许多开发人员在 Git 仓库上工作时可能会经常遇到的常见场景。</p>
+<ul>
+<li>场景 1：我需要修改最近一次的提交</li>
+<li>场景 2：我需要修改一次特定的提交</li>
+<li>场景 3：我需要添加、移除或者合并提交</li>
+<li>场景 4：我的提交记录没啥有用的内容，我需要重新开始！<br>但是在我们深入了解之前，让我们快速浏览一下我们假设的 Ruby 应用程序中典型的开发工作流程。</li>
+</ul>
+<p><strong>注意：</strong> 这篇文章默认你已经掌握 Git 基础，分支如何工作，如何将分支的未提交更改添加到暂存区以及如何提交更改。如果你不太熟悉这些流程，<a href="https://link.juejin.im/?target=https%3A%2F%2Fdocs.gitlab.com%2Fee%2Ftopics%2Fgit%2Findex.html" target="_blank" rel="noopener">我们的文档</a>是一个好的起点。</p>
+<h2 id="生活中的某天"><a href="#生活中的某天" class="headerlink" title="生活中的某天"></a>生活中的某天</h2><p>现在，我们正在开发一个小型的 Ruby on Rails 项目，在这个项目中我们需要在首页添加一个导航视图，这需要更新和添加许多文件。下面是整个流程分解的每个步骤：</p>
+<ul>
+<li>你开始开发某个功能，更新了一个文件；让我们称它为 <code>application_controller.rb</code></li>
+<li>这个功能还需要你更新一个视图：<code>index.html.haml</code></li>
+<li>你添加了索引页所使用的一个部分：<code>_navigation.html.haml</code></li>
+<li>为了体现你所添加的那一部分，样式表也需要被更新：<code>styles.css.scss</code></li>
+<li>改完这些模块，功能已经完成了，是时候更新测试文件了；要更新的文件如下：<ul>
+<li><code>application_controller_spec.rb</code></li>
+<li><code>navigation_spec.rb</code></li>
+</ul>
+</li>
+<li>测试也更新了，并且如期地通过了所有的测试案例，现在是时候提交更改了！</li>
+</ul>
+<p>因为所有的这些文件属于不同的架构领域，我们彼此隔离地提交这些文件的更改，以确保每次提交代表了特定的上下文，并且按照特定顺序进行提交。我通常偏向于后端 -&gt; 前端的提交顺序：首先提交以后端为中心的更改，其次提交中间层文件的更改，最后提交以前端为中心的更改。</p>
+<ol>
+<li><code>application_controller.rb</code> &amp; <code>application_controller_spec.rb</code>；<strong>添加导航路由</strong>。</li>
+<li><code>_navigation.html.haml</code> &amp; <code>navigation_spec.rb</code>；<strong>页面导航视图</strong>。</li>
+<li><code>index.html.haml</code>；<strong>渲染导航部分</strong>。</li>
+<li><code>styles.css.scss</code>；<strong>为导航添加样式</strong>。</li>
+</ol>
+<p>在提交更改之后，我们会为分支创建一个合并请求。一旦创建了合并请求，在被合并到仓库的 <code>master</code> 分支之前，通常会由你的同事对代码进行审查。现在我们了解一下代码审查过程中可能会遇到的不同情况。</p>
+<h2 id="场景-1：我需要修改最近一次的提交"><a href="#场景-1：我需要修改最近一次的提交" class="headerlink" title="场景 1：我需要修改最近一次的提交"></a>场景 1：我需要修改最近一次的提交</h2><p>想象一下代码审查者在审查 <code>styles.css.scss</code> 时提出了一个修改建议。这种情况，修改起来非常简单，因为样式表修改是你分支上的<strong>最后一次</strong>提交。下面是我们应该怎样处理这种情况：</p>
+<ul>
+<li>你直接在你的分支上对 <code>styles.css.scss</code> 做必要的修改。</li>
+<li>一旦你完成了修改，将这些修改添加到暂存区进行暂存；运行命令 <code>git add styles.css.scss</code>。</li>
+<li>一旦修改被添加到暂存区，我们需要将这些修改<strong>添加</strong>到我们的最后一次提交；运行命令： <code>git commit --amend</code>。</li>
+<li><strong>命令分解</strong>：这里，我们使用 <code>git commit</code> 命令<strong>修改</strong>最近一次提交，把暂存中的任何修改合并到最近一次提交。</li>
+<li>这会在你的 Git 定义的文本编辑器中打开你最后一次的提交，它具有提交信息<strong>为导航添加样式</strong>。</li>
+<li>因为我们只更新了 CSS 声明，所以我们不需要修改提交信息。你可以只做保存然后退出 Git 为你打开的文本编辑器，你的更改会被反映到提交上。</li>
+</ul>
+<p>由于你修改了一个已经存在的提交，你需要使用 <code>git push --force-with-lease &lt;remote_name&gt; &lt;branch_name&gt;</code> 命令将这些修改<strong>强制推送</strong>到你的远程仓库。这个命令会使用我们本地仓库中所做的修改来覆盖远程仓库中<code>为导航添加样式</code>这个提交。</p>
+<p>当你强制推送分支时，有一点需要注意，那就是当你所在分支是一个多人协作的分支时，你的强制推送可能会给其他人的正常推送造成麻烦，因为远程分支上有一些强制推送的新的提交。因此，你应该合理地使用这个功能。你可以在<a href="https://link.juejin.im/?target=https%3A%2F%2Fgit-scm.com%2Fdocs%2Fgit-push%23git-push---no-force-with-lease" target="_blank" rel="noopener">这里</a>学习到更多有关 Git 强制推送选项的信息。</p>
+<h2 id="场景-2：我需要修改一次特定的提交"><a href="#场景-2：我需要修改一次特定的提交" class="headerlink" title="场景 2：我需要修改一次特定的提交"></a>场景 2：我需要修改一次特定的提交</h2><p>在上一个场景中，因为我们只需要修改最近的一次提交，所以做起来非常简单，但是想象一下如果代码审查者建议修改 <code>_navigation.html.haml</code> 文件中的某些部分。在这种场景下，它是第二次提交，所以修改起来不像第一个场景中那么直接。让我们看看怎么处理这种情况：</p>
+<p>每次在分支上提交更改，都会有一个独一无二的 SHA1 哈希字符串作为更改提交的标志。可以把它看做区分每次提交的独特 ID。可以通过运行 <code>git log</code> 命令查看某个分支上的所有提交以及它们分别的 SHA1 哈希值。运行命令之后，可以看到类似下面的输出，其中最近一次的提交在顶部。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">commit aa0a35a867ed2094da60042062e8f3d6000e3952 (HEAD -&gt; add-page-navigation)</span><br><span class="line">Author: Kushal Pandya &lt;kushal@gitlab.com&gt;</span><br><span class="line">Date: Wed May 2 15:24:02 2018 +0530</span><br><span class="line"></span><br><span class="line">    为导航添加样式</span><br><span class="line"></span><br><span class="line">commit c22a3fa0c5cdc175f2b8232b9704079d27c619d0</span><br><span class="line">Author: Kushal Pandya &lt;kushal@gitlab.com&gt;</span><br><span class="line">Date: Wed May 2 08:42:52 2018 +0000</span><br><span class="line"></span><br><span class="line">    渲染导航部分</span><br><span class="line"></span><br><span class="line">commit 4155df1cdc7be01c98b0773497ff65c22ba1549f</span><br><span class="line">Author: Kushal Pandya &lt;kushal@gitlab.com&gt;</span><br><span class="line">Date: Wed May 2 08:42:51 2018 +0000</span><br><span class="line"></span><br><span class="line">    页面导航视图</span><br><span class="line"></span><br><span class="line">commit 8d74af102941aa0b51e1a35b8ad731284e4b5a20</span><br><span class="line">Author: Kushal Pandya &lt;kushal@gitlab.com&gt;</span><br><span class="line">Date: Wed May 2 08:12:20 2018 +0000</span><br><span class="line"></span><br><span class="line">    添加导航路由</span><br></pre></td></tr></table></figure>
+<p>现在轮到 <code>git rebase</code> 命令表演了。不管什么时候我们想要用 <code>git rebase</code> 命令修改一个特定的更改提交，我们首先要将我们分支的 HEAD 变基到我们想要修改的更改提交<strong>之前</strong>。在这个场景中，我们需要修改<code>页面导航视图</code>的更改提交。</p>
+<p><img src="http://pic-mike.oss-cn-hongkong.aliyuncs.com/qiniu/15295505160900.jpg" alt=""></p>
+<p>现在，注意我们想要修改的更改提交之前的一个更改提交的哈希值；复制这个哈希值然后按照一下步骤进行操作：</p>
+<ul>
+<li>通过运行命令 <code>git rebase -i 8d74af102941aa0b51e1a35b8ad731284e4b5a20</code> 来将分支变基到我们要修改的更改提交的前一个更改提交</li>
+<li><strong>命令分解</strong>：现在我们正在使用 Git 的 <code>rebase</code> 命令的<strong>交互模式</strong>，通过提交 SHA1 哈希值我们可以将分支进变基。</li>
+<li>这条命令会运行 Git 变基命令的交互模式，并且会打开文本编辑器展示你所变基到的更改提交<strong>之后</strong>的所有更改提交。它看起来是这样的：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">pick 4155df1cdc7 页面导航视图</span><br><span class="line">pick c22a3fa0c5c 渲染导航部分</span><br><span class="line">pick aa0a35a867e 为导航添加样式</span><br><span class="line"></span><br><span class="line"># Rebase 8d74af10294..aa0a35a867e onto 8d74af10294 (3 commands)</span><br><span class="line">#</span><br><span class="line"># Commands:</span><br><span class="line"># p, pick = use commit</span><br><span class="line"># r, reword = use commit, but edit the commit message</span><br><span class="line"># e, edit = use commit, but stop for amending</span><br><span class="line"># s, squash = use commit, but meld into previous commit</span><br><span class="line"># f, fixup = like &quot;squash&quot;, but discard this commit&apos;s log message</span><br><span class="line"># x, exec = run command (the rest of the line) using shell</span><br><span class="line"># d, drop = remove commit</span><br><span class="line">#</span><br><span class="line"># These lines can be re-ordered; they are executed from top to bottom.</span><br><span class="line">#</span><br><span class="line"># If you remove a line here THAT COMMIT WILL BE LOST.</span><br><span class="line">#</span><br><span class="line"># However, if you remove everything, the rebase will be aborted.</span><br><span class="line">#</span><br><span class="line"># Note that empty commits are commented out</span><br></pre></td></tr></table></figure>
+<p>注意到每个更改提交之前都有一个单词 <code>pick</code>，并且在它下面的内容里面，有所有的我们可以使用的关键字。因为我们想要<strong>编辑</strong>一个更改提交，所以我们将命令 <code>pick 4155df1cdc7 页面导航视图</code>修改为 <code>edit 4155df1cdc7 页面导航视图</code>。保存更改并退出编辑器。</p>
+<p>现在你的分支已经被变基到包含 <code>_navigation.html.haml</code> 的更改提交之前了。打开文件并完成每个审查反馈中的修改需求。一旦你完成了修改，使用命令 <code>git add _navigation.html.haml</code> 将它们暂存起来。</p>
+<p>因为我们已经暂存了这些更改，所以现在应该把分支 HEAD 重新移动到我们原来的更改提交（同时包含我们所有的新的更改的提交），运行 <code>git rebase --continue</code>，这将会在终端中打开你的默认编辑器并且向你展示变基期间我们所做的更改的提交信息；<code>页面导航视图</code>。如果需要你可以修改这个提交信息，但现在我们保留它，因此接下来保存修改然后退出编辑器。这个时候，Git 会重新展示你刚刚修改的更改提交之后的所有更改提交并且分支的 <code>HEAD</code> 已经回到了我们原来的所有更改提交的顶部，它包含所有你对其中某个更改提交所做的所有新的更改。</p>
+<p>因为我们又一次修改了远程仓库中的一个提交，我们需要再次使用 <code>git push --force-with-lease &lt;remote_name&gt; &lt;branch_name&gt;</code> 命令将分支强制提交。</p>
+<h2 id="场景-3：我需要添加、移除或者合并提交"><a href="#场景-3：我需要添加、移除或者合并提交" class="headerlink" title="场景 3：我需要添加、移除或者合并提交"></a>场景 3：我需要添加、移除或者合并提交</h2><p>一个常见的场景就是当我们刚刚修改了一些之前的提交并重新提交了一些新的更改。现在让我们尽可能的精简一下这些提交，用原来的提交合并它们。</p>
+<p>你所要做的就是像其它场景中所做的那样开始交互性的变基操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pick 4155df1cdc7 页面导航视图</span><br><span class="line">pick c22a3fa0c5c 渲染导航部分</span><br><span class="line">pick aa0a35a867e 为导航添加样式</span><br><span class="line">pick 62e858a322 Fix a typo</span><br><span class="line">pick 5c25eb48c8 Ops another fix</span><br><span class="line">pick 7f0718efe9 Fix 2</span><br><span class="line">pick f0ffc19ef7 Argh Another fix!</span><br></pre></td></tr></table></figure>
+<p>现在假设你想要合并所有的那些提交到 <code>c22a3fa0c5c 渲染导航部分</code>。你只需要做：</p>
+<ol>
+<li>把你想要合并的那些更改提交往上移动，以使得它们位于最终合并的更改提交之下。</li>
+<li>将每一个更改提交的模式由 <code>pick</code> 改为 <code>squash</code> 或者 <code>fixup</code>。</li>
+</ol>
+<p><strong>注意：</strong> <code>squash</code> 模式会在描述中保留修改时的信息。而<code>fixup</code> 不会，它只会保留原来的提交信息。</p>
+<p>你会以下面这种结果结束实验：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pick 4155df1cdc7 页面导航视图</span><br><span class="line">pick c22a3fa0c5c 渲染导航部分</span><br><span class="line">fixup 62e858a322 Fix a typo</span><br><span class="line">fixup 5c25eb48c8 Ops another fix</span><br><span class="line">fixup 7f0718efe9 Fix 2</span><br><span class="line">fixup f0ffc19ef7 Argh Another fix!</span><br><span class="line">pick aa0a35a867e 为导航添加样式</span><br></pre></td></tr></table></figure>
+<p>保存更改并退出编辑器，你就完成了！这就是完成之后的历史提交记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pick 4155df1cdc7 页面导航视图</span><br><span class="line">pick 96373c0bcf 渲染导航部分</span><br><span class="line">pick aa0a35a867e 为导航添加样式</span><br></pre></td></tr></table></figure>
+<p>像之前一样，你现在所要做的所有工作只是运行 <code>git push --force-with-lease &lt;remote_name&gt; &lt;branch_name&gt;</code> 命令，然后所有的修改都被强制推送了。</p>
+<p>如果你想要完全地移除一个更改提交，而不是 <code>squash</code> 或者 <code>fixup</code>，你只需要输入 <code>drop</code> 或者简单地删除这一行。</p>
+<h3 id="避免冲突"><a href="#避免冲突" class="headerlink" title="避免冲突"></a>避免冲突</h3><p>为避免发生冲突，请确保您在时间线上上移的提交不会触及其后的提交所触及的相同文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pick 4155df1cdc7 页面导航视图</span><br><span class="line">pick c22a3fa0c5c 渲染导航部分</span><br><span class="line">fixup 62e858a322 Fix a typo                 # this changes styles.css</span><br><span class="line">fixup 5c25eb48c8 Ops another fix            # this changes image/logo.svg</span><br><span class="line">fixup 7f0718efe9 Fix 2                      # this changes styles.css</span><br><span class="line">fixup f0ffc19ef7 Argh Another fix!          # this changes styles.css</span><br><span class="line">pick aa0a35a867e 为导航添加样式  # this changes index.html (no conflict)</span><br></pre></td></tr></table></figure>
+<h3 id="附加提示：快速-fixup"><a href="#附加提示：快速-fixup" class="headerlink" title="附加提示：快速 fixup"></a>附加提示：快速 <code>fixup</code></h3><p>如果你很清楚你想要修改哪一个更改提交，在提交更改时不必浪费脑力思考一些 “Fix 1”, “Fix 2”, …, “Fix 42” 这样的名字。</p>
+<p><strong>步骤 1：初识 <code>--fixup</code></strong></p>
+<p>在你暂存那些更改之后，使用以下命令提交更改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --fixup c22a3fa0c5c</span><br></pre></td></tr></table></figure>
+<p>（注意到这个哈希值是属于 <code>c22a3fa0c5c 渲染导航部分</code>这个更改提交的）</p>
+<p>这会产生这样的提交信息：<code>fixup! 渲染导航部分</code>。</p>
+<p><strong>步骤 2：还有这个小伙伴 <code>--autosquash</code></strong></p>
+<p>通过简单的使用交互变基操作。你可以让 <code>git</code> 自动的把所有 <code>fixup</code> 放到正确的位置。</p>
+<p><code>git rebase -i 4155df1cdc7 --autosquash</code></p>
+<p>历史提交记录会变成下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pick 4155df1cdc7 页面导航视图</span><br><span class="line">pick c22a3fa0c5c 渲染导航部分</span><br><span class="line">fixup 62e858a322 Fix a typo</span><br><span class="line">fixup 5c25eb48c8 Ops another fix</span><br><span class="line">fixup 7f0718efe9 Fix 2</span><br><span class="line">fixup f0ffc19ef7 Argh Another fix!</span><br><span class="line">pick aa0a35a867e 为导航添加样式</span><br></pre></td></tr></table></figure>
+<p>一切就绪，你只需要审查并继续。</p>
+<p>如果你觉得自己喜欢冒险，你可以做一个非交互式的变基 <code>git rebase --autosquash</code>，但前提是你喜欢过这种有风险的生活，因为你没有机会在这些合并应用前检查它们。</p>
+<h2 id="场景-4：我的提交记录没啥有用的内容，我需要重新开始！"><a href="#场景-4：我的提交记录没啥有用的内容，我需要重新开始！" class="headerlink" title="场景 4：我的提交记录没啥有用的内容，我需要重新开始！"></a>场景 4：我的提交记录没啥有用的内容，我需要重新开始！</h2><p>如果你在开发一个大型的功能，那通常会有许多修复和代码审查反馈的修改频繁的被提交。我们可以将提交的清理工作留到开发结束，而不是不断重新设计分支。</p>
+<p>这是创建补丁文件非常方便的地方。实际上，在开发人员可以使用以 Git 为基础的服务比如 GitLab 之前，补丁文件一直是开发大型开源项目通过邮件分享代码与合并代码的主要方式。假设你有一个提交量非常巨大的分支（例如；<code>add-page-navigation</code>），它对于仓库的变更历史表述得不是很清晰。以下是如何为您在此分支中所做的所有更改创建补丁文件：</p>
+<ul>
+<li>创建补丁文件的第一步是确保您的分支具有来自 <code>master</code> 分支的所有更改并且与这些更改没有冲突。</li>
+<li>您可以在 <code>add-page-navigation</code> 分支中签出时运行 <code>git rebase master</code> 或 <code>git merge master</code>，以将所有从 <code>master</code> 进行的更改转移到您的分支上。</li>
+<li>现在创建补丁文件；运行 <code>git diff master add-page-navigation &gt; ~/add_page_navigation.patch</code>。<ul>
+<li><strong>命令分解</strong>：在这里我们使用了 Git 的 <em>diff</em> 特性，查询 <code>master</code> 分支和 <code>add-page-navigation</code> 分支之间的差异，然后<strong>重定向</strong>输出（通过 <code>&gt;</code> 符号）到一个文件，在我们的用户主目录（在 <code>*nix</code> 系操作系统中通常是 <code>~/</code>）中命名为 <code>add_page_navigation.patch</code>。</li>
+</ul>
+</li>
+<li>你可以指定你想保存这个文件的路径，文件名和扩展名为任意你想要的值。</li>
+<li>一旦命令运行并且没有看到任何错误，就会生成补丁文件。</li>
+<li>现在签出 <code>master</code> 分支；运行 <code>git checkout master</code>。</li>
+<li>从本地仓库删除分支 <code>add-page-navigation</code>；运行 <code>git branch -D add-page-navigation</code>。请记住，我们已经在创建的补丁文件中更改了此分支。</li>
+<li>现在创建一个具有相同名称的新分支（<code>master</code> 被签出）；运行 <code>git checkout -b add-page-navigation</code>。</li>
+<li>现在，这是一个新的分支，没有任何你所做的修改。</li>
+<li>最后，从修补程序文件中应用您的更改；<code>git apply ~/add_page_navigation.patch</code>。</li>
+<li>在这里，所有更改都会应用到分支中，并且它们将显示为未提交，就好像您所做的所有修改都完成了，但没有任何修改是在分支中实际提交的。</li>
+<li>现在，您可以继续并按照所需顺序提交按影响区域分组的单个文件或文件，并使用简单明了的提交信息。</li>
+</ul>
+<p>跟之前的场景一样，我们修改了整个分支，现在是时候强制推送了！</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>虽然我们已经介绍了使用 Git 进行日常工作流程中出现的大多数常见和基本情况，但重写 Git 提交历史是一个巨大的话题，如果你已经熟悉上述建议，您可以在 <a href="https://link.juejin.im/?target=https%3A%2F%2Fgit-scm.com%2Fbook%2Fen%2Fv2%2FGit-Tools-Rewriting-History" target="_blank" rel="noopener">Git 官方文档</a>。快乐的 git’ing！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://link.juejin.im/?target=https%3A%2F%2Fgit-scm.com%2Fbook%2Fen%2Fv2%2FGit-Tools-Rewriting-History" target="_blank" rel="noopener">Git 官方文档</a></li>
+<li><a href="https://link.juejin.im/?target=https%3A%2F%2Fabout.gitlab.com%2F2018%2F06%2F07%2Fkeeping-git-commit-history-clean%2F" target="_blank" rel="noopener">How (and why!) to keep your Git commit history clean</a></li>
+</ol>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">FrizzleFur</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://frizzlefur.com/2018/04/26/Git 笔记系列（九）—— Git进阶/">http://frizzlefur.com/2018/04/26/Git 笔记系列（九）—— Git进阶/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://frizzlefur.com">FFur</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Git/">Git</a></div><div class="post-qr-code"><div class="post-qr-code-item"><img class="post-qr-code__img" src="https://pic-mike.oss-cn-hongkong.aliyuncs.com/Blog/avatar.png"><div class="post-qr-code__desc">我要吐槽下</div></div></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/05/05/读《程序是如何跑起来的》/"><i class="fa fa-chevron-left">  </i><span>读《程序是如何跑起来的》</span></a></div><div class="next-post pull-right"><a href="/2018/03/10/Git 笔记系列（八）—— Git常用命令-Stash/"><span>Git 笔记系列（八）—— Git常用命令-Stash</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="lv-container" data-id="city" data-uid="Mi8xLzM"><script>(function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+})(document, 'script');</script></div></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2017 - 2019 By FrizzleFur</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="footer_custom_text">Hi, this is just a small place for reflect.</div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
